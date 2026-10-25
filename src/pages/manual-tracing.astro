@@ -1,0 +1,41 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import { APP_NAME } from '../data/site';
+import { sitePath } from '../utils/paths';
+---
+<ContentPage
+  pageTitle={`Manual tracing · ${APP_NAME}`}
+  description="How to trace a golf ball or disc by hand when automatic tracking misses it."
+  eyebrow="Help"
+  heading="Manual tracing"
+>
+  <p>
+    Automatic tracking can lose the ball in poor light, against a busy background or in a very shaky video. You can
+    always draw the flight by hand instead.
+  </p>
+
+  <h2>Golf: trace manually</h2>
+  <ol>
+    <li>Scroll the timeline to the frame where the ball starts moving, and place the start point on the ball. Zoom in with two fingers to be precise.</li>
+    <li>When automatic tracking misses, choose to trace manually. Tracer draws a rough curve from your start point.</li>
+    <li>Scroll the timeline to the frame where the ball lands, and move the landing point to where it lands.</li>
+    <li>Move the diamond to shape the arc so the line follows the ball.</li>
+    <li>Tap Preview to check the result, and adjust any point again if needed.</li>
+  </ol>
+
+  <h2>Disc golf and anything else: free curve</h2>
+  <ol>
+    <li>Choose the free curve mode and pick your video.</li>
+    <li>Scroll the timeline to the frame where the throw begins and move the cursor onto the disc.</li>
+    <li>Scroll forward and add key points along the flight; 4 to 10 points are usually enough.</li>
+    <li>Tracer draws a smooth line through your points. Tap Preview, then move points to fine-tune it.</li>
+  </ol>
+
+  <h2>Tips</h2>
+  <ul>
+    <li>Use two fingers to zoom in on the video for precise point placement.</li>
+    <li>Add more points where the flight curves sharply.</li>
+    <li>If the line jumps while the camera moves, try a different stabilization setting in the app's Settings.</li>
+  </ul>
+  <p>Still stuck? See <a href={sitePath('/support')}>Support</a>.</p>
+</ContentPage>

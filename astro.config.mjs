@@ -1,14 +1,9 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import yaml from '@rollup/plugin-yaml';
 
 export default defineConfig({
-  site: 'https://golfgps.ai',
+  site: 'https://acetrace.github.io',
+  base: '/sundaystroke-site',
+  build: { format: 'file' },
   integrations: [tailwind({ applyBaseStyles: false })],
-  vite: {
-    plugins: [yaml()],
-    css: {
-      postcss: { plugins: [] },
-    },
-  },
 });

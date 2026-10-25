@@ -1,0 +1,28 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import { APP_NAME, SUPPORT_EMAIL } from '../data/site';
+---
+<ContentPage
+  pageTitle={`Community · ${APP_NAME}`}
+  description={`Share your Tracer videos and reach the ${APP_NAME} team.`}
+  eyebrow="Help"
+  heading="Community"
+>
+  <h2>Share your videos</h2>
+  <p>
+    Post your traced videos wherever you share golf and disc golf, and tag <strong>@sundaystroke</strong> or keep the
+    SundayStroke logo on the video, so other players can find the app. We love seeing them.
+  </p>
+
+  <h2>Talk to us</h2>
+  <p>
+    Ideas, questions and bug reports are welcome. Use "Suggest a feature" or "Report an issue" in the app's Settings, or
+    email <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+  </p>
+
+  <h2>Help us make it better</h2>
+  <p>
+    If you would like to help, whether by testing new features, coding or spreading the word, write to
+    <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+  </p>
+</ContentPage>

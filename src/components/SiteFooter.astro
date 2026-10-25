@@ -1,6 +1,7 @@
 ---
 import FooterColumn from './FooterColumn.astro';
-import { LEGAL_LINKS, PRODUCT_LINKS } from '../data/navigation';
+import { HELP_LINKS, LEGAL_LINKS, PUBLISHER, SUPPORT_EMAIL } from '../data/site';
+import { sitePath } from '../utils/paths';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -8,19 +9,20 @@ const currentYear = new Date().getFullYear();
   <div class="container">
     <div class="mb-14 grid grid-cols-1 gap-10 md:grid-cols-12">
       <div class="flex flex-col gap-4 md:col-span-6">
-        <a href="/" class="ss-wordmark self-start rounded-sm text-[26px] text-ice">Golf GPS</a>
+        <a href={sitePath('/')} class="ss-wordmark self-start rounded-sm text-[26px] text-ice">SundayStroke</a>
         <p class="max-w-sm text-subhead text-mist">
-          Precision distance and course management for golfers of every level.
+          Tracer draws the flight of your golf ball or disc onto your own videos, on iPhone.
         </p>
+        <a href={`mailto:${SUPPORT_EMAIL}`} class="ss-link self-start rounded-sm text-subhead">{SUPPORT_EMAIL}</a>
       </div>
 
-      <FooterColumn heading="Product" links={PRODUCT_LINKS} />
+      <FooterColumn heading="Help" links={HELP_LINKS} />
       <FooterColumn heading="Legal" links={LEGAL_LINKS} />
     </div>
 
     <div class="flex flex-col items-center justify-between gap-3 border-t border-line pt-6 md:flex-row">
-      <p class="text-caption text-mist">© {currentYear} Golf GPS · All rights reserved</p>
-      <p class="text-caption text-mist">Made for the love of the game</p>
+      <p class="text-caption text-mist">© {currentYear} {PUBLISHER}</p>
+      <p class="text-caption text-mist">SundayStroke Tracer for iPhone</p>
     </div>
   </div>
 </footer>

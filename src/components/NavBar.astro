@@ -1,5 +1,6 @@
 ---
-import { APP_STORE_URL, NAV_LINKS } from '../data/navigation';
+import { APP_STORE_URL, NAV_LINKS } from '../data/site';
+import { sitePath } from '../utils/paths';
 ---
 <header
   id="site-nav"
@@ -7,7 +8,7 @@ import { APP_STORE_URL, NAV_LINKS } from '../data/navigation';
   class="fixed left-0 right-0 top-0 z-50 border-b border-transparent py-5 transition-[padding,background-color,border-color] duration-300 data-[scrolled=true]:border-line data-[scrolled=true]:py-3 data-[scrolled=true]:ss-glass"
 >
   <div class="container flex items-center justify-between gap-8">
-    <a href="/" class="ss-wordmark rounded-sm text-[22px] text-ice">Golf GPS</a>
+    <a href={sitePath('/')} class="ss-wordmark rounded-sm text-[22px] text-ice">SundayStroke</a>
 
     <nav class="hidden items-center gap-7 md:flex">
       {NAV_LINKS.map((link) => (

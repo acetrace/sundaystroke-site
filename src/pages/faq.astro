@@ -1,0 +1,17 @@
+---
+import { sitePath } from '../utils/paths';
+
+const target: string = `${sitePath('/support')}#faq`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>FAQ · SundayStroke Tracer</title>
+  </head>
+  <body>
+    <p>The FAQ is on the <a href={target}>support page</a>.</p>
+  </body>
+</html>

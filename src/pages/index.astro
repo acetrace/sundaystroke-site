@@ -1,33 +1,80 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import NavBar from '../components/NavBar.astro';
-import Hero from '../components/Hero.astro';
-import Spotlight from '../components/Spotlight.astro';
-import Extras from '../components/Extras.astro';
-import PlanTable from '../components/PlanTable.astro';
-import Testimonials from '../components/Testimonials.astro';
-import CTA from '../components/CTA.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { FEATURES } from '../data/features';
+import StoreButtons from '../components/StoreButtons.astro';
+import { sitePath } from '../utils/paths';
+
+interface Highlight {
+  tag: string;
+  title: string;
+  body: string;
+}
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'Golf',
+    title: 'Automatic ball tracking',
+    body: 'Tap the ball at the start of the flight and Tracer follows it through the air. Adjust the landing point and the arc by hand whenever you want.',
+  },
+  {
+    tag: 'Disc golf',
+    title: 'Free curve for discs',
+    body: 'Mark a few key points along the flight of your disc and Tracer draws a smooth line through them.',
+  },
+  {
+    tag: 'Style',
+    title: 'Make the line yours',
+    body: 'Pick colors and gradients, line width, effects and a 3D look, then save the finished video to Photos.',
+  },
+];
 ---
 <Layout
-  title="Golf GPS · Rangefinder, Scorecard, Shot Tracking"
-  description="Live GPS yardage on a satellite view of every hole, a scorecard that keeps up, shot tracking and a handicap estimate. Free on iPhone, no ads."
+  title="SundayStroke Tracer · Trace the flight of your golf ball or disc"
+  description="SundayStroke Tracer draws the flight of your golf ball or disc onto the videos you film on iPhone."
 >
   <NavBar />
   <main>
-    <Hero />
-    {FEATURES.map((feature, i) => (
-      <Spotlight
-        feature={feature}
-        index={String(i + 1).padStart(2, '0')}
-        side={i % 2 === 0 ? 'left' : 'right'}
-      />
-    ))}
-    <Extras />
-    <PlanTable />
-    <Testimonials />
-    <CTA />
+    <section class="ss-ground pb-20 pt-36 md:pt-44">
+      <div class="container flex max-w-4xl flex-col items-start gap-7">
+        <span class="ss-eyebrow">SundayStroke Tracer · iPhone</span>
+        <h1 class="ss-display text-[40px] sm:text-[56px] lg:text-[76px]">
+          Trace every flight.<br /><span class="ss-accent">Golf and disc golf.</span>
+        </h1>
+        <p class="max-w-2xl text-body-lg text-mist">
+          Film your swing or your throw, and Tracer draws the flight of the ball or disc onto your video.
+          Share it straight from your phone.
+        </p>
+        <StoreButtons />
+      </div>
+    </section>
+
+    <section class="border-t border-line bg-void py-20">
+      <div class="container grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
+        {HIGHLIGHTS.map((item) => (
+          <article class="ss-card flex flex-col gap-3 p-6">
+            <span class="ss-tag text-volt">{item.tag}</span>
+            <h2 class="text-title-2 text-ice">{item.title}</h2>
+            <p class="text-body text-mist">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-t border-line bg-void py-20">
+      <div class="container flex max-w-4xl flex-col gap-6">
+        <h2 class="ss-display text-[30px] md:text-[44px]">Need a hand?</h2>
+        <p class="max-w-2xl text-body-lg text-mist">
+          Read the <a class="text-volt" href={sitePath('/support')}>support page</a> for answers and contact details,
+          or learn <a class="text-volt" href={sitePath('/manual-tracing')}>how to trace by hand</a> when automatic tracking misses.
+        </p>
+        <p class="text-body text-mist">
+          <a class="text-volt" href={sitePath('/privacy')}>Privacy policy</a> ·
+          <a class="text-volt" href={sitePath('/terms')}>Terms of use</a> ·
+          <a class="text-volt" href={sitePath('/support')}>Support</a>
+        </p>
+      </div>
+    </section>
   </main>
   <SiteFooter />
 </Layout>

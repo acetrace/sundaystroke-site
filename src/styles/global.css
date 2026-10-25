@@ -97,6 +97,13 @@
     color: transparent;
   }
 
+  .ss-accent {
+    background: linear-gradient(90deg, var(--flare), var(--volt));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
   .ss-eyebrow {
     font-family: var(--font-mono);
     font-size: 12px;
