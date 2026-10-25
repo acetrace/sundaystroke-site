@@ -163,27 +163,16 @@ const DECLARED: readonly DeclaredData[] = [
     These are the data types we declare in the App Store privacy label. Every type is linked to your anonymous
     user ID, and none is used to track you.
   </p>
-  <div class="not-prose overflow-x-auto rounded-[14px] border border-line">
-    <table class="w-full min-w-[640px] border-collapse text-left text-subhead">
-      <thead class="bg-graphite text-ice">
-        <tr>
-          <th class="p-3 font-semibold">Data</th>
-          <th class="p-3 font-semibold">Where it comes from</th>
-          <th class="p-3 font-semibold">Why</th>
-          <th class="p-3 font-semibold">Who processes it</th>
-        </tr>
-      </thead>
-      <tbody class="text-mist">
-        {DECLARED.map((row) => (
-          <tr class="border-t border-line align-top">
-            <td class="p-3"><span class="text-ice">{row.types}</span><br /><span class="ss-tag">{row.category}</span></td>
-            <td class="p-3">{row.source}</td>
-            <td class="p-3">{row.purposes}</td>
-            <td class="p-3">{row.processor}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+  <div class="not-prose flex flex-col gap-3">
+    {DECLARED.map((row) => (
+      <section class="ss-card flex flex-col gap-2 p-4 text-subhead">
+        <span class="ss-tag text-volt">{row.category}</span>
+        <h3 class="text-title-3 text-ice">{row.types}</h3>
+        <p class="text-mist"><span class="text-ice">From:</span> {row.source}</p>
+        <p class="text-mist"><span class="text-ice">Why:</span> {row.purposes}</p>
+        <p class="text-mist"><span class="text-ice">Processed by:</span> {row.processor}</p>
+      </section>
+    ))}
   </div>
   <p>
     The app also uses the Firebase installation ID and basic device details to deliver app configuration, in-app
