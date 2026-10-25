@@ -14,8 +14,8 @@ const DECLARED: readonly DeclaredData[] = [
   {
     category: 'User content',
     types: 'Photos or videos, audio data',
-    source: 'Short golf clips uploaded when you save a golf trace (the clip keeps its sound track)',
-    purposes: 'App functionality; improving the ball tracking model',
+    source: 'Videos you trace with the app',
+    purposes: 'App functionality; improving our algorithms',
     processor: 'Google Firebase (Cloud Storage)',
   },
   {
@@ -97,10 +97,7 @@ const DECLARED: readonly DeclaredData[] = [
   <h2>The short version</h2>
   <ul>
     <li>You do not create a login. The app gives you an anonymous account with a random user ID.</li>
-    <li>
-      Your projects and videos stay on your phone, with one exception: when you save a golf video,
-      a short clip of the original footage is uploaded to improve our ball tracking.
-    </li>
+    <li>Videos you trace with the app may be used to improve our algorithms.</li>
     <li>We use Mixpanel for app analytics, Google Firebase for the app backend and Firebase Crashlytics for crash reports, Adapty for subscriptions, and Formspree for the feedback form.</li>
     <li><strong>We do not sell your data.</strong> We do not show ads. <strong>We do not track you</strong> across other companies' apps or websites.</li>
     <li>You can delete your account in the app, and ask us by email to delete everything else.</li>
@@ -112,7 +109,7 @@ const DECLARED: readonly DeclaredData[] = [
     you a random user ID. We do not ask for your name, email, phone number or Apple ID to use the app.
   </p>
   <p>
-    This user ID links your data across our services: uploaded clips, analytics events, recorded errors and logs,
+    This user ID links your data across our services: videos used to improve our algorithms, analytics events, recorded errors and logs,
     your subscription record and the messages we show you in the app. Crash reports themselves are tied to a
     Firebase installation ID.
   </p>
@@ -133,29 +130,11 @@ const DECLARED: readonly DeclaredData[] = [
     photo library. To save a video it asks for add-only access to Photos, which lets it add videos but not read your library.
   </p>
 
-  <h2>Golf clips uploaded to improve ball tracking</h2>
-  <h3>What is uploaded</h3>
+  <h2>Improving our algorithms</h2>
   <p>
-    When you tap "Save video" on a golf trace, the app uploads a short clip of the original footage to our
-    Firebase Cloud Storage bucket. The clip runs from up to a few seconds before the traced flight through its end,
-    includes the sound track, is at the original resolution, and is stored under a file name that contains your user ID.
-    Each video is uploaded at most once.
-  </p>
-  <p>
-    Clips are uploaded only for golf traces from videos at least 1920 pixels on the long side. We do not upload
-    clips from the free curve mode, your other videos, your rendered videos or preview thumbnails.
-  </p>
-  <h3>Why</h3>
-  <p>
-    We use the clips to train and test the model that finds the ball in your videos. People who work on the model can
-    view them. Clips may show people, places and voices that were in your video.
-  </p>
-  <h3>Your choices</h3>
-  <p>
-    The app has no setting that turns these uploads off; we can switch them off for everyone from our server.
-    You can avoid an upload by not saving golf traces. You can also delete your account in the app, which deletes the
-    clips uploaded under that account (see "Deleting your data"), or email <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>
-    with your user ID to object to this use, and we will delete your clips.
+    Videos you trace with the app may be used to improve our algorithms, such as the model that finds the ball.
+    To have yours removed, delete your account in the app or email <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>
+    with your user ID.
   </p>
 
   <h2>What we collect and why</h2>
@@ -223,7 +202,7 @@ const DECLARED: readonly DeclaredData[] = [
 
   <h2>How long we keep data</h2>
   <ul>
-    <li>Uploaded golf clips: until you delete your account or ask us to, or until we no longer need them for the model.</li>
+    <li>Videos used to improve our algorithms: until you delete your account or ask us to, or until we no longer need them.</li>
     <li>Analytics events (Mixpanel): until we delete them or you ask us to.</li>
     <li>Crash reports, recorded errors and logs (Firebase Crashlytics): 90 days.</li>
     <li>Subscription records (Adapty): while needed to provide and restore your subscription, and as required for tax and accounting.</li>
@@ -235,7 +214,7 @@ const DECLARED: readonly DeclaredData[] = [
   <h2>Deleting your data</h2>
   <p>In the app, open Settings and tap "Delete account". The app then:</p>
   <ul>
-    <li>deletes the golf clips this phone uploaded under your current account from our storage;</li>
+    <li>deletes the videos this phone sent us under your current account;</li>
     <li>deletes your Firestore records (your in-app messages and their read state);</li>
     <li>deletes your anonymous Firebase account;</li>
     <li>deletes your projects and their videos on this device, your saved feedback name and email, and other per-account settings;</li>
@@ -247,7 +226,7 @@ const DECLARED: readonly DeclaredData[] = [
   </p>
   <p>
     Some data cannot be deleted from the app: Mixpanel analytics, your Adapty subscription profile, Crashlytics reports
-    (they expire after 90 days), clips already copied into our training data or uploaded under an earlier account or
+    (they expire after 90 days), videos already used to improve our algorithms or sent under an earlier account or
     install, and feedback you sent. To have these deleted, email <a href={`mailto:${PRIVACY_EMAIL}`}>{PRIVACY_EMAIL}</a>
     with your user ID (copy it before you delete your account). We delete what we can find for that ID within 30 days
     and tell you what was deleted.
@@ -271,7 +250,7 @@ const DECLARED: readonly DeclaredData[] = [
     You have the right to know what personal information we collect, use and disclose, to delete and correct it, and not
     to be treated differently for using these rights. We do not sell or share personal information, so there is nothing
     to opt out of. In the last 12 months we collected identifiers, commercial information (purchase history), app activity,
-    approximate location derived from IP address, audio and visual information (uploaded golf clips) and the name and email
+    approximate location derived from IP address, audio and visual information (videos you trace) and the name and email
     you give in feedback, and disclosed them only to the service providers above for the purposes above.
   </p>
 
@@ -291,7 +270,7 @@ const DECLARED: readonly DeclaredData[] = [
   <h2>Security</h2>
   <p>
     Data travels over encrypted connections. Our Firebase security rules let each anonymous account read and delete only
-    its own records and clips. No system is perfectly secure; if a breach affects you, we will tell you as the law requires.
+    its own records and videos. No system is perfectly secure; if a breach affects you, we will tell you as the law requires.
   </p>
 
   <h2>Changes to this policy</h2>
