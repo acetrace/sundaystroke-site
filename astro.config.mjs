@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://acetrace.github.io',
-  base: '/sundaystroke-site',
+  site: 'https://sundaystroke.com',
   build: { format: 'file' },
   integrations: [tailwind({ applyBaseStyles: false })],
 });
