@@ -1,15 +1,16 @@
 ---
 import ComparisonPage from '../../../components/ComparisonPage.astro';
-import { APP_STORE_SEARCH_API_URL, COMPARISONS_CHECKED_ON, GOLF_GPS_COMPARISON } from '../../../data/comparisons';
+import { APP_STORE_SEARCH_API_URL, COMPARISONS_CHECKED_ON, GOLF_GPS_ADVANTAGES, GOLF_GPS_TABLE } from '../../../data/comparisons';
 import { GOLF_GPS_COMPARE_CALLS } from '../../../data/storeCalls';
 
 ---
 <ComparisonPage
   pageTitle="Golf GPS apps compared · SundayStroke"
-  description="SundayStroke Golf GPS, 18Birdies, Golfshot and Hole19 compared from their App Store listings, with every fact sourced and dated."
+  description="Where SundayStroke Golf GPS leads 18Birdies, Golfshot and Hole19: no ads, a far smaller download and older iPhones, every fact sourced and dated."
   heading="Golf GPS apps compared"
-  intro="Four iPhone golf GPS apps with a scorecard, compared from their App Store listings."
-  apps={GOLF_GPS_COMPARISON}
+  intro="Four free golf GPS apps for iPhone. Here is where SundayStroke Golf GPS comes out ahead, from each app's App Store listing."
+  advantages={GOLF_GPS_ADVANTAGES}
+  table={GOLF_GPS_TABLE}
   checkedOn={COMPARISONS_CHECKED_ON}
   methodSourceUrl={APP_STORE_SEARCH_API_URL}
   calls={GOLF_GPS_COMPARE_CALLS}

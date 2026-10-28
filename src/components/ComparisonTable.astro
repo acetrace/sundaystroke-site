@@ -1,20 +1,31 @@
 ---
-import type { ComparedApp } from '../types/comparison';
+import type { ComparisonTableData } from '../types/comparison';
 
 interface Props {
-  apps: readonly ComparedApp[];
+  table: ComparisonTableData;
 }
 
-const { apps } = Astro.props;
+const { table } = Astro.props;
 ---
-{apps.map((app) => (
-  <section>
-    <h3>{app.name}</h3>
-    <p>{app.maker}</p>
-    <ul>
-      {app.facts.map((fact) => (
-        <li>{fact.text} (source: <a href={fact.sourceUrl}>{fact.sourceLabel}</a>)</li>
+<div class="overflow-x-auto">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        {table.apps.map((app, index) => <th class={index === 0 ? 'text-volt' : undefined}>{app}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {table.rows.map((row) => (
+        <tr>
+          <th scope="row">{row.feature}</th>
+          {row.cells.map((cell) => (
+            <td class={cell.ours ? 'text-volt font-semibold' : undefined}>
+              {cell.text} <a class="text-mist text-xs" href={cell.sourceUrl}>({cell.sourceLabel})</a>
+            </td>
+          ))}
+        </tr>
       ))}
-    </ul>
-  </section>
-))}
+    </tbody>
+  </table>
+</div>

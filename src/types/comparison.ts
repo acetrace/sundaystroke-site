@@ -1,13 +1,18 @@
-export interface SourcedFact {
+export interface SourcedCell {
   text: string;
+  ours: boolean;
   sourceLabel: string;
   sourceUrl: string;
 }
 
-export interface ComparedApp {
-  name: string;
-  maker: string;
-  facts: readonly SourcedFact[];
+export interface ComparisonRow {
+  feature: string;
+  cells: readonly SourcedCell[];
+}
+
+export interface ComparisonTableData {
+  apps: readonly string[];
+  rows: readonly ComparisonRow[];
 }
 
 import type { StoreCall } from './article';
@@ -17,7 +22,8 @@ export interface ComparisonPageProps {
   description: string;
   heading: string;
   intro: string;
-  apps: readonly ComparedApp[];
+  advantages: readonly string[];
+  table: ComparisonTableData;
   checkedOn: string;
   methodSourceUrl: string;
   calls: readonly StoreCall[];

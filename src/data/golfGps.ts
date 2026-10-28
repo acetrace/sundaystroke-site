@@ -26,6 +26,6 @@ export const GOLF_GPS_PLANS: readonly PlanColumn[] = [
 export const GOLF_GPS_SCREENS: readonly MediaItem[] = [
   { src: '/media/golf-gps/03-map-distance.jpg', alt: 'Yardages to the green on a satellite map of the hole', caption: 'Yardages' },
   { src: '/media/golf-gps/04-round-summary.jpg', alt: 'A finished round on the scorecard', caption: 'Scorecard' },
-  { src: '/media/golf-gps/01-home.jpg', alt: 'The home screen with the Estimated Handicap', caption: 'Handicap' },
-  { src: '/media/golf-gps/05-stats.jpg', alt: 'Stats across rounds', caption: 'Stats' },
+  { src: '/media/golf-gps/05-stats.jpg', alt: 'The Estimated Handicap and its trend', caption: 'Handicap' },
+  { src: '/media/golf-gps/07-map-shots-hole8.jpg', alt: 'Tracked shots drawn on the hole with how far each went', caption: 'Shot tracking' },
 ];
