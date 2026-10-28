@@ -1,0 +1,50 @@
+---
+import ArticlePage from '../../../components/ArticlePage.astro';
+import ClipPair from '../../../components/ClipPair.astro';
+import { TUTORIALS, TUTORIALS_PUBLISHED } from '../../../data/tutorials';
+import { sitePath } from '../../../utils/paths';
+import type { Tutorial } from '../../../types/tutorial';
+import type { GetStaticPaths } from 'astro';
+import { TRACER_HOWTO_CALLS, TRACER_HOWTO_TARGET } from '../../../data/storeCalls';
+
+interface Props {
+  tutorial: Tutorial;
+}
+
+export const getStaticPaths = (() =>
+  TUTORIALS.map((tutorial) => ({ params: { slug: tutorial.slug }, props: { tutorial } }))) satisfies GetStaticPaths;
+
+const { tutorial } = Astro.props;
+
+---
+<ArticlePage
+  pageTitle={`${tutorial.title} · SundayStroke Tracer`}
+  description={tutorial.description}
+  eyebrow="Learn · Tracer"
+  heading={tutorial.title}
+  published={TUTORIALS_PUBLISHED}
+  banner={TRACER_HOWTO_TARGET}
+  calls={TRACER_HOWTO_CALLS}
+>
+  <p>{tutorial.intro}</p>
+
+  <ClipPair clips={[tutorial.before, tutorial.after]} />
+
+  <h2>Steps</h2>
+  <ol>
+    {tutorial.steps.map((step) => <li>{step}</li>)}
+  </ol>
+
+  <h2>Settings</h2>
+  <ul class="settings">
+    {tutorial.settings.map((setting) => (
+      <li><strong>{setting.name}:</strong> {setting.value}</li>
+    ))}
+  </ul>
+
+  {tutorial.related !== null && (
+    <p>{tutorial.related.lead} <a href={tutorial.related.href}>{tutorial.related.label}</a>.</p>
+  )}
+
+  <p><a href={sitePath('/learn/')}>All tutorials</a></p>
+</ArticlePage>

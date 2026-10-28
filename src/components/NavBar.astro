@@ -1,5 +1,5 @@
 ---
-import { APP_STORE_URL, NAV_LINKS } from '../data/site';
+import { NAV_LINKS } from '../data/site';
 import { sitePath } from '../utils/paths';
 ---
 <header
@@ -10,11 +10,10 @@ import { sitePath } from '../utils/paths';
   <div class="container flex items-center justify-between gap-8">
     <a href={sitePath('/')} class="ss-wordmark rounded-sm text-[22px] text-ice">SundayStroke</a>
 
-    <nav class="hidden items-center gap-7 md:flex">
+    <nav class="hidden items-center gap-6 md:flex">
       {NAV_LINKS.map((link) => (
         <a href={link.href} class="ss-link rounded-sm text-chip font-medium">{link.label}</a>
       ))}
-      <a href={APP_STORE_URL} class="ss-btn ss-btn--secondary ss-btn--compact">Download</a>
     </nav>
 
     <button
@@ -49,9 +48,6 @@ import { sitePath } from '../utils/paths';
           class="flex min-h-[50px] items-center border-b border-line text-body text-ice last-of-type:border-b-0"
         >{link.label}</a>
       ))}
-      <div class="pb-4 pt-3">
-        <a href={APP_STORE_URL} class="ss-btn ss-btn--primary w-full">Download</a>
-      </div>
     </nav>
   </div>
 </header>

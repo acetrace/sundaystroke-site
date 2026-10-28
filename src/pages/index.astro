@@ -4,58 +4,73 @@ import NavBar from '../components/NavBar.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 import { sitePath } from '../utils/paths';
+import type { AppCard } from '../types/hub';
+import type { NavLink } from '../types/navigation';
 
-interface Highlight {
-  tag: string;
-  title: string;
-  body: string;
-}
+const APP_CARDS: readonly AppCard[] = [
+  {
+    target: { app: 'tracer', campaign: 'web-tracer-hub' },
+    href: sitePath('/tracer/'),
+    linkLabel: 'Meet Tracer',
+    eyebrow: 'Golf and disc golf',
+    title: 'Tracer',
+    body: 'Film your swing or your throw, and Tracer draws the flight of the ball or disc onto your video.',
+    image: '/media/learn/golf-result.jpg',
+    imageAlt: 'A golf swing with the ball flight drawn by Tracer',
+  },
+  {
+    target: { app: 'golfGps', campaign: 'web-gps-hub' },
+    href: sitePath('/golf-gps/'),
+    linkLabel: 'Meet Golf GPS',
+    eyebrow: 'On the course',
+    title: 'Golf GPS',
+    body: 'Yardages to the green on a satellite map and a scorecard that keeps itself. Golf GPS Pro adds your handicap and stats.',
+    image: '/media/golf-gps/03-map-distance.jpg',
+    imageAlt: 'Golf GPS showing the yardage to the green on a satellite map',
+  },
+];
 
-const HIGHLIGHTS: readonly Highlight[] = [
-  {
-    tag: 'Golf',
-    title: 'Automatic ball tracking',
-    body: 'Tap the ball at the start of the flight and Tracer follows it through the air. Adjust the landing point and the arc by hand whenever you want.',
-  },
-  {
-    tag: 'Disc golf',
-    title: 'Free curve for discs',
-    body: 'Mark a few key points along the flight of your disc and Tracer draws a smooth line through them.',
-  },
-  {
-    tag: 'Style',
-    title: 'Make the line yours',
-    body: 'Pick colors and gradients, line width, effects and a 3D look, then save the finished video to Photos.',
-  },
+const READS: readonly NavLink[] = [
+  { href: sitePath('/learn/'), label: 'Tracer tutorials' },
+  { href: sitePath('/golf-handicap/'), label: 'How a golf handicap works' },
+  { href: sitePath('/golf-handicap/calculator/'), label: 'Handicap calculator' },
+  { href: sitePath('/sunday/'), label: 'The Sunday post' },
 ];
 ---
 <Layout
-  title="SundayStroke Tracer · Trace the flight of your golf ball or disc"
-  description="SundayStroke Tracer draws the flight of your golf ball or disc onto the videos you film on iPhone."
+  title="SundayStroke · Golf apps for iPhone: Tracer and Golf GPS"
+  description="SundayStroke makes golf apps for iPhone: Tracer draws the flight of your ball or disc onto your videos, and Golf GPS gives you yardages and a scorecard."
+  banner={null}
 >
   <NavBar />
   <main>
-    <section class="ss-ground pb-20 pt-36 md:pt-44">
+    <section class="ss-ground pb-16 pt-36 md:pt-44">
       <div class="container flex max-w-4xl flex-col items-start gap-7">
-        <span class="ss-eyebrow">SundayStroke Tracer · iPhone</span>
-        <h1 class="ss-display text-[40px] sm:text-[56px] lg:text-[76px]">
-          Trace every flight.<br /><span class="ss-accent">Golf and disc golf.</span>
+        <span class="ss-eyebrow">SundayStroke · Golf apps for iPhone</span>
+        <h1 class="ss-display text-[38px] sm:text-[56px] lg:text-[72px]">
+          Play it.<br /><span class="ss-accent">Share it.</span>
         </h1>
         <p class="max-w-2xl text-body-lg text-mist">
-          Film your swing or your throw, and Tracer draws the flight of the ball or disc onto your video.
-          Share it straight from your phone.
+          Two apps for the golfer who plays on Sunday: Tracer draws the flight of your ball or disc onto your video,
+          and Golf GPS gives you the yardage and keeps your score.
         </p>
-        <StoreButtons />
       </div>
     </section>
 
     <section class="border-t border-line bg-void py-20">
-      <div class="container grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
-        {HIGHLIGHTS.map((item) => (
-          <article class="ss-card flex flex-col gap-3 p-6">
-            <span class="ss-tag text-volt">{item.tag}</span>
-            <h2 class="text-title-2 text-ice">{item.title}</h2>
-            <p class="text-body text-mist">{item.body}</p>
+      <div class="container grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+        {APP_CARDS.map((card) => (
+          <article class="ss-card flex flex-col gap-5 p-6">
+            <a href={card.href} class="block">
+              <img class="ss-media aspect-[4/5] w-full object-cover" src={sitePath(card.image)} alt={card.imageAlt} loading="lazy" width="600" />
+            </a>
+            <span class="ss-tag text-volt">{card.eyebrow}</span>
+            <h2 class="ss-display text-[30px] md:text-[40px]"><a href={card.href}>{card.title}</a></h2>
+            <p class="text-body text-mist">{card.body}</p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href={card.href} class="ss-btn ss-btn--secondary">{card.linkLabel}</a>
+              <StoreButtons target={card.target} />
+            </div>
           </article>
         ))}
       </div>
@@ -63,16 +78,12 @@ const HIGHLIGHTS: readonly Highlight[] = [
 
     <section class="border-t border-line bg-void py-20">
       <div class="container flex max-w-4xl flex-col gap-6">
-        <h2 class="ss-display text-[30px] md:text-[44px]">Need a hand?</h2>
-        <p class="max-w-2xl text-body-lg text-mist">
-          Read the <a class="text-volt" href={sitePath('/support')}>support page</a> for answers and contact details,
-          or learn <a class="text-volt" href={sitePath('/manual-tracing')}>how to trace by hand</a> when automatic tracking misses.
-        </p>
-        <p class="text-body text-mist">
-          <a class="text-volt" href={sitePath('/privacy')}>Privacy policy</a> ·
-          <a class="text-volt" href={sitePath('/terms')}>Terms of use</a> ·
-          <a class="text-volt" href={sitePath('/support')}>Support</a>
-        </p>
+        <h2 class="ss-display text-[30px] md:text-[44px]">Read and learn</h2>
+        <ul class="flex flex-col gap-3 text-body-lg">
+          {READS.map((link) => (
+            <li><a class="text-volt" href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
       </div>
     </section>
   </main>

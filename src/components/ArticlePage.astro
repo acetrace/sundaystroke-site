@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from './NavBar.astro';
+import SiteFooter from './SiteFooter.astro';
+import SectionHeading from './SectionHeading.astro';
+import Prose from './Prose.astro';
+import StoreCalls from './StoreCalls.astro';
+import { AI_ASSISTED_NOTE, CONTENT_BYLINE } from '../data/site';
+import type { ArticleProps } from '../types/article';
+
+type Props = ArticleProps;
+
+const { pageTitle, description, eyebrow, heading, published, banner, calls } = Astro.props;
+---
+<Layout title={pageTitle} description={description} banner={banner}>
+  <NavBar />
+  <main class="ss-ground pb-24 pt-32 md:pt-36">
+    <article class="container max-w-3xl">
+      <header class="mb-10 flex flex-col gap-5">
+        <span class="ss-eyebrow">{eyebrow}</span>
+        <SectionHeading level="h1" text={heading} />
+        <p class="ss-tag text-mist">
+          By <span class="byline">{CONTENT_BYLINE}</span> · <time>{published}</time> · {AI_ASSISTED_NOTE}
+        </p>
+      </header>
+
+      <Prose>
+        <slot />
+      </Prose>
+
+      <StoreCalls calls={calls} />
+    </article>
+  </main>
+  <SiteFooter />
+</Layout>

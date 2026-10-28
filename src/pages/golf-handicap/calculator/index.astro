@@ -1,0 +1,49 @@
+---
+import ArticlePage from '../../../components/ArticlePage.astro';
+import { sitePath } from '../../../utils/paths';
+import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS } from '../../../utils/handicap';
+import { calculate } from '../../../utils/handicapCalculator';
+import { HANDICAP_PUBLISHED } from '../../../data/handicapSources';
+import { HANDICAP_CALLS, HANDICAP_TARGET } from '../../../data/storeCalls';
+
+const INITIAL_RESULT: string = calculate([]).message;
+
+---
+<ArticlePage
+  pageTitle="Golf handicap calculator · SundayStroke"
+  description="Work out an estimated golf handicap from your 18-hole scores, course ratings and slopes, with the World Handicap System rules Golf GPS uses."
+  eyebrow="Tool · Golf handicap"
+  heading="Handicap calculator"
+  published={HANDICAP_PUBLISHED}
+  banner={HANDICAP_TARGET}
+  calls={HANDICAP_CALLS}
+>
+  <p>
+    Enter your 18-hole rounds, newest first: your adjusted gross score (each hole capped at net double bogey; Golf GPS caps every hole at par + 5),
+    the course rating and the slope from the scorecard. You need at least {MIN_HANDICAP_ROUNDS} rounds; up to {HANDICAP_SELECTION_WINDOW} count.
+  </p>
+
+  <form class="not-prose my-8 flex flex-col gap-4" id="handicap-form" data-max-rows={HANDICAP_SELECTION_WINDOW}>
+    <div class="flex flex-col gap-3" id="handicap-rows">
+      {Array.from({ length: MIN_HANDICAP_ROUNDS }, (_, index) => (
+        <fieldset class="handicap-row grid grid-cols-3 gap-3">
+          <legend class="sr-only">Round {index + 1}</legend>
+          <input class="ss-card px-3 py-3 text-body-lg text-ice" name="score" type="text" inputmode="numeric" placeholder="Score" aria-label={`Round ${index + 1} score`} />
+          <input class="ss-card px-3 py-3 text-body-lg text-ice" name="rating" type="text" inputmode="decimal" placeholder="Rating" aria-label={`Round ${index + 1} course rating`} />
+          <input class="ss-card px-3 py-3 text-body-lg text-ice" name="slope" type="text" inputmode="numeric" placeholder="Slope" aria-label={`Round ${index + 1} slope`} />
+        </fieldset>
+      ))}
+    </div>
+    <button type="button" class="ss-btn ss-btn--secondary self-start" id="add-round">Add round</button>
+    <output class="ss-card block p-6 text-title-2 text-ice" id="handicap-result" aria-live="polite">{INITIAL_RESULT}</output>
+  </form>
+
+  <p>
+    This is an estimate, like the Estimated Handicap in Golf GPS, not an official Handicap Index. This calculator covers 18-hole rounds only.
+    See <a href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>.
+  </p>
+</ArticlePage>
+
+<script>
+  import '../../../scripts/handicapCalculatorForm';
+</script>

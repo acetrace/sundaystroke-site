@@ -1,0 +1,27 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { SUNDAY_ISSUES } from '../../data/sunday';
+import { sitePath } from '../../utils/paths';
+import { SUNDAY_CALLS } from '../../data/storeCalls';
+
+const [latest] = SUNDAY_ISSUES;
+if (latest === undefined) throw new Error('The Sunday post needs at least one issue');
+
+---
+<ArticlePage
+  pageTitle="The Sunday post · SundayStroke"
+  description="A short weekly read for the Sunday golfer: something from our apps, then a few stories worth your coffee, each linked to its source."
+  eyebrow="The Sunday post"
+  heading="The Sunday post"
+  published={latest.date}
+  banner={null}
+  calls={SUNDAY_CALLS}
+>
+  <p>A short weekly read for the Sunday golfer: something from our apps first, then a few stories in our own words, each linked to where it came from.</p>
+  <h2>Issues</h2>
+  <ul>
+    {SUNDAY_ISSUES.map((issue) => (
+      <li><a href={sitePath(`/sunday/${issue.slug}/`)}>Issue {issue.number}, {issue.date}</a>: {issue.summary}</li>
+    ))}
+  </ul>
+</ArticlePage>

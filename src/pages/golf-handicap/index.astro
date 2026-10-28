@@ -1,0 +1,80 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { sitePath } from '../../utils/paths';
+import { HANDICAP_PUBLISHED, USGA_EXPECTED_SCORE_URL, USGA_HANDICAP_INDEX_URL } from '../../data/handicapSources';
+import { HANDICAP_CALLS, HANDICAP_TARGET } from '../../data/storeCalls';
+
+
+const FEW_ROUNDS: readonly (readonly [string, string])[] = [
+  ['3', 'Lowest 1, minus 2.0'],
+  ['4', 'Lowest 1, minus 1.0'],
+  ['5', 'Lowest 1'],
+  ['6', 'Average of lowest 2, minus 1.0'],
+  ['7 to 8', 'Average of lowest 2'],
+  ['9 to 11', 'Average of lowest 3'],
+  ['12 to 14', 'Average of lowest 4'],
+  ['15 to 16', 'Average of lowest 5'],
+  ['17 to 18', 'Average of lowest 6'],
+  ['19', 'Average of lowest 7'],
+  ['20', 'Average of lowest 8'],
+];
+---
+<ArticlePage
+  pageTitle="How is a golf handicap calculated? · SundayStroke"
+  description="How a golf handicap is worked out under the World Handicap System: the score differential, course rating and slope, the best 8 of your last 20 rounds, and what to do with fewer rounds."
+  eyebrow="Guide · Golf handicap"
+  heading="How a golf handicap is calculated"
+  published={HANDICAP_PUBLISHED}
+  banner={HANDICAP_TARGET}
+  calls={HANDICAP_CALLS}
+>
+  <p>
+    A handicap says how many strokes over a course's difficulty you usually play on a good day. Under the World Handicap System it
+    comes from three things for each round: your score, the course rating and the slope. Here is how they fit together.
+  </p>
+
+  <h2>1. The score differential</h2>
+  <p>Every 18-hole round becomes one number, the score differential:</p>
+  <p><strong>Score differential = (113 ÷ slope) × (adjusted gross score − course rating)</strong></p>
+  <ul>
+    <li><strong>Course rating</strong> is what a scratch golfer is expected to shoot from your tees, for example 72.0.</li>
+    <li><strong>Slope</strong> says how much harder the course plays for everyone else. 113 is a course of standard difficulty, so on a slope of 113 the differential is simply your score minus the course rating.</li>
+    <li><strong>Adjusted gross score</strong> is your score with each hole capped at net double bogey, so one disaster hole doesn't count in full.</li>
+  </ul>
+  <p>Example: 90 on a course rated 72.0 with a slope of 113 gives a differential of 18.0. The same 90 on a slope of 130 would count for less, because the course is harder.</p>
+
+  <h2>2. The best 8 of your last 20</h2>
+  <p>
+    With 20 rounds, your handicap is the average of your best 8 score differentials from your last 20 rounds. The other 12 are left out,
+    so a handicap shows what you can do, not your average day
+    (<a href={USGA_HANDICAP_INDEX_URL}>USGA: the Handicap Index calculation</a>).
+  </p>
+
+  <h3>Fewer than 20 rounds</h3>
+  <p>You need at least 3 rounds. Until you have 20, fewer differentials count, and with very few rounds a small adjustment is taken off:</p>
+  <table>
+    <thead><tr><th>Rounds</th><th>What counts</th></tr></thead>
+    <tbody>
+      {FEW_ROUNDS.map(([rounds, rule]) => <tr><td>{rounds}</td><td>{rule}</td></tr>)}
+    </tbody>
+  </table>
+  <p>The result is rounded to one decimal and can't go above 54.0. A result below zero is a plus handicap, written like +1.5.</p>
+
+  <h2>Nine-hole rounds</h2>
+  <p>
+    Official systems turn a nine-hole score into an 18-hole one by adding an expected score for the other nine holes
+    (<a href={USGA_EXPECTED_SCORE_URL}>USGA: expected score explained</a>). Our calculator doesn't do that, so it covers 18-hole rounds only.
+    Golf GPS counts a nine-hole round too, more simply: it doubles that round's differential against half the course rating.
+  </p>
+
+  <h2>How Golf GPS's Estimated Handicap relates to this</h2>
+  <p>
+    Golf GPS Pro uses the same rules for the rounds you play with it: the score differential above, the few-rounds table and the best 8
+    of your last 20. One difference: the app caps every hole at par + 5 rather than net double bogey. That's why the app calls it an Estimated Handicap:
+    it is not an official Handicap Index. It leaves out things only your club or federation does, such as adjusting for the day's
+    playing conditions and the caps on how fast an official index can rise. For an official index, join a golf club or your national federation.
+  </p>
+
+  <h2>Try it</h2>
+  <p>Enter your own rounds in the <a href={sitePath('/golf-handicap/calculator/')}>handicap calculator</a>.</p>
+</ArticlePage>

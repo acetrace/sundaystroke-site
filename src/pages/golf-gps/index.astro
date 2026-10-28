@@ -1,0 +1,48 @@
+---
+import FeaturePage from '../../components/FeaturePage.astro';
+import PageSection from '../../components/PageSection.astro';
+import { sitePath } from '../../utils/paths';
+import { GOLF_GPS_SITE_URL } from '../../data/site';
+import { GOLF_GPS_PLANS, GOLF_GPS_SCREENS } from '../../data/golfGps';
+import type { Highlight } from '../../types/feature';
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'Yardages',
+    title: 'Distance to the green',
+    body: 'Open the app on the tee and see the yardage to the green on a satellite map of the hole.',
+  },
+  {
+    tag: 'Scorecard',
+    title: 'A scorecard that keeps itself',
+    body: 'Tap your score as you go. Every round saves itself to your history, ready to share as an image.',
+  },
+  {
+    tag: 'Handicap',
+    title: 'Your Estimated Handicap',
+    body: 'With Golf GPS Pro, your rounds turn into an estimated handicap and a trend, worked out the way the World Handicap System does it.',
+  },
+];
+---
+<FeaturePage
+  pageTitle="SundayStroke Golf GPS · Yardages, scorecard and handicap"
+  description="SundayStroke Golf GPS is a golf scorecard with GPS yardages. Free GPS and scorecard; Golf GPS Pro adds your handicap, stats and shot tracking."
+  eyebrow="SundayStroke Golf GPS · iPhone"
+  headline="Your yardage."
+  accent="Your scorecard."
+  lead="Open the app, see your distance to the green, tap your score. Every round saves itself. Free GPS and scorecard; Golf GPS Pro adds your handicap, stats and shot tracking."
+  target={{ app: 'golfGps', campaign: 'web-gps-home' }}
+  highlights={HIGHLIGHTS}
+  plans={GOLF_GPS_PLANS}
+  media={GOLF_GPS_SCREENS}
+>
+  <PageSection heading="More about Golf GPS">
+    <p>
+      Read how <a class="text-volt" href={sitePath('/golf-gps/scorecard/')}>the scorecard</a> works and how
+      <a class="text-volt" href={sitePath('/golf-gps/handicap/')}>your Estimated Handicap</a> is worked out.
+    </p>
+    <p>
+      Golf GPS also has its own site at <a class="text-volt" href={GOLF_GPS_SITE_URL}>golfgps.ai</a>.
+    </p>
+  </PageSection>
+</FeaturePage>

@@ -1,0 +1,20 @@
+---
+import { sitePath } from '../utils/paths';
+import type { Clip } from '../types/tutorial';
+
+interface Props {
+  clips: readonly Clip[];
+}
+
+const { clips } = Astro.props;
+---
+<div class="not-prose my-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
+  {clips.map((clip) => (
+    <figure class="flex flex-col gap-2">
+      <video class="ss-media w-full" controls muted playsinline loop preload="metadata" poster={sitePath(clip.poster)}>
+        <source src={sitePath(clip.src)} type="video/mp4" />
+      </video>
+      <figcaption class="ss-tag text-mist">{clip.label}</figcaption>
+    </figure>
+  ))}
+</div>

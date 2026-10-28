@@ -1,0 +1,31 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import ComparisonTable from './ComparisonTable.astro';
+import type { ComparisonPageProps } from '../types/comparison';
+
+type Props = ComparisonPageProps;
+
+const { pageTitle, description, heading, intro, apps, checkedOn, methodSourceUrl, calls } = Astro.props;
+---
+<ArticlePage
+  pageTitle={pageTitle}
+  description={description}
+  eyebrow="Compare"
+  heading={heading}
+  published={checkedOn}
+  banner={null}
+  calls={calls}
+>
+  <p><strong>Checked on {checkedOn}.</strong> {intro}</p>
+
+  <h2>The apps</h2>
+  <ComparisonTable apps={apps} />
+
+  <h2>How we compared</h2>
+  <p>
+    On {checkedOn} we read each app's US App Store listing through Apple's public
+    <a href={methodSourceUrl}>App Store search service</a>: the price model, what the listing says each plan includes, devices,
+    ratings and the last update. Every fact above links the listing it came from. We didn't use these apps for this page, so it makes no
+    claims about how well they work; prices, plans and ratings change, so check the listing before you buy. One of the apps is ours, and we say so.
+  </p>
+</ArticlePage>

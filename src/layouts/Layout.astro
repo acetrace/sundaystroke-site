@@ -1,13 +1,21 @@
 ---
 import '../styles/global.css';
 import { sitePath } from '../utils/paths';
+import { APP_STORE_PROVIDER_TOKEN, smartAppBannerContent } from '../data/campaigns';
+import { FROZEN_PATHS } from '../data/site';
+import { ANALYTICS_BEACON_TOKEN, SEARCH_CONSOLE_VERIFICATION } from '../data/measurement';
+import type { StoreTarget } from '../types/apps';
 
 interface Props {
   title: string;
   description: string;
+  banner: StoreTarget | null;
 }
 
-const { title, description } = Astro.props;
+const { title, description, banner } = Astro.props;
+const beaconConfig: string = JSON.stringify({ token: ANALYTICS_BEACON_TOKEN });
+const slashless: string = Astro.url.pathname.replace(/\/$/, '');
+const canonicalUrl: string = FROZEN_PATHS.includes(slashless) ? new URL(slashless, Astro.url).href : Astro.url.href;
 ---
 <!doctype html>
 <html lang="en">
@@ -18,6 +26,8 @@ const { title, description } = Astro.props;
     <link rel="apple-touch-icon" href={sitePath('/apple-touch-icon.png')} />
     <meta name="theme-color" content="#07090C" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="google-site-verification" content={SEARCH_CONSOLE_VERIFICATION} />
+    {banner && <meta name="apple-itunes-app" content={smartAppBannerContent(banner, APP_STORE_PROVIDER_TOKEN)} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -29,9 +39,11 @@ const { title, description } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:url" content={canonicalUrl} />
+    <link rel="canonical" href={canonicalUrl} />
   </head>
   <body>
     <slot />
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={beaconConfig}></script>
   </body>
 </html>

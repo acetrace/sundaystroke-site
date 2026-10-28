@@ -1,0 +1,49 @@
+---
+import FeaturePage from '../../../components/FeaturePage.astro';
+import PageSection from '../../../components/PageSection.astro';
+import { sitePath } from '../../../utils/paths';
+import type { Highlight, MediaItem } from '../../../types/feature';
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'Free curve',
+    title: 'A few points, one smooth line',
+    body: 'Scroll the timeline, move the cursor onto the disc and add key points. Tracer joins them into a smooth flight line.',
+  },
+  {
+    tag: 'Any throw',
+    title: 'Every kind of throw',
+    body: 'Drives, approaches and putts: if you can see the disc in the video, you can mark its path.',
+  },
+  {
+    tag: 'Share',
+    title: 'Straight to your camera roll',
+    body: 'Pick the line color, width and 3D look, then save the video to Photos and post it.',
+  },
+];
+
+const MEDIA: readonly MediaItem[] = [
+  { src: '/media/learn/disc-golf-original.jpg', alt: 'A disc golf throw filmed on iPhone', caption: 'Before' },
+  { src: '/media/learn/disc-golf-editing.jpg', alt: 'Adding key points along the disc flight in Tracer', caption: 'Adding points' },
+  { src: '/media/learn/disc-golf-result.jpg', alt: 'The finished disc flight line', caption: 'After' },
+];
+---
+<FeaturePage
+  pageTitle="Tracer for disc golf · SundayStroke"
+  description="Draw the flight of your disc onto the videos you film on iPhone with SundayStroke Tracer's free curve mode."
+  eyebrow="SundayStroke Tracer · Disc golf"
+  headline="Show the line"
+  accent="your disc flew."
+  lead="Film your throw, mark a few points along the flight, and Tracer draws the curve onto your video."
+  target={{ app: 'tracer', campaign: 'web-tracer-discgolf' }}
+  highlights={HIGHLIGHTS}
+  plans={[]}
+  media={MEDIA}
+>
+  <PageSection heading="Try it step by step">
+    <p>
+      The <a class="text-volt" href={sitePath('/learn/film-a-disc-flight/')}>disc flight tutorial</a> walks through a real throw,
+      and <a class="text-volt" href={sitePath('/tracer/')}>the Tracer page</a> says what's free and what Premium adds.
+    </p>
+  </PageSection>
+</FeaturePage>
