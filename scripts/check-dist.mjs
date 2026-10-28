@@ -10,6 +10,7 @@ const COPY_RULES = [
   { name: '"shot" followed by "tracer"', pattern: /shot\s*tracer/i },
 ];
 const CURRENCY = /[$€£¥]\s?\d|\d\s?(?:USD|EUR|GBP)\b/;
+const CHECKED_ON = /Checked on \d{1,2} [A-Z][a-z]+ \d{4}/;
 const TRACER_DISTANCE = /\b(?:measures?|calculates?|tracks?)\b[^.]{0,40}\bdistance/i;
 
 function htmlFiles(dir) {
@@ -47,6 +48,7 @@ for (const file of files) {
     problems.push(`${page}: shows a currency amount`);
   }
   if (page.startsWith('tracer/') && TRACER_DISTANCE.test(text)) problems.push(`${page}: says Tracer measures distance`);
+  if (page.startsWith('compare/') && !CHECKED_ON.test(text)) problems.push(`${page}: no "Checked on" date`);
   if (!html.includes('static.cloudflareinsights.com/beacon.min.js') || !html.includes('data-cf-beacon')) problems.push(`${page}: no analytics beacon`);
   if (!html.includes('name="google-site-verification"')) problems.push(`${page}: no verification meta`);
 
