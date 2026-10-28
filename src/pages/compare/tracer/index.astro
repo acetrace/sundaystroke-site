@@ -1,0 +1,17 @@
+---
+import ComparisonPage from '../../../components/ComparisonPage.astro';
+import { APP_STORE_SEARCH_API_URL, COMPARISONS_CHECKED_ON, TRACER_ADVANTAGES, TRACER_TABLE } from '../../../data/comparisons';
+import { TRACER_COMPARE_CALLS } from '../../../data/storeCalls';
+
+---
+<ComparisonPage
+  pageTitle="Golf ball tracer apps compared · SundayStroke"
+  description="Where SundayStroke Tracer leads Visual Vertigo's tracer app and The Golf Tracer: disc golf, free to try and automatic ball tracking, every fact sourced and dated."
+  heading="Ball flight tracer apps compared"
+  intro="Three iPhone apps that draw the flight onto your video. Here is where SundayStroke Tracer comes out ahead, from each app's App Store listing."
+  advantages={TRACER_ADVANTAGES}
+  table={TRACER_TABLE}
+  checkedOn={COMPARISONS_CHECKED_ON}
+  methodSourceUrl={APP_STORE_SEARCH_API_URL}
+  calls={TRACER_COMPARE_CALLS}
+/>

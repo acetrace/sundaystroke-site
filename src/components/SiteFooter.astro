@@ -1,28 +1,31 @@
 ---
 import FooterColumn from './FooterColumn.astro';
-import { HELP_LINKS, LEGAL_LINKS, PUBLISHER, SUPPORT_EMAIL } from '../data/site';
+import { APP_LINKS, CONTENT_LINKS, HELP_LINKS, LEGAL_LINKS, MORE_LINKS, PUBLISHER, SUPPORT_EMAIL } from '../data/site';
 import { sitePath } from '../utils/paths';
 
 const currentYear = new Date().getFullYear();
 ---
 <footer class="border-t border-line bg-void pb-10 pt-16">
   <div class="container">
-    <div class="mb-14 grid grid-cols-1 gap-10 md:grid-cols-12">
-      <div class="flex flex-col gap-4 md:col-span-6">
+    <div class="mb-14 grid grid-cols-2 gap-10 md:grid-cols-12">
+      <div class="col-span-2 flex flex-col gap-4 md:col-span-4">
         <a href={sitePath('/')} class="ss-wordmark self-start rounded-sm text-[26px] text-ice">SundayStroke</a>
         <p class="max-w-sm text-subhead text-mist">
-          Tracer draws the flight of your golf ball or disc onto your own videos, on iPhone.
+          Golf apps for iPhone. Tracer draws the flight of your golf ball or disc onto your videos. Golf GPS gives you
+          yardages and a scorecard that keeps itself.
         </p>
         <a href={`mailto:${SUPPORT_EMAIL}`} class="ss-link self-start rounded-sm text-subhead">{SUPPORT_EMAIL}</a>
       </div>
 
+      <FooterColumn heading="Apps" links={APP_LINKS} />
+      <FooterColumn heading="Read" links={[...CONTENT_LINKS, ...MORE_LINKS]} />
       <FooterColumn heading="Help" links={HELP_LINKS} />
       <FooterColumn heading="Legal" links={LEGAL_LINKS} />
     </div>
 
-    <div class="flex flex-col items-center justify-between gap-3 border-t border-line pt-6 md:flex-row">
+    <div class="flex flex-col items-center justify-between gap-3 border-t border-line pt-6 text-center md:flex-row md:text-left">
       <p class="text-caption text-mist">© {currentYear} {PUBLISHER}</p>
-      <p class="text-caption text-mist">SundayStroke Tracer for iPhone</p>
+      <p class="text-caption text-mist">This site counts visits without cookies and collects no personal data.</p>
     </div>
   </div>
 </footer>

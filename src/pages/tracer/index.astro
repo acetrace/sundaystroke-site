@@ -1,0 +1,74 @@
+---
+import FeaturePage from '../../components/FeaturePage.astro';
+import PageSection from '../../components/PageSection.astro';
+import { sitePath } from '../../utils/paths';
+import type { Highlight, MediaItem, PlanColumn } from '../../types/feature';
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'Golf',
+    title: 'Automatic ball tracking',
+    body: 'Select the ball with the cursor at the start of the flight and Tracer follows it through the air. Move the landing point and the arc by hand whenever you want.',
+  },
+  {
+    tag: 'Disc golf',
+    title: 'Free curve for discs',
+    body: 'Mark a few key points along the flight of your disc and Tracer draws a smooth line through them.',
+  },
+  {
+    tag: 'Style',
+    title: 'Make the line yours',
+    body: 'Pick the color, width and a 3D look, then save the finished video to Photos and share it.',
+  },
+];
+
+const PLANS: readonly PlanColumn[] = [
+  {
+    name: 'Free',
+    items: [
+      'Automatic ball tracking and free curve',
+      'Floodlit and white lines, with width and 3D look',
+      'Some free saves, with a small watermark',
+    ],
+  },
+  {
+    name: 'Premium',
+    items: [
+      'Unlimited saves with no watermark',
+      'More line styles, colors and gradients',
+      'Effects: electricity, wave, tail length and landing effects',
+    ],
+  },
+];
+
+const MEDIA: readonly MediaItem[] = [
+  { src: '/media/learn/golf-original.jpg', alt: 'A golf swing filmed on iPhone', caption: 'Golf · before' },
+  { src: '/media/learn/golf-result.jpg', alt: 'The same swing with the ball flight drawn', caption: 'Golf · after' },
+  { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn', caption: 'Disc golf · the whole flight' },
+];
+---
+<FeaturePage
+  pageTitle="SundayStroke Tracer · Trace the flight of your golf ball or disc"
+  description="SundayStroke Tracer draws the flight of your golf ball or disc onto the videos you film on iPhone. Free to try, Premium when you want more."
+  eyebrow="SundayStroke Tracer · iPhone"
+  headline="Trace every flight."
+  accent="Golf and disc golf."
+  lead="Film your swing or your throw, and Tracer draws the flight of the ball or disc onto your video. Share it straight from your phone."
+  target={{ app: 'tracer', campaign: 'web-tracer-home' }}
+  highlights={HIGHLIGHTS}
+  plans={PLANS}
+  media={MEDIA}
+>
+  <PageSection heading="Disc golf too">
+    <p>
+      Tracer draws disc flights as well as golf balls. See <a class="text-volt" href={sitePath('/tracer/disc-golf/')}>Tracer for disc golf</a>.
+    </p>
+  </PageSection>
+  <PageSection heading="Need a hand?">
+    <p>
+      Follow the <a class="text-volt" href={sitePath('/learn/')}>step-by-step tutorials</a>, read the
+      <a class="text-volt" href={sitePath('/support')}>support page</a>, or learn
+      <a class="text-volt" href={sitePath('/manual-tracing')}>how to trace by hand</a> when automatic tracking misses.
+    </p>
+  </PageSection>
+</FeaturePage>

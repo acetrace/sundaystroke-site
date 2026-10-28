@@ -1,0 +1,19 @@
+---
+import StoreButtons from './StoreButtons.astro';
+import type { StoreCall } from '../types/article';
+
+interface Props {
+  calls: readonly StoreCall[];
+}
+
+const { calls } = Astro.props;
+---
+<div class="mt-14 grid gap-5" class:list={[calls.length > 1 && 'md:grid-cols-2']}>
+  {calls.map((call) => (
+    <aside class="ss-card flex flex-col items-start gap-4 p-6">
+      <h2 class="text-title-2 text-ice">{call.heading}</h2>
+      <p class="text-body text-mist">{call.body}</p>
+      <StoreButtons target={call.target} />
+    </aside>
+  ))}
+</div>

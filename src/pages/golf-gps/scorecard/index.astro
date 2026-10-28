@@ -1,0 +1,48 @@
+---
+import FeaturePage from '../../../components/FeaturePage.astro';
+import PageSection from '../../../components/PageSection.astro';
+import { sitePath } from '../../../utils/paths';
+import type { Highlight, MediaItem } from '../../../types/feature';
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'On the course',
+    title: 'Tap, then play on',
+    body: 'Enter your score for the hole and move on. Your total and your score against par update as you go.',
+  },
+  {
+    tag: 'After the round',
+    title: 'Every round saved',
+    body: 'Finished rounds save themselves to your history, with each hole and your score against par.',
+  },
+  {
+    tag: 'Share',
+    title: 'Share a round as an image',
+    body: 'Send your finished card to your group chat or post it, straight from your phone.',
+  },
+];
+
+const MEDIA: readonly MediaItem[] = [
+  { src: '/media/golf-gps/04-round-summary.jpg', alt: 'A finished round on the scorecard', caption: 'Round summary' },
+  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Every round saved, hole by hole', caption: 'Your rounds' },
+];
+---
+<FeaturePage
+  pageTitle="Free golf scorecard app · SundayStroke Golf GPS"
+  description="A free golf scorecard on iPhone that keeps itself, hole by hole, with GPS yardages and every round saved."
+  eyebrow="SundayStroke Golf GPS · Scorecard"
+  headline="A scorecard"
+  accent="that keeps itself."
+  lead="Golf GPS keeps your score hole by hole, next to the yardage to the green. The scorecard and your saved rounds are free."
+  target={{ app: 'golfGps', campaign: 'web-gps-scorecard' }}
+  highlights={HIGHLIGHTS}
+  plans={[]}
+  media={MEDIA}
+>
+  <PageSection heading="Free, no ads">
+    <p>
+      The scorecard, GPS yardages and your round history are free, with no ads.
+      <a class="text-volt" href={sitePath('/golf-gps/')}>See what Golf GPS Pro adds</a>.
+    </p>
+  </PageSection>
+</FeaturePage>

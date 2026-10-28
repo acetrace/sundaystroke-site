@@ -1,0 +1,23 @@
+---
+import ArticlePage from '../../components/ArticlePage.astro';
+import { TUTORIALS, TUTORIALS_PUBLISHED } from '../../data/tutorials';
+import { sitePath } from '../../utils/paths';
+import { TRACER_HOWTO_CALLS } from '../../data/storeCalls';
+
+---
+<ArticlePage
+  pageTitle="Learn Tracer · Tutorials · SundayStroke"
+  description="Step-by-step Tracer tutorials with real before and after clips: film a golf ball flight, film a disc flight, and fix a trace by hand."
+  eyebrow="Learn · Tracer"
+  heading="Tracer tutorials"
+  published={TUTORIALS_PUBLISHED}
+  banner={null}
+  calls={TRACER_HOWTO_CALLS}
+>
+  <p>Three short tutorials, each with a real clip from the Tracer app before and after, the steps, and the settings to use.</p>
+  <ul>
+    {TUTORIALS.map((tutorial) => (
+      <li><a href={sitePath(`/learn/${tutorial.slug}/`)}>{tutorial.title}</a>: {tutorial.description}</li>
+    ))}
+  </ul>
+</ArticlePage>

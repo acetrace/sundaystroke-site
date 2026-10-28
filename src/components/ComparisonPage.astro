@@ -1,0 +1,35 @@
+---
+import ArticlePage from './ArticlePage.astro';
+import ComparisonTable from './ComparisonTable.astro';
+import type { ComparisonPageProps } from '../types/comparison';
+
+type Props = ComparisonPageProps;
+
+const { pageTitle, description, heading, intro, advantages, table, checkedOn, methodSourceUrl, calls } = Astro.props;
+---
+<ArticlePage
+  pageTitle={pageTitle}
+  description={description}
+  eyebrow="Compare"
+  heading={heading}
+  published={checkedOn}
+  banner={null}
+  calls={calls}
+>
+  <p>{intro}</p>
+
+  <h2>Where SundayStroke leads</h2>
+  <ul>
+    {advantages.map((advantage) => <li>{advantage}</li>)}
+  </ul>
+
+  <h2>Side by side</h2>
+  <ComparisonTable table={table} />
+
+  <h2>How we compared</h2>
+  <p>
+    On {checkedOn} we read each app's US App Store listing through Apple's public
+    <a href={methodSourceUrl}>App Store search service</a>. Every cell links the listing it came from. Listings change, so check them
+    before you buy. One of the apps is ours, and we say so.
+  </p>
+</ArticlePage>

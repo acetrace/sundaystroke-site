@@ -1,0 +1,48 @@
+---
+import FeaturePage from '../../../components/FeaturePage.astro';
+import PageSection from '../../../components/PageSection.astro';
+import { sitePath } from '../../../utils/paths';
+import type { Highlight, MediaItem } from '../../../types/feature';
+
+const HIGHLIGHTS: readonly Highlight[] = [
+  {
+    tag: 'From your rounds',
+    title: 'No sums to do',
+    body: 'Play 3 rounds and Golf GPS works out your Estimated Handicap from your scores, the course rating and the slope.',
+  },
+  {
+    tag: 'Trend',
+    title: 'See which way it moves',
+    body: 'Each new round updates the estimate, so you can see whether your game is getting better.',
+  },
+  {
+    tag: 'Honest',
+    title: 'An estimate, not an official index',
+    body: 'It follows the World Handicap System’s score differential and best 8 of 20 rules. For an official Handicap Index, join a golf club or your national federation.',
+  },
+];
+
+const MEDIA: readonly MediaItem[] = [
+  { src: '/media/golf-gps/05-stats.jpg', alt: 'The Estimated Handicap and its trend across rounds', caption: 'Estimated Handicap' },
+  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Every round saved, hole by hole', caption: 'Your rounds' },
+];
+---
+<FeaturePage
+  pageTitle="Golf handicap tracker app · SundayStroke Golf GPS"
+  description="Golf GPS Pro turns your rounds into an Estimated Handicap and a trend, using the World Handicap System's score differential and best 8 of 20 rules."
+  eyebrow="SundayStroke Golf GPS · Handicap"
+  headline="Track your"
+  accent="handicap."
+  lead="Golf GPS Pro turns your rounds into an Estimated Handicap and shows its trend. The GPS yardages and the scorecard stay free."
+  target={{ app: 'golfGps', campaign: 'web-gps-handicap' }}
+  highlights={HIGHLIGHTS}
+  plans={[]}
+  media={MEDIA}
+>
+  <PageSection heading="How it's worked out">
+    <p>
+      Read <a class="text-volt" href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>, or try the
+      <a class="text-volt" href={sitePath('/golf-handicap/calculator/')}>handicap calculator</a> with your own scores.
+    </p>
+  </PageSection>
+</FeaturePage>

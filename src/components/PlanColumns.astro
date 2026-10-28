@@ -1,0 +1,19 @@
+---
+import type { PlanColumn } from '../types/feature';
+
+interface Props {
+  plans: readonly PlanColumn[];
+}
+
+const { plans } = Astro.props;
+---
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+  {plans.map((plan) => (
+    <section class="ss-card flex flex-col gap-4 p-6">
+      <h3 class="ss-tag text-volt">{plan.name}</h3>
+      <ul class="flex list-disc flex-col gap-2 pl-5 text-body text-mist marker:text-volt">
+        {plan.items.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+  ))}
+</div>
