@@ -1,19 +1,31 @@
 ---
 import FeaturePage from '../../../components/FeaturePage.astro';
 import PageSection from '../../../components/PageSection.astro';
+import GolfGpsTable from '../../../components/GolfGpsTable.astro';
+import GolfGpsFaq from '../../../components/GolfGpsFaq.astro';
 import { sitePath } from '../../../utils/paths';
+import {
+  RULE_21_URL,
+  SCORECARD_EXAMPLE_HOLES,
+  SCORECARD_FAQ,
+  SCORE_NAMES,
+  STABLEFORD_POINTS,
+  formatToPar,
+  summarizeScore,
+} from '../../../data/golfGps';
 import type { Highlight, MediaItem } from '../../../types/feature';
+import type { GolfGpsTableData } from '../../../types/golfGps';
 
 const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'On the course',
-    title: 'Tap, then play on',
-    body: 'Enter your score for the hole and move on. Your total and your score against par update as you go.',
+    title: 'One tap per hole',
+    body: 'Enter your strokes for the hole with plus or minus and play on. Your total and score against par update as you go.',
   },
   {
     tag: 'After the round',
     title: 'Every round saved',
-    body: 'Finished rounds save themselves to your history, with each hole and your score against par.',
+    body: 'Finished rounds are saved to your history, with each hole, your front nine, back nine and score against par.',
   },
   {
     tag: 'Share',
@@ -24,25 +36,104 @@ const HIGHLIGHTS: readonly Highlight[] = [
 
 const MEDIA: readonly MediaItem[] = [
   { src: '/media/golf-gps/04-round-summary.jpg', alt: 'A finished round on the scorecard', caption: 'Round summary' },
-  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Every round saved, hole by hole', caption: 'Your rounds' },
+  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Saved rounds in the round history', caption: 'Your rounds' },
 ];
+
+const summary = summarizeScore(SCORECARD_EXAMPLE_HOLES);
+const EXAMPLE_TABLE: GolfGpsTableData = {
+  caption: 'Three holes, scored',
+  columns: ['Hole', 'Par', 'Strokes', 'Against par'],
+  rows: [
+    ...SCORECARD_EXAMPLE_HOLES.map((hole) => [
+      String(hole.hole),
+      String(hole.par),
+      String(hole.strokes),
+      formatToPar(hole.strokes - hole.par),
+    ]),
+    ['Total', String(summary.par), String(summary.strokes), formatToPar(summary.toPar)],
+  ],
+};
 ---
 <FeaturePage
-  pageTitle="Free golf scorecard app · SundayStroke Golf GPS"
-  description="A free golf scorecard on iPhone that keeps itself, hole by hole, with GPS yardages and every round saved."
+  pageTitle="Free Golf Scorecard App for iPhone | SundayStroke"
+  description="Enter scores hole by hole, see totals against par, save your rounds and share a finished card. Free scoring in SundayStroke Golf GPS."
   eyebrow="SundayStroke Golf GPS · Scorecard"
-  headline="A scorecard"
-  accent="that keeps itself."
-  lead="Golf GPS keeps your score hole by hole, next to the yardage to the green. The scorecard and your saved rounds are free."
+  headline="Keep score"
+  accent="hole by hole."
+  lead="Enter each hole’s score with one tap; your totals, score against par and round history update for you. The scorecard sits next to your GPS yardages, and it is free with no ads."
   target={{ app: 'golfGps', campaign: 'web-gps-scorecard' }}
   highlights={HIGHLIGHTS}
   plans={[]}
   media={MEDIA}
 >
-  <PageSection heading="Free, no ads">
+  <PageSection heading="How to keep score in golf">
     <p>
-      The scorecard, GPS yardages and your round history are free, with no ads.
-      <a class="text-volt" href={sitePath('/golf-gps/')}>See what Golf GPS Pro adds</a>.
+      Your score on a hole is the number of strokes it took to get the ball in the hole. Every swing you make at the ball counts, misses
+      included, and so does every putt. Add any penalty strokes to the same hole: hit your tee shot into a penalty area, take your drop
+      with one penalty stroke, and finish in four more, and you write down 6.
+    </p>
+    <p>
+      Each hole has a par, the score a good golfer is expected to make: usually 3, 4 or 5. Your round total is all your hole scores added
+      up, and your score against par is that total minus the par of the holes you played.
     </p>
   </PageSection>
+
+  <PageSection heading="A worked example: three holes">
+    <p>
+      Here is the start of a round. A bogey on the par 4, a par on the par 3 and a bogey on the par 5:
+    </p>
+    <GolfGpsTable table={EXAMPLE_TABLE} />
+    <p>
+      That is {summary.strokes} strokes on holes with a par of {summary.par}, so you are {formatToPar(summary.toPar)}, said as “two over”.
+      This is your gross score, the strokes you actually took. A net score takes your handicap strokes off and is used to compare golfers
+      of different abilities.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Birdie, par, bogey: what each score is called">
+    <GolfGpsTable table={SCORE_NAMES} />
+    <p>
+      A hole in one counts as 1 on any hole. On a scorecard, scores under par are often circled and scores over par put in a square.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Stableford points in short">
+    <p>
+      Stableford is a popular format for club days. Instead of counting every stroke, you score points on each hole against your net score,
+      the strokes you took minus any handicap strokes you get on that hole:
+    </p>
+    <GolfGpsTable table={STABLEFORD_POINTS} />
+    <p>
+      Higher is better, and a hole can never score below zero, so one bad hole cannot wreck your card. Once you cannot score a point you
+      can pick up and move on. The format is set out in
+      <a class="text-volt" href={RULE_21_URL}>Rule 21.1 of the Rules of Golf</a>.
+    </p>
+  </PageSection>
+
+  <PageSection heading="How the Golf GPS scorecard does it">
+    <p>
+      When you hole out, tap plus or minus to set your strokes for that hole, then swipe to the next one. The app works out the rest: your
+      front nine, back nine, round total and score against par, updated after every hole. Golf GPS does not count strokes for you; you
+      stay in charge of the number, as on a paper card.
+    </p>
+    <p>
+      Entered a 5 that was really a 6? Swipe back to the hole and change it. When you finish, the round is saved to your history so you
+      can reopen it later, and you can share the finished card as an image. The card shows strokes and score against par; it does not
+      work out Stableford points.
+    </p>
+    <p>
+      The yardages to the front, center and back of the green are on the same screen, so you never switch apps between your score and
+      your next shot. <a class="text-volt" href={sitePath('/golf-gps/')}>See everything in Golf GPS</a>.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Free, no ads">
+    <p>
+      The scorecard, GPS yardages, round history and sharing are free, with no ads. Golf GPS Pro adds an
+      <a class="text-volt" href={sitePath('/golf-gps/handicap/')}>estimated handicap</a> from your saved rounds, stats and trends, and
+      shot tracking.
+    </p>
+  </PageSection>
+
+  <GolfGpsFaq heading="Scorecard questions" items={SCORECARD_FAQ} />
 </FeaturePage>

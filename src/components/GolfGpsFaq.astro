@@ -1,0 +1,23 @@
+---
+import type { GolfGpsFaqItem } from '../types/golfGps';
+
+interface Props {
+  heading: string;
+  items: readonly GolfGpsFaqItem[];
+}
+
+const { heading, items } = Astro.props;
+---
+<section class="border-t border-line bg-void py-20">
+  <div class="container flex max-w-4xl flex-col gap-8">
+    <h2 class="ss-display text-[30px] md:text-[44px]">{heading}</h2>
+    <div class="flex max-w-2xl flex-col gap-6">
+      {items.map((item) => (
+        <article class="flex flex-col gap-2">
+          <h3 class="text-title-3 font-semibold text-ice">{item.question}</h3>
+          <p class="text-body-lg text-mist">{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
