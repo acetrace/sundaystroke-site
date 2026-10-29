@@ -4,6 +4,7 @@ import { join, relative } from 'node:path';
 const DIST = 'dist';
 const SITE_HOST = 'sundaystroke.com';
 const FROZEN_PAGES = ['privacy', 'terms', 'support', 'community', 'manual-tracing'];
+const OUR_APP_IDS = ['6821717424', '6762449303'];
 const PRODUCT_PREFIXES = ['index.html', 'tracer/', 'golf-gps/'];
 const COPY_RULES = [
   { name: 'baseball', pattern: /baseball/i },
@@ -25,6 +26,43 @@ function visibleText(html) {
   return html.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
 }
 
+function metaContent(html, attribute, name) {
+  const tag = html.match(new RegExp(`<meta[^>]+${attribute}="${name}"[^>]*>`));
+  if (tag === null) return null;
+  const content = tag[0].match(/content="([^"]*)"/);
+  return content === null ? null : content[1];
+}
+
+function headProblems(page, html, frozen) {
+  const found = [];
+  const title = html.match(/<title>([^<]*)<\/title>/);
+  if (title === null || title[1].trim() === '') found.push(`${page}: no title`);
+  const description = metaContent(html, 'name', 'description');
+  if (description === null || description.trim() === '') found.push(`${page}: no meta description`);
+  const canonical = html.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/);
+  if (canonical === null || !canonical[1].startsWith(`https://${SITE_HOST}/`)) found.push(`${page}: no canonical on https://${SITE_HOST}`);
+  if (frozen) return found;
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  if (blocks.length === 0) found.push(`${page}: no JSON-LD`);
+  for (const [, json] of blocks) {
+    try {
+      const data = JSON.parse(json);
+      if (data['@context'] !== 'https://schema.org') found.push(`${page}: JSON-LD without the schema.org context`);
+      if (/aggregateRating|reviewCount|ratingValue/.test(json)) found.push(`${page}: JSON-LD claims a rating`);
+    } catch {
+      found.push(`${page}: JSON-LD does not parse`);
+    }
+  }
+  const image = metaContent(html, 'property', 'og:image');
+  if (image === null || !image.startsWith(`https://${SITE_HOST}/`)) found.push(`${page}: no absolute og:image`);
+  else if (!resolveInternal(new URL(image).pathname)) found.push(`${page}: og:image is missing ${image}`);
+  if (metaContent(html, 'name', 'twitter:card') === null) found.push(`${page}: no Twitter card`);
+  for (const [, attributes] of html.matchAll(/<time([^>]*)>/g)) {
+    if (!/datetime="\d{4}-\d{2}-\d{2}"/.test(attributes)) found.push(`${page}: a date without a machine-readable datetime`);
+  }
+  return found;
+}
+
 function resolveInternal(href) {
   const path = href.split(/[?#]/)[0];
   if (path === '') return true;
@@ -40,6 +78,9 @@ for (const file of files) {
   const page = relative(DIST, file);
   const html = readFileSync(file, 'utf8');
   const text = visibleText(html);
+  const frozen = FROZEN_PAGES.some((name) => page === `${name}.html`);
+
+  problems.push(...headProblems(page, html, frozen));
 
   for (const rule of COPY_RULES) {
     if (rule.pattern.test(html)) problems.push(`${page}: contains ${rule.name}`);
@@ -53,7 +94,8 @@ for (const file of files) {
   if (!html.includes('name="google-site-verification"')) problems.push(`${page}: no verification meta`);
 
   for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
-    if (href.includes('apps.apple.com') && (!/[?&]ct=web-[a-z-]+/.test(href) || !href.includes('mt=8'))) {
+    const ourStoreLink = href.includes('apps.apple.com') && OUR_APP_IDS.some((id) => href.includes(`id${id}`));
+    if (ourStoreLink && (!/[?&]ct=web-[a-z-]+/.test(href) || !href.includes('mt=8'))) {
       problems.push(`${page}: untagged App Store link ${href}`);
     }
     if (href.startsWith('/') && !href.startsWith('//') && !resolveInternal(href)) problems.push(`${page}: broken link ${href}`);

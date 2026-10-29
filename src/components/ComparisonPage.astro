@@ -18,7 +18,7 @@ const { pageTitle, description, heading, intro, advantages, table, checkedOn, me
 >
   <p>{intro}</p>
 
-  <h2>Where SundayStroke leads</h2>
+  <h2>Where SundayStroke comes out ahead</h2>
   <ul>
     {advantages.map((advantage) => <li>{advantage}</li>)}
   </ul>
@@ -26,10 +26,14 @@ const { pageTitle, description, heading, intro, advantages, table, checkedOn, me
   <h2>Side by side</h2>
   <ComparisonTable table={table} />
 
+  <slot />
+
   <h2>How we compared</h2>
   <p>
-    Checked on {checkedOn}. We read each app's US App Store listing through Apple's public
-    <a href={methodSourceUrl}>App Store search service</a>. Every cell links the listing it came from. Listings change, so check them
-    before you buy. One of the apps is ours, and we say so.
+    Checked on {checkedOn}. We read each app's US App Store listing on that day, and cross-checked download sizes and
+    up-front prices through Apple's public <a href={methodSourceUrl}>App Store search service</a>. Every cell and every
+    competitor fact links the page it came from. Where a listing doesn't mention a feature, we say so rather than guess that
+    the app lacks it. Prices are in US dollars as listed; they change, and they differ by country, so check the listing before
+    you buy. One of the apps is ours, and we say so.
   </p>
 </ArticlePage>

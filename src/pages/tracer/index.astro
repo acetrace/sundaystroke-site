@@ -1,24 +1,28 @@
 ---
 import FeaturePage from '../../components/FeaturePage.astro';
 import PageSection from '../../components/PageSection.astro';
+import Prose from '../../components/Prose.astro';
+import ClipPair from '../../components/ClipPair.astro';
+import TracerFaqList from '../../components/TracerFaqList.astro';
 import { sitePath } from '../../utils/paths';
 import type { Highlight, MediaItem, PlanColumn } from '../../types/feature';
+import type { Clip, FaqItem, TracingModeRow } from '../../types/tutorial';
 
 const HIGHLIGHTS: readonly Highlight[] = [
   {
-    tag: 'Golf',
+    tag: 'Trace golf',
     title: 'Automatic ball tracking',
     body: 'Select the ball with the cursor at the start of the flight and Tracer follows it through the air. Move the landing point and the arc by hand whenever you want.',
   },
   {
-    tag: 'Disc golf',
-    title: 'Free curve for discs',
-    body: 'Mark a few key points along the flight of your disc and Tracer draws a smooth line through them.',
+    tag: 'Free curve',
+    title: 'Draw any flight',
+    body: 'For discs, putts and anything else. Tracer can follow a disc after you select it at release, and you add or move key points wherever the line drifts.',
   },
   {
-    tag: 'Style',
-    title: 'Make the line yours',
-    body: 'Pick the color, width and a 3D look, then save the finished video to Photos and share it.',
+    tag: 'No tripod',
+    title: 'The line stays put',
+    body: 'Stabilization keeps the line anchored to the scene when the camera moves, so clips filmed in your hands trace cleanly.',
   },
 ];
 
@@ -26,7 +30,7 @@ const PLANS: readonly PlanColumn[] = [
   {
     name: 'Free',
     items: [
-      'Automatic ball tracking and free curve',
+      'Automatic ball tracking and Free curve',
       'Floodlit and white lines, with width and 3D look',
       'Some free saves, with a small watermark',
     ],
@@ -42,33 +46,182 @@ const PLANS: readonly PlanColumn[] = [
 ];
 
 const MEDIA: readonly MediaItem[] = [
-  { src: '/media/learn/golf-original.jpg', alt: 'A golf swing filmed on iPhone', caption: 'Golf · before' },
-  { src: '/media/learn/golf-result.jpg', alt: 'The same swing with the ball flight drawn', caption: 'Golf · after' },
+  { src: '/media/learn/golf-original.jpg', alt: 'A golf swing filmed on iPhone from behind the golfer', caption: 'Golf · before' },
+  { src: '/media/learn/golf-result.jpg', alt: 'The same swing with the golf ball flight drawn as a glowing line', caption: 'Golf · after' },
   { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn', caption: 'Disc golf · the whole flight' },
+  { src: '/media/learn/disc-golf-editing.jpg', alt: 'Key points placed along a disc flight in Free curve', caption: 'Free curve · key points' },
+];
+
+const GOLF_CLIPS: readonly Clip[] = [
+  { src: '/media/learn/golf-original.mp4', poster: '/media/learn/golf-original.jpg', label: 'Before: the swing as filmed' },
+  { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'After: the traced ball flight' },
+];
+
+const MODE_ROWS: readonly TracingModeRow[] = [
+  { clip: 'Golf shots in the air: drives, irons, wedges, chips', mode: 'Trace golf', guideSlug: 'film-a-golf-ball-flight', guideLabel: 'Golf tracer guide' },
+  { clip: 'Putts rolling on the green', mode: 'Free curve', guideSlug: 'trace-a-putt', guideLabel: 'Putt guide' },
+  { clip: 'Disc golf drives, approaches and putts', mode: 'Free curve', guideSlug: 'film-a-disc-flight', guideLabel: 'Disc flight guide' },
+  { clip: 'A frisbee, a football, anything that flies', mode: 'Free curve', guideSlug: 'fix-a-trace-by-hand', guideLabel: 'Key points guide' },
+];
+
+const FAQS: readonly FaqItem[] = [
+  {
+    question: 'Do I need a tripod?',
+    answer: 'No. Stabilization keeps the line anchored as the camera moves. Clear, reasonably steady footage still makes tracing easier.',
+  },
+  {
+    question: 'Can I fix automatic tracking?',
+    answer: 'Yes. Move the landing point, drag the arc, or trim the track in the timeline where it picked up something else. You can also trace by hand.',
+  },
+  {
+    question: 'Does it work on videos I already have?',
+    answer: 'Yes. Tracer works on any video in your Photos library where you can see the ball or disc leave the club or hand.',
+  },
+  {
+    question: 'Does Tracer know how far my shot went?',
+    answer: 'No. The distance label shows the number you type in, from a rangefinder, launch monitor or GPS app, and counts up to it during the flight.',
+  },
+  {
+    question: 'Is there a watermark?',
+    answer: 'Free saves carry a small watermark. Premium saves have none and are unlimited.',
+  },
+  {
+    question: 'Which iPhone videos work best?',
+    answer: 'Clips filmed from behind the golfer, on the normal 1x lens, with the ball visible against trees or a darker background, and the whole flight in the frame.',
+  },
 ];
 ---
 <FeaturePage
-  pageTitle="SundayStroke Tracer · Trace the flight of your golf ball or disc"
-  description="SundayStroke Tracer draws the flight of your golf ball or disc onto the videos you film on iPhone. Free to try, Premium when you want more."
+  pageTitle="Golf Ball Tracer App for iPhone | SundayStroke"
+  description="Trace golf videos on iPhone with automatic ball tracking, handheld stabilization, styles and effects. Use Free curve for discs and putts. Free to try."
   eyebrow="SundayStroke Tracer · iPhone"
-  headline="Trace every flight."
-  accent="Golf and disc golf."
-  lead="Film your swing or your throw, and Tracer draws the flight of the ball or disc onto your video. Share it straight from your phone."
+  headline="Golf ball tracer"
+  accent="for your iPhone videos."
+  lead="Film your swing or your throw, select the ball or disc, and Tracer draws its flight onto your video. No tripod, no computer. Share it straight from your phone."
   target={{ app: 'tracer', campaign: 'web-tracer-home' }}
   highlights={HIGHLIGHTS}
   plans={PLANS}
   media={MEDIA}
 >
-  <PageSection heading="Disc golf too">
-    <p>
-      Tracer draws disc flights as well as golf balls. See <a class="text-volt" href={sitePath('/tracer/disc-golf/')}>Tracer for disc golf</a>.
-    </p>
+  <PageSection heading="See your golf ball flight before and after">
+    <Prose>
+      <p>
+        A real swing from the app. On the left, the video as it came off the phone; on the right, the same clip after Tracer followed the ball.
+        The ball was selected once, just after it left the club, and Tracer did the rest.
+      </p>
+      <ClipPair clips={GOLF_CLIPS} />
+    </Prose>
   </PageSection>
+
+  <PageSection heading="How to add a tracer to an iPhone video">
+    <Prose>
+      <h3>Import your clip and select the ball</h3>
+      <p>
+        Tap Trace golf on the home screen and pick a video from Photos. Scroll the timeline to the frame where the ball has just left the
+        club, zoom in with two fingers and move the cursor onto the ball.
+      </p>
+      <h3>Review automatic tracking and adjust the flight</h3>
+      <p>
+        Tracer follows the ball through the air. Tap Preview and watch the line against the ball. If the landing is off, move the landing
+        point onto the frame where the ball lands; if the height or curve is off, drag the diamond on the arc. When tracking picked up a
+        bird or another ball, resize the track in the timeline to leave those frames out.
+      </p>
+      <h3>Style the line and save your video</h3>
+      <p>
+        Pick a color or gradient, the width and the 3D look, then save the video to Photos and share it anywhere. The full walkthrough,
+        with filming tips, is in <a href={sitePath('/learn/film-a-golf-ball-flight/')}>how to add a golf ball tracer to an iPhone video</a>.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="How to film for a good trace">
+    <Prose>
+      <ul>
+        <li>Stand about 3 to 4 meters behind the golfer, on the target line and a little to the side, at hip to chest height.</li>
+        <li>Leave the top two thirds of the frame for the sky and the flight.</li>
+        <li>Look for trees or a hill behind the early flight. A white ball against a pale sky is the hardest thing to follow.</li>
+        <li>Use the 1x lens, and touch and hold on the golfer to lock focus and exposure before you record.</li>
+        <li>Start recording before the swing and keep going until the ball lands.</li>
+      </ul>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Film handheld: the line stays anchored">
+    <Prose>
+      <p>
+        Most golf clips are filmed by a playing partner holding a phone, not on a tripod. When the phone tilts to follow the ball, the whole
+        picture moves, and a line drawn in fixed screen positions would slide off into the sky. Tracer's stabilization follows that movement
+        and keeps the line where the ball really was.
+      </p>
+      <p>
+        Choose Smart, Fast or Off in Settings: Smart for normal handheld clips, Fast for a lot of movement, Off for a phone propped on your bag.
+        Read more in <a href={sitePath('/learn/trace-golf-video-without-tripod/')}>how to trace a golf video without a tripod</a>.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Trace discs and putts with Free curve">
+    <Prose>
+      <p>
+        Free curve is the second mode on the home screen, for flights that are not a golf ball in the air. Select a disc at release and Tracer
+        can follow it; wherever the line drifts, add or move key points on the disc. For a putt or anything else, place a few key points and
+        Tracer draws a smooth line through them.
+      </p>
+      <table>
+        <thead><tr><th>Your clip</th><th>Mode</th><th>Guide</th></tr></thead>
+        <tbody>
+          {MODE_ROWS.map((row) => (
+            <tr><td>{row.clip}</td><td>{row.mode}</td><td><a href={sitePath(`/learn/${row.guideSlug}/`)}>{row.guideLabel}</a></td></tr>
+          ))}
+        </tbody>
+      </table>
+      <p>Disc golfers: see <a href={sitePath('/tracer/disc-golf/')}>Tracer for disc golf</a>.</p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Line styles, distance labels and obstacles">
+    <Prose>
+      <h3>Styles</h3>
+      <p>
+        A single color or a gradient, any width, and Render 3D line for depth. Premium adds effects such as electricity and wave, the tail
+        length and landing effects. You can override colors and make sections of the line transparent.
+      </p>
+      <h3>The distance label</h3>
+      <p>
+        Type the distance of the shot and the line shows a counter that runs up to it during the flight, finishing on your number as the
+        ball lands. The number is the one you type, so take it from a rangefinder, a launch monitor or a GPS app.
+        See <a href={sitePath('/learn/add-distance-label-to-golf-video/')}>how to add a distance label to a golf video</a>.
+      </p>
+      <h3>Behind trees and obstacles</h3>
+      <p>
+        When the ball or disc passes behind a tree, Tracer can show the trajectory behind the obstacle, so the tree stays in front of the
+        line. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Free versus Premium">
+    <Prose>
+      <p>
+        Everything you need for a first trace is free: automatic ball tracking, Free curve, the Floodlit and white lines with width and the 3D
+        look, and some free saves with a small watermark. Premium is for when you trace often: unlimited saves with no watermark, more styles,
+        colors and gradients, and the effects. Prices are shown in the App Store before you subscribe.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Questions before your first trace">
+    <Prose>
+      <TracerFaqList faqs={FAQS} />
+    </Prose>
+  </PageSection>
+
   <PageSection heading="Need a hand?">
     <p>
       Follow the <a class="text-volt" href={sitePath('/learn/')}>step-by-step tutorials</a>, read the
       <a class="text-volt" href={sitePath('/support')}>support page</a>, or learn
-      <a class="text-volt" href={sitePath('/manual-tracing')}>how to trace by hand</a> when automatic tracking misses.
+      <a class="text-volt" href={sitePath('/manual-tracing')}>how to trace by hand</a> when automatic tracking misses. Comparing apps? See
+      <a class="text-volt" href={sitePath('/compare/tracer/')}>golf tracer apps compared</a>.
     </p>
   </PageSection>
 </FeaturePage>

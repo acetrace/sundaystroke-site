@@ -12,7 +12,7 @@ type Props = FeaturePageProps;
 
 const { pageTitle, description, eyebrow, headline, accent, lead, target, highlights, plans, media } = Astro.props;
 ---
-<Layout title={pageTitle} description={description} banner={target}>
+<Layout title={pageTitle} description={description} banner={target} seo={{ kind: 'app', app: target.app }}>
   <NavBar />
   <main>
     <section class="ss-ground pb-20 pt-36 md:pt-44">

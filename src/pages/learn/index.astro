@@ -1,23 +1,73 @@
 ---
 import ArticlePage from '../../components/ArticlePage.astro';
-import { TUTORIALS, TUTORIALS_PUBLISHED } from '../../data/tutorials';
+import TracerFaqList from '../../components/TracerFaqList.astro';
+import { TUTORIAL_GROUPS, TUTORIALS_PUBLISHED, tutorialsIn } from '../../data/tutorials';
 import { sitePath } from '../../utils/paths';
 import { TRACER_HOWTO_CALLS } from '../../data/storeCalls';
+import type { FaqItem, TracingModeRow } from '../../types/tutorial';
 
+const MODE_ROWS: readonly TracingModeRow[] = [
+  { clip: 'A golf shot in the air: drive, iron, wedge or chip', mode: 'Trace golf', guideSlug: 'film-a-golf-ball-flight', guideLabel: 'Add a golf ball tracer' },
+  { clip: 'A golf putt rolling on the green', mode: 'Free curve', guideSlug: 'trace-a-putt', guideLabel: 'Trace a putt' },
+  { clip: 'A disc golf drive, approach or putt', mode: 'Free curve', guideSlug: 'film-a-disc-flight', guideLabel: 'Trace a disc flight' },
+  { clip: 'A trace that drifts or follows the wrong thing', mode: 'The mode you traced it in', guideSlug: 'fix-a-trace-by-hand', guideLabel: 'Fix a tracer line' },
+];
+
+const FAQS: readonly FaqItem[] = [
+  {
+    question: 'Which guide should I start with?',
+    answer: 'Use the golf guide for automatic golf ball tracing, the disc guide for Free curve, and the repair guide when an existing trace needs correcting.',
+  },
+  {
+    question: 'Do I need a tripod or a computer?',
+    answer: 'No. Every guide here works with an iPhone alone, held in your hands or propped on your bag.',
+  },
+];
 ---
 <ArticlePage
-  pageTitle="Learn Tracer · Tutorials · SundayStroke"
-  description="Step-by-step Tracer tutorials with real before and after clips: film a golf ball flight, film a disc flight, and fix a trace by hand."
+  pageTitle="Golf & Disc Tracing Tutorials · SundayStroke Tracer"
+  description="Learn to film and trace golf balls and discs on iPhone. Real before and after examples, editing steps and fixes for drifting flight lines."
   eyebrow="Learn · Tracer"
-  heading="Tracer tutorials"
+  heading="Golf and disc golf tracing tutorials"
   published={TUTORIALS_PUBLISHED}
   banner={null}
   calls={TRACER_HOWTO_CALLS}
 >
-  <p>Three short tutorials, each with a real clip from the Tracer app before and after, the steps, and the settings to use.</p>
-  <ul>
-    {TUTORIALS.map((tutorial) => (
-      <li><a href={sitePath(`/learn/${tutorial.slug}/`)}>{tutorial.title}</a>: {tutorial.description}</li>
-    ))}
-  </ul>
+  <p>
+    Guides for drawing a ball or disc flight onto your iPhone videos with
+    <a href={sitePath('/tracer/')}>SundayStroke Tracer</a>. Each covers how to film the clip, the steps in the app, the settings, and
+    what to do when the line goes wrong.
+  </p>
+
+  <h2>Choose the right tracing mode</h2>
+  <p>Tracer has two modes on its home screen. Pick by what is in your clip:</p>
+  <table>
+    <thead><tr><th>Your clip</th><th>Mode</th><th>Guide</th></tr></thead>
+    <tbody>
+      {MODE_ROWS.map((row) => (
+        <tr><td>{row.clip}</td><td>{row.mode}</td><td><a href={sitePath(`/learn/${row.guideSlug}/`)}>{row.guideLabel}</a></td></tr>
+      ))}
+    </tbody>
+  </table>
+
+  {TUTORIAL_GROUPS.map((group) => (
+    <>
+      <h2>{group.heading}</h2>
+      <p>{group.intro}</p>
+      <ul>
+        {tutorialsIn(group.category).map((tutorial) => (
+          <li><a href={sitePath(`/learn/${tutorial.slug}/`)}>{tutorial.title}</a>: {tutorial.summary}</li>
+        ))}
+      </ul>
+    </>
+  ))}
+
+  <h2>Questions</h2>
+  <TracerFaqList faqs={FAQS} />
+
+  <p>
+    Looking for every button and gesture? The <a href={sitePath('/manual-tracing')}>manual tracing reference</a> covers both modes.
+    For what the app does and what is free, see <a href={sitePath('/tracer/')}>Tracer for golf</a> and
+    <a href={sitePath('/tracer/disc-golf/')}>Tracer for disc golf</a>.
+  </p>
 </ArticlePage>

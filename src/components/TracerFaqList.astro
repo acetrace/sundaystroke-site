@@ -1,0 +1,15 @@
+---
+import type { FaqItem } from '../types/tutorial';
+
+interface Props {
+  faqs: readonly FaqItem[];
+}
+
+const { faqs } = Astro.props;
+---
+{faqs.map((faq) => (
+  <>
+    <h3>{faq.question}</h3>
+    <p>{faq.answer}</p>
+  </>
+))}

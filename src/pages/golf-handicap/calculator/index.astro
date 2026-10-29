@@ -1,28 +1,53 @@
 ---
 import ArticlePage from '../../../components/ArticlePage.astro';
 import { sitePath } from '../../../utils/paths';
-import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS } from '../../../utils/handicap';
-import { calculate } from '../../../utils/handicapCalculator';
-import { HANDICAP_PUBLISHED } from '../../../data/handicapSources';
+import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS, estimateHandicap, formatHandicap, scoreDifferential } from '../../../utils/handicap';
+import { calculate, parseRound } from '../../../utils/handicapCalculator';
+import type { HandicapRound, RoundInput } from '../../../types/handicap';
+import { HANDICAP_GUIDE_UPDATED, USGA_NET_DOUBLE_BOGEY_URL, WA_GOLF_DIFFERENTIAL_URL, ENGLAND_GOLF_INDEX_URL } from '../../../data/whsSources';
 import { HANDICAP_CALLS, HANDICAP_TARGET } from '../../../data/storeCalls';
 
 const INITIAL_RESULT: string = calculate([]).message;
 
+const EXAMPLE_ROUNDS: readonly RoundInput[] = [
+  { score: '90', rating: '72.0', slope: '113' },
+  { score: '92', rating: '72.0', slope: '113' },
+  { score: '94', rating: '72.0', slope: '113' },
+];
+
+function exampleRound(input: RoundInput): HandicapRound {
+  const round = parseRound(input);
+  if (round === null) throw new Error(`Invalid example round: ${JSON.stringify(input)}`);
+  return round;
+}
+
+function differentialText(input: RoundInput): string {
+  return scoreDifferential(exampleRound(input)).toFixed(1);
+}
+
+function exampleResult(): string {
+  const estimate = estimateHandicap(EXAMPLE_ROUNDS.map(exampleRound));
+  if (estimate.kind !== 'estimate') throw new Error('The example needs enough rounds for an estimate');
+  return formatHandicap(estimate.value);
+}
+
+const EXAMPLE_RESULT: string = exampleResult();
+
 ---
 <ArticlePage
-  pageTitle="Golf handicap calculator · SundayStroke"
-  description="Work out an estimated golf handicap from your 18-hole scores, course ratings and slopes, with the World Handicap System rules Golf GPS uses."
+  pageTitle="Golf Handicap Calculator: 18-Hole Estimate | SundayStroke"
+  description="Estimate your golf handicap from 3 to 20 eighteen-hole rounds using your scores, course ratings and slopes. See a worked example and what the calculator leaves out."
   eyebrow="Tool · Golf handicap"
-  heading="Handicap calculator"
-  published={HANDICAP_PUBLISHED}
+  heading="Golf handicap calculator"
+  published={HANDICAP_GUIDE_UPDATED}
   banner={HANDICAP_TARGET}
   calls={HANDICAP_CALLS}
 >
   <p>
-    Enter your 18-hole rounds, newest first: your adjusted gross score (each hole capped at net double bogey; Golf GPS caps every hole at par + 5),
-    the course rating and the slope from the scorecard. You need at least {MIN_HANDICAP_ROUNDS} rounds; up to {HANDICAP_SELECTION_WINDOW} count.
+    Enter your 18-hole rounds, newest first. For each one you need three numbers from the scorecard: your adjusted gross score,
+    the course rating and the slope rating of the tees you played. You need at least {MIN_HANDICAP_ROUNDS} rounds; the newest
+    {HANDICAP_SELECTION_WINDOW} count. The result updates as you type.
   </p>
-
   <form class="not-prose my-8 flex flex-col gap-4" id="handicap-form" data-max-rows={HANDICAP_SELECTION_WINDOW}>
     <div class="flex flex-col gap-3" id="handicap-rows">
       {Array.from({ length: MIN_HANDICAP_ROUNDS }, (_, index) => (
@@ -38,10 +63,68 @@ const INITIAL_RESULT: string = calculate([]).message;
     <output class="ss-card block p-6 text-title-2 text-ice" id="handicap-result" aria-live="polite">{INITIAL_RESULT}</output>
   </form>
 
+  <h2>How to fill it in</h2>
+  <ol>
+    <li><strong>Score:</strong> your adjusted gross score for the round, as a whole number. Before you type it, cap any bad hole at net double bogey (par + 2 + the strokes you get on that hole), or at par + 5 if you don't have a handicap yet (<a href={USGA_NET_DOUBLE_BOGEY_URL}>USGA Rule 3.1</a>). The calculator only sees the total, so it can't apply the cap for you.</li>
+    <li><strong>Rating:</strong> the course rating of your tees, such as 72.0 or 69.4. A comma works too.</li>
+    <li><strong>Slope:</strong> the slope rating of your tees, between 55 and 155. 113 is a course of standard difficulty.</li>
+    <li>Tap <strong>Add round</strong> for each extra round, up to {HANDICAP_SELECTION_WINDOW}. Put your newest round at the top.</li>
+  </ol>
   <p>
-    This is an estimate, like the Estimated Handicap in Golf GPS, not an official Handicap Index. This calculator covers 18-hole rounds only.
-    See <a href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>.
+    Only complete rows count. A row with a missing number, text or a slope outside 55 to 155 is left out, so if the result asks for
+    more rounds than you think you entered, check each row.
   </p>
+
+  <h2>Where to find the course rating and slope</h2>
+  <p>
+    Most scorecards print a rating and a slope next to each set of tees, often as two numbers like "71.5 / 125". Clubs also list
+    them on their website and in the pro shop. Use the numbers for the tees you actually played: the same course can be rated 74.1
+    from the back and 69.0 from the front. Golf GPS reads them for you when you choose your tee at the start of a round.
+  </p>
+
+  <h2>Try a three-round example</h2>
+  <p>Enter these three rounds, all from tees with a course rating of 72.0 and a slope of 113:</p>
+  <table>
+    <thead><tr><th>Round</th><th>Score</th><th>Rating</th><th>Slope</th><th>Differential</th></tr></thead>
+    <tbody>
+      {EXAMPLE_ROUNDS.map((round, index) => (
+        <tr><td>{index + 1}</td><td>{round.score}</td><td>{round.rating}</td><td>{round.slope}</td><td>{differentialText(round)}</td></tr>
+      ))}
+    </tbody>
+  </table>
+  <p>
+    On a slope of 113 each differential is simply the score minus the rating: 18.0, 20.0 and 22.0
+    (<a href={WA_GOLF_DIFFERENTIAL_URL}>the score differential formula</a>). With three rounds, the World Handicap System uses the
+    lowest one and takes 2.0 off (<a href={ENGLAND_GOLF_INDEX_URL}>England Golf: fewer than 20 scores</a>), so 18.0 − 2.0 gives
+    <strong>{EXAMPLE_RESULT}</strong>. That is an illustrative estimate, not an official index.
+  </p>
+
+  <h2>Understand your result</h2>
+  <p>
+    The calculator turns each round into a score differential, (113 ÷ slope) × (score − rating), picks your lowest differentials by
+    the World Handicap System's table for 3 to 20 rounds, averages them, subtracts any adjustment for 3, 4 or 6 rounds, and rounds
+    to one decimal. With 20 rounds it averages your best 8. The result can't go above 54.0, and a result below zero shows as a plus
+    handicap such as +1.5. The <a href={sitePath('/golf-handicap/')}>full handicap guide</a> explains each step with examples.
+  </p>
+
+  <h2>What this calculator doesn't do</h2>
+  <ul>
+    <li>It accepts 18-hole rounds only. It doesn't combine nine-hole scores with an expected score.</li>
+    <li>It assumes the playing conditions calculation (PCC) was 0.0 on every day, which it is on most days.</li>
+    <li>It doesn't apply the soft cap, the hard cap or the exceptional score reduction, because it doesn't know your handicap history.</li>
+    <li>It doesn't cap hole scores; you enter a total that is already adjusted.</li>
+    <li>It doesn't issue or replace an official Handicap Index. For that, join a golf club or your national association.</li>
+  </ul>
+
+  <h2>Common questions</h2>
+  <h3>Can I enter nine-hole scores?</h3>
+  <p>No. This calculator accepts 18-hole rounds only. Golf GPS Pro does count nine-hole rounds in its estimate.</p>
+  <h3>Does it give me an official handicap?</h3>
+  <p>No. It gives an estimate, like the Estimated Handicap in Golf GPS Pro.</p>
+  <h3>Why is my result lower than my average score over the rating?</h3>
+  <p>Because a handicap uses your best differentials, not all of them. It shows what you shoot on a good day.</p>
+  <h3>Do you keep my scores?</h3>
+  <p>No. The calculation runs in your browser and nothing you type is sent anywhere.</p>
 </ArticlePage>
 
 <script>

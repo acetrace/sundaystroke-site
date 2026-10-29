@@ -1,14 +1,18 @@
 ---
 import FeaturePage from '../../../components/FeaturePage.astro';
 import PageSection from '../../../components/PageSection.astro';
+import GolfGpsTable from '../../../components/GolfGpsTable.astro';
+import GolfGpsSteps from '../../../components/GolfGpsSteps.astro';
+import GolfGpsFaq from '../../../components/GolfGpsFaq.astro';
 import { sitePath } from '../../../utils/paths';
+import { HANDICAP_COMPARISON, HANDICAP_FAQ, HANDICAP_STEPS } from '../../../data/golfGps';
 import type { Highlight, MediaItem } from '../../../types/feature';
 
 const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'From your rounds',
     title: 'No sums to do',
-    body: 'Play 3 rounds and Golf GPS works out your Estimated Handicap from your scores, the course rating and the slope.',
+    body: 'Play 3 rounds and Golf GPS Pro works out an estimated handicap from your scores and the rating and slope of the tee you played.',
   },
   {
     tag: 'Trend',
@@ -18,31 +22,82 @@ const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'Honest',
     title: 'An estimate, not an official index',
-    body: 'It follows the World Handicap System’s score differential and best 8 of 20 rules. For an official Handicap Index, join a golf club or your national federation.',
+    body: 'It follows the same core math as the World Handicap System but leaves out what only a club can do. For an official Handicap Index, join a club or your national federation.',
   },
 ];
 
 const MEDIA: readonly MediaItem[] = [
-  { src: '/media/golf-gps/05-stats.jpg', alt: 'The Estimated Handicap and its trend across rounds', caption: 'Estimated Handicap' },
-  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Every round saved, hole by hole', caption: 'Your rounds' },
+  { src: '/media/golf-gps/05-stats.jpg', alt: 'The estimated handicap and its trend across rounds', caption: 'Estimated handicap' },
+  { src: '/media/golf-gps/06-round-history.jpg', alt: 'Saved rounds in the round history', caption: 'Your rounds' },
 ];
 ---
 <FeaturePage
-  pageTitle="Golf handicap tracker app · SundayStroke Golf GPS"
-  description="Golf GPS Pro turns your rounds into an Estimated Handicap and a trend, using the World Handicap System's score differential and best 8 of 20 rules."
+  pageTitle="Golf Handicap Tracker for iPhone | SundayStroke"
+  description="Track your estimated handicap and its trend with Golf GPS Pro. See how the estimate uses your rounds and how it differs from an official Handicap Index."
   eyebrow="SundayStroke Golf GPS · Handicap"
   headline="Track your"
   accent="handicap."
-  lead="Golf GPS Pro turns your rounds into an Estimated Handicap and shows its trend. The GPS yardages and the scorecard stay free."
+  lead="Golf GPS Pro turns the rounds you play with the app into an estimated handicap and shows its trend. It is a guide to your own game, not an official Handicap Index. The GPS yardages and the scorecard stay free."
   target={{ app: 'golfGps', campaign: 'web-gps-handicap' }}
   highlights={HIGHLIGHTS}
   plans={[]}
   media={MEDIA}
 >
-  <PageSection heading="How it's worked out">
+  <PageSection heading="What the estimated handicap is">
     <p>
-      Read <a class="text-volt" href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>, or try the
-      <a class="text-volt" href={sitePath('/golf-handicap/calculator/')}>handicap calculator</a> with your own scores.
+      A handicap says how many strokes above a course’s difficulty you play on a good day. The estimated handicap in Golf GPS Pro gives you
+      that number from the rounds you keep on the app’s scorecard, so you can follow your progress without joining a club or doing any sums.
+    </p>
+    <p>
+      It appears after your third saved round and changes as you play. The trend shows each update, so you can see whether practice is
+      paying off. Lower is better.
     </p>
   </PageSection>
+
+  <PageSection heading="How the estimate is worked out">
+    <p>
+      Every round becomes a score differential: how far above the course rating you scored, scaled by the slope so rounds on easy and hard
+      courses compare fairly.
+    </p>
+    <p><strong class="text-ice">Differential = (113 ÷ slope) × (adjusted score − course rating)</strong></p>
+    <p>
+      The adjusted score is your total with each hole capped at par + 5, so one lost ball and a 12 does not count in full. The rating and
+      slope come from the tee you picked when you started the round.
+    </p>
+    <p>
+      Then the app averages your lowest differentials. With 20 or more rounds it uses the lowest 8 of your last 20. With fewer it uses
+      fewer, following the same table the World Handicap System uses: with 3 rounds it takes the lowest one and subtracts 2.0. The result
+      is rounded to one decimal and never goes above 54.0. If the app has no rating and slope for a course, it compares your score with
+      par instead, which is rougher.
+    </p>
+    <p>
+      Example: 90 on a tee rated 72.0 with a slope of 113 gives a differential of 18.0. The same 90 from a tee with a slope of 130 gives
+      15.6, because that tee plays harder for everyone.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Estimated handicap vs official Handicap Index">
+    <p>
+      The core math is the same, but an official index is kept by your club or federation, counts all your acceptable scores and adds
+      adjustments the app does not make.
+    </p>
+    <GolfGpsTable table={HANDICAP_COMPARISON} />
+    <p>Use the estimate to see which way your game is going; use an official index for competitions.</p>
+  </PageSection>
+
+  <PageSection heading="How to get an accurate estimate">
+    <GolfGpsSteps steps={HANDICAP_STEPS} />
+  </PageSection>
+
+  <PageSection heading="Learn the math or try your own numbers">
+    <p>
+      Read the full guide to <a class="text-volt" href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>, with the
+      few-rounds table and nine-hole rounds, or enter your own scores in the
+      <a class="text-volt" href={sitePath('/golf-handicap/calculator/')}>handicap calculator</a>. To start saving rounds, see
+      <a class="text-volt" href={sitePath('/golf-gps/scorecard/')}>how the scorecard works</a> and
+      <a class="text-volt" href={sitePath('/golf-gps/')}>what else is in Golf GPS</a>.
+    </p>
+  </PageSection>
+
+  <GolfGpsFaq heading="Handicap questions" items={HANDICAP_FAQ} />
 </FeaturePage>

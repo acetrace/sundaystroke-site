@@ -43,3 +43,6 @@ export const MORE_LINKS: readonly NavLink[] = [
 export const NAV_LINKS: readonly NavLink[] = [...APP_LINKS, ...CONTENT_LINKS, { href: sitePath('/support'), label: 'Support' }];
 
 export const FROZEN_PATHS: readonly string[] = ['/privacy', '/terms', '/support', '/community', '/manual-tracing'];
+
+export const SITE_URL: string = 'https://sundaystroke.com';
+export const BRAND_NAME: string = 'SundayStroke';
