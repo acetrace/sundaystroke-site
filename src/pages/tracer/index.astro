@@ -46,15 +46,13 @@ const PLANS: readonly PlanColumn[] = [
 ];
 
 const MEDIA: readonly MediaItem[] = [
-  { src: '/media/learn/golf-original.jpg', alt: 'A golf swing filmed on iPhone from behind the golfer', caption: 'Golf · before' },
-  { src: '/media/learn/golf-result.jpg', alt: 'The same swing with the golf ball flight drawn as a glowing line', caption: 'Golf · after' },
+  { src: '/media/learn/golf-result.jpg', alt: 'A golf swing with the ball flight drawn as a glowing line', caption: 'Golf · traced' },
   { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn', caption: 'Disc golf · the whole flight' },
   { src: '/media/learn/disc-golf-editing.jpg', alt: 'Key points placed along a disc flight in Free curve', caption: 'Free curve · key points' },
 ];
 
 const GOLF_CLIPS: readonly Clip[] = [
-  { src: '/media/learn/golf-original.mp4', poster: '/media/learn/golf-original.jpg', label: 'Before: the swing as filmed' },
-  { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'After: the traced ball flight' },
+  { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'The traced ball flight' },
 ];
 
 const MODE_ROWS: readonly TracingModeRow[] = [
@@ -103,7 +101,7 @@ const FAQS: readonly FaqItem[] = [
   plans={PLANS}
   media={MEDIA}
 >
-  <PageSection heading="See your golf ball flight before and after">
+  <PageSection heading="See a traced golf ball flight">
     <Prose>
       <p>
         A real swing from the app. On the left, the video as it came off the phone; on the right, the same clip after Tracer followed the ball.

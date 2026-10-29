@@ -40,10 +40,8 @@ const DISC_LINK: TutorialLink = { href: sitePath('/tracer/disc-golf/'), label: '
 const MANUAL_LINK: TutorialLink = { href: sitePath('/manual-tracing'), label: 'manual tracing reference' };
 const GOLF_GPS_LINK: TutorialLink = { href: sitePath('/golf-gps/'), label: 'SundayStroke Golf GPS' };
 
-const GOLF_BEFORE: Clip = { src: '/media/learn/golf-original.mp4', poster: '/media/learn/golf-original.jpg', label: 'Before: the swing as filmed' };
-const GOLF_AFTER: Clip = { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'After: the traced ball flight' };
-const DISC_BEFORE: Clip = { src: '/media/learn/disc-golf-original.mp4', poster: '/media/learn/disc-golf-original.jpg', label: 'Before: the throw as filmed' };
-const DISC_AFTER: Clip = { src: '/media/learn/disc-golf-result.mp4', poster: '/media/learn/disc-golf-result.jpg', label: 'After: the traced disc flight' };
+const GOLF_AFTER: Clip = { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'The traced ball flight' };
+const DISC_AFTER: Clip = { src: '/media/learn/disc-golf-result.mp4', poster: '/media/learn/disc-golf-result.jpg', label: 'The traced disc flight' };
 const DISC_EDITING: Clip = { src: '/media/learn/disc-golf-editing.mp4', poster: '/media/learn/disc-golf-editing.jpg', label: 'Editing: key points placed along a Free curve line' };
 
 const STABILIZATION: TutorialSetting = {
@@ -86,14 +84,14 @@ export const TUTORIALS: readonly Tutorial[] = [
     category: 'golf',
     title: 'How to add a golf ball tracer to an iPhone video',
     pageTitle: 'How to Add a Golf Ball Tracer to iPhone Video · SundayStroke',
-    description: 'Film a clear golf shot, select the ball, review automatic tracking and save the result. An iPhone tutorial with real before and after clips.',
+    description: 'Film a clear golf shot, select the ball, review automatic tracking and save the result. An iPhone tutorial with a real traced clip.',
     summary: 'Film a swing, select the ball in Trace golf, check the arc, save.',
     intro: [
       'A traced ball flight turns an ordinary range or course clip into something people stop scrolling for. With SundayStroke Tracer you do it on the phone you filmed with: select the ball once at the start of the flight and Tracer follows it through the air.',
-      'This guide covers filming, the steps in the app, the line settings and the fixes when a trace goes wrong. The clips below are a real swing, before and after.',
+      'This guide covers filming, the steps in the app, the line settings and the fixes when a trace goes wrong. The clip below is a real swing traced in the app.',
     ],
     hero: null,
-    clips: [GOLF_BEFORE, GOLF_AFTER],
+    clips: [GOLF_AFTER],
     sections: [
       {
         heading: 'What you need before filming',
@@ -196,10 +194,10 @@ export const TUTORIALS: readonly Tutorial[] = [
     summary: 'Free curve for discs: select at release, fix the turn and fade.',
     intro: [
       'A disc does not fly like a golf ball. It turns, glides, fades and sometimes skips, and that shape is exactly what makes a traced disc golf clip worth watching. SundayStroke Tracer handles discs in its Free curve mode: select the disc at release and Tracer can follow it, then you add or move key points wherever the line needs help.',
-      'Below is a real throw, before and after, and where points do the most good as the flight changes direction.',
+      'Below is a real traced throw, and where points do the most good as the flight changes direction.',
     ],
     hero: null,
-    clips: [DISC_BEFORE, DISC_AFTER],
+    clips: [DISC_AFTER],
     sections: [
       {
         heading: 'Film the release and the complete disc flight',
@@ -397,7 +395,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       'SundayStroke Tracer is built for this. Its stabilization keeps the line anchored to the scene while the phone moves, so handheld clips trace cleanly. This guide explains how to film handheld for the best result, which setting to pick, and how to diagnose a line that still drifts.',
     ],
     hero: null,
-    clips: [GOLF_BEFORE, GOLF_AFTER],
+    clips: [GOLF_AFTER],
     sections: [
       {
         heading: 'Why a moving camera makes a tracer drift',
@@ -599,7 +597,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       'This is the whole plan, written for phones: where to put the camera for each throw, filming on your own, tracing in Free curve, and a clip that looks good on a small screen. Below is a finished trace from the app.',
     ],
     hero: { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw in Tracer with the whole flight drawn from release to landing', caption: 'A finished trace: the whole disc flight, from release to landing', width: 601, height: 1036 },
-    clips: [DISC_BEFORE, DISC_AFTER],
+    clips: [DISC_AFTER],
     sections: [
       {
         heading: 'Where to put the phone for each throw',
@@ -718,7 +716,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       'The important part is where the number comes from. Tracer does not work out how far a shot went. The label shows what you type, so this guide covers where to get a number you can trust, how to add it, and how to make it read well.',
     ],
     hero: null,
-    clips: [GOLF_BEFORE, GOLF_AFTER],
+    clips: [GOLF_AFTER],
     sections: [
       {
         heading: 'Where the distance comes from',
@@ -815,7 +813,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       'This guide covers when to use it, how to get it right, and the honest limit: the camera never saw the ball behind the tree, so that part of the line is your best judgment of where it went.',
     ],
     hero: null,
-    clips: [DISC_BEFORE, DISC_AFTER],
+    clips: [DISC_AFTER],
     sections: [
       {
         heading: 'When the flight goes behind something',

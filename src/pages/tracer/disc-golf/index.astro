@@ -28,14 +28,12 @@ const HIGHLIGHTS: readonly Highlight[] = [
 
 const MEDIA: readonly MediaItem[] = [
   { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn from release to landing', caption: 'The whole flight' },
-  { src: '/media/learn/disc-golf-original.jpg', alt: 'A disc golf throw filmed on iPhone', caption: 'Before' },
-  { src: '/media/learn/disc-golf-result.jpg', alt: 'The same throw with the disc flight drawn', caption: 'After' },
+  { src: '/media/learn/disc-golf-result.jpg', alt: 'A disc golf throw with the disc flight drawn', caption: 'Traced throw' },
   { src: '/media/learn/disc-golf-editing.jpg', alt: 'Adding key points along the disc flight in Free curve', caption: 'Adding points' },
 ];
 
 const DISC_CLIPS: readonly Clip[] = [
-  { src: '/media/learn/disc-golf-original.mp4', poster: '/media/learn/disc-golf-original.jpg', label: 'Before: the throw as filmed' },
-  { src: '/media/learn/disc-golf-result.mp4', poster: '/media/learn/disc-golf-result.jpg', label: 'After: the traced disc flight' },
+  { src: '/media/learn/disc-golf-result.mp4', poster: '/media/learn/disc-golf-result.jpg', label: 'The traced disc flight' },
 ];
 
 const EDITING_CLIPS: readonly Clip[] = [
@@ -84,10 +82,10 @@ const FAQS: readonly FaqItem[] = [
   plans={[]}
   media={MEDIA}
 >
-  <PageSection heading="Watch a disc flight with and without a trace">
+  <PageSection heading="Watch a traced disc flight">
     <Prose>
       <p>
-        A real throw from the app. On the left, the video as filmed; on the right, the finished trace. The flight line makes the shape of the
+        A real throw traced in the app. The flight line makes the shape of the
         throw obvious in a way the disc alone never does on a small screen.
       </p>
       <ClipPair clips={DISC_CLIPS} />
