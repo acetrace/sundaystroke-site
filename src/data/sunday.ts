@@ -8,10 +8,9 @@ export const SUNDAY_ISSUES: readonly SundayIssue[] = [
     title: 'The Sunday post, issue 1',
     summary: 'A Monday play-off in Bermuda, a course-management habit worth stealing, and a million-dollar milestone.',
     leadText:
-      'Here is a swing from the Tracer app, before and after: the ball leaves the club, and Tracer draws its flight onto the video. Film yours this weekend and see the line.',
+      'Here is a swing traced in the Tracer app: the ball leaves the club, and Tracer draws its flight onto the video. Film yours this weekend and see the line.',
     leadClips: [
-      { src: '/media/learn/golf-original.mp4', poster: '/media/learn/golf-original.jpg', label: 'Before' },
-      { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'After' },
+      { src: '/media/learn/golf-result.mp4', poster: '/media/learn/golf-result.jpg', label: 'Traced' },
     ],
     sections: [
       {
