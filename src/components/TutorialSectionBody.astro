@@ -1,0 +1,28 @@
+---
+import type { TutorialSection } from '../types/tutorial';
+
+interface Props {
+  section: TutorialSection;
+}
+
+const { section } = Astro.props;
+---
+<h2>{section.heading}</h2>
+{section.blocks.map((block) => {
+  switch (block.kind) {
+    case 'paragraph':
+      return <p>{block.text}</p>;
+    case 'subheading':
+      return <h3>{block.text}</h3>;
+    case 'steps':
+      return <ol>{block.items.map((item) => <li>{item}</li>)}</ol>;
+    case 'tips':
+      return <ul>{block.items.map((item) => <li>{item}</li>)}</ul>;
+    case 'linked':
+      return <p>{block.before}<a href={block.link.href}>{block.link.label}</a>{block.after}</p>;
+    default: {
+      const unhandled: never = block;
+      throw new Error(`Unhandled tutorial block: ${JSON.stringify(unhandled)}`);
+    }
+  }
+})}
