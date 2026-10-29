@@ -6,13 +6,17 @@ import SectionHeading from './SectionHeading.astro';
 import Prose from './Prose.astro';
 import StoreCalls from './StoreCalls.astro';
 import { AI_ASSISTED_NOTE, CONTENT_BYLINE } from '../data/site';
+import { isoDate } from '../utils/dates';
 import type { ArticleProps } from '../types/article';
+import type { PageSeo } from '../types/seo';
 
 type Props = ArticleProps;
 
 const { pageTitle, description, eyebrow, heading, published, banner, calls } = Astro.props;
+const publishedIso: string = isoDate(published);
+const seo: PageSeo = { kind: 'article', headline: heading, published: publishedIso };
 ---
-<Layout title={pageTitle} description={description} banner={banner}>
+<Layout title={pageTitle} description={description} banner={banner} seo={seo}>
   <NavBar />
   <main class="ss-ground pb-24 pt-32 md:pt-36">
     <article class="container max-w-3xl">
@@ -20,7 +24,7 @@ const { pageTitle, description, eyebrow, heading, published, banner, calls } = A
         <span class="ss-eyebrow">{eyebrow}</span>
         <SectionHeading level="h1" text={heading} />
         <p class="ss-tag text-mist">
-          By <span class="byline">{CONTENT_BYLINE}</span> · <time>{published}</time> · {AI_ASSISTED_NOTE}
+          By <span class="byline">{CONTENT_BYLINE}</span> · <time datetime={publishedIso}>{published}</time> · {AI_ASSISTED_NOTE}
         </p>
       </header>
 
