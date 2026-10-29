@@ -1,0 +1,14 @@
+---
+import { sitePath } from '../utils/paths';
+import type { MediaItem } from '../types/feature';
+
+interface Props {
+  item: MediaItem;
+}
+
+const { item } = Astro.props;
+---
+<figure class="flex max-w-[260px] flex-col gap-2">
+  <img class="ss-media w-full" src={sitePath(item.src)} alt={item.alt} loading="lazy" width="600" />
+  <figcaption class="ss-tag text-mist">{item.caption}</figcaption>
+</figure>

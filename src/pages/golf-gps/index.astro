@@ -1,48 +1,118 @@
 ---
 import FeaturePage from '../../components/FeaturePage.astro';
 import PageSection from '../../components/PageSection.astro';
+import GolfGpsTable from '../../components/GolfGpsTable.astro';
+import GolfGpsSteps from '../../components/GolfGpsSteps.astro';
+import GolfGpsFaq from '../../components/GolfGpsFaq.astro';
+import GolfGpsFigure from '../../components/GolfGpsFigure.astro';
 import { sitePath } from '../../utils/paths';
 import { GOLF_GPS_SITE_URL } from '../../data/site';
-import { GOLF_GPS_PLANS, GOLF_GPS_SCREENS } from '../../data/golfGps';
+import {
+  GOLF_GPS_FAQ,
+  GOLF_GPS_HANDICAP_SCREEN,
+  GOLF_GPS_PLANS,
+  GOLF_GPS_ROUND_STEPS,
+  GOLF_GPS_SCREENS,
+  GOLF_GPS_YARDAGE_EXAMPLE,
+} from '../../data/golfGps';
 import type { Highlight } from '../../types/feature';
 
 const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'Yardages',
-    title: 'Distance to the green',
-    body: 'Open the app on the tee and see the yardage to the green on a satellite map of the hole.',
+    title: 'Front, center and back',
+    body: 'Every hole opens on a satellite map with your distance to the front, center and back of the green, in yards or meters.',
   },
   {
     tag: 'Scorecard',
-    title: 'A scorecard that keeps itself',
-    body: 'Tap your score as you go. Every round saves itself to your history, ready to share as an image.',
+    title: 'Enter a score, the rest adds up',
+    body: 'Tap plus or minus for each hole. Your totals and score against par update, and the round saves to your history.',
   },
   {
-    tag: 'Handicap',
-    title: 'Your Estimated Handicap',
-    body: 'With Golf GPS Pro, your rounds turn into an estimated handicap and a trend, worked out the way the World Handicap System does it.',
+    tag: 'Free',
+    title: 'Free, with no ads',
+    body: 'Yardages, the scorecard, history and sharing are free. Golf GPS Pro adds an estimated handicap, stats and shot tracking.',
   },
 ];
 ---
 <FeaturePage
-  pageTitle="SundayStroke Golf GPS · Yardages, scorecard and handicap"
-  description="SundayStroke Golf GPS is a golf scorecard with GPS yardages. Free GPS and scorecard; Golf GPS Pro adds your handicap, stats and shot tracking."
+  pageTitle="SundayStroke Golf GPS | Free iPhone Rangefinder"
+  description="See front, center and back yardages on satellite hole maps. Keep scores and round history free; explore Golf GPS Pro for additional tracking and stats."
   eyebrow="SundayStroke Golf GPS · iPhone"
   headline="Your yardage."
   accent="Your scorecard."
-  lead="Open the app, see your distance to the green, tap your score. Every round saves itself. Free GPS and scorecard; Golf GPS Pro adds your handicap, stats and shot tracking."
+  lead="A free golf GPS for iPhone: front, center and back yardages on a satellite map of every hole, a movable Target for layups, and a scorecard where you enter each hole and the totals add up. No ads."
   target={{ app: 'golfGps', campaign: 'web-gps-home' }}
   highlights={HIGHLIGHTS}
   plans={GOLF_GPS_PLANS}
   media={GOLF_GPS_SCREENS}
 >
-  <PageSection heading="More about Golf GPS">
+  <PageSection heading="Front, center and back yardages on a satellite map">
     <p>
-      Read how <a class="text-volt" href={sitePath('/golf-gps/scorecard/')}>the scorecard</a> works and how
-      <a class="text-volt" href={sitePath('/golf-gps/handicap/')}>your Estimated Handicap</a> is worked out.
+      Greens have depth, so one number to “the green” leaves a lot of guesswork. Golf GPS shows three: the front edge,
+      the middle and the back edge, measured from where you stand, on a satellite picture of the hole.
+    </p>
+    <GolfGpsTable table={GOLF_GPS_YARDAGE_EXAMPLE} />
+    <p>
+      In this example the green is 28 yards from front to back, about two clubs for most golfers. Center is the middle of the green, not the flag. When the pin is cut at the back, club up toward the back number; when it sits at
+      the front, play to the front number plus a few yards. If there is water or a bunker short, make sure your carry beats the front number.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Plan a layup with the movable Target">
+    <p>
+      On long holes the best shot is often not at the green. Drag the Target anywhere on the map and you get two distances:
+      from you to the Target, and from the Target to the green.
     </p>
     <p>
-      Golf GPS also has its own site at <a class="text-volt" href={GOLF_GPS_SITE_URL}>golfgps.ai</a>.
+      Say you are 250 yards out and your favorite wedge is 100 yards. Slide the Target until it reads 100 to the green, check that the spot
+      is clear of bunkers, and the other number tells you what to hit now, here 150.
+    </p>
+  </PageSection>
+
+  <PageSection heading="Find your course, even with poor signal">
+    <p>
+      Courses near you are found automatically when you open the app. Pick your tee and the course rating and slope are set for the round.
+    </p>
+    <p>
+      Courses you played recently keep their data on your phone, which helps on courses where signal drops out. When your phone’s GPS
+      fix is weak, the app tells you and shows roughly how far off the distances may be, so you know when to trust them.
+    </p>
+  </PageSection>
+
+  <PageSection heading="How to use Golf GPS on the course, hole by hole">
+    <GolfGpsSteps steps={GOLF_GPS_ROUND_STEPS} />
+  </PageSection>
+
+  <PageSection heading="Keep score and save every round">
+    <p>
+      You enter your strokes for each hole with one tap of plus or minus, and the app adds up your front nine, back nine, total and
+      score against par. Every finished round is saved to your history and can be shared as an image. <a class="text-volt" href={sitePath('/golf-gps/scorecard/')}>How the scorecard works</a>.
+    </p>
+  </PageSection>
+
+  <PageSection heading="What Golf GPS Pro adds">
+    <GolfGpsFigure item={GOLF_GPS_HANDICAP_SCREEN} />
+    <p>
+      Golf GPS Pro turns your saved rounds into an estimated handicap and shows its trend. It uses your tee’s rating and slope and your lowest score
+      differentials, like the World Handicap System, but it is an estimate, not an official Handicap Index. <a class="text-volt" href={sitePath('/golf-gps/handicap/')}>How the estimated handicap works</a>.
+    </p>
+    <p>
+      Pro also adds stats and trends across your rounds, and shot tracking: mark each shot on the map and see how far it went, with your
+      average and longest tracked shot.
+    </p>
+  </PageSection>
+
+  <GolfGpsFaq heading="Golf GPS questions" items={GOLF_GPS_FAQ} />
+
+  <PageSection heading="More about Golf GPS">
+    <p>
+      See how <a class="text-volt" href={sitePath('/compare/golf-gps/')}>free golf GPS apps compare</a>, read
+      <a class="text-volt" href={sitePath('/golf-handicap/')}>how a golf handicap is calculated</a>, or work out your own with the
+      <a class="text-volt" href={sitePath('/golf-handicap/calculator/')}>handicap calculator</a>.
+    </p>
+    <p>
+      Golf GPS also has its own site: <a class="text-volt" href={GOLF_GPS_SITE_URL}>golfgps.ai</a>.
     </p>
   </PageSection>
 </FeaturePage>

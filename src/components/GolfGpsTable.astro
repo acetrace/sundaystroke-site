@@ -1,0 +1,28 @@
+---
+import type { GolfGpsTableData } from '../types/golfGps';
+
+interface Props {
+  table: GolfGpsTableData;
+}
+
+const { table } = Astro.props;
+---
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse text-left text-body">
+    <caption class="ss-tag pb-3 text-left text-mist">{table.caption}</caption>
+    <thead>
+      <tr class="border-b border-line">
+        {table.columns.map((column) => <th scope="col" class="py-2 pr-4 font-semibold text-ice">{column}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {table.rows.map((row) => (
+        <tr class="border-b border-line">
+          {row.map((cell, index) => index === 0
+            ? <th scope="row" class="py-2 pr-4 align-top font-semibold text-ice">{cell}</th>
+            : <td class="py-2 pr-4 align-top text-mist">{cell}</td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
