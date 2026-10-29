@@ -598,7 +598,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       'Flight lines on disc golf coverage used to mean desktop editing software and an evening of frame-by-frame work. Now you can make the same clip with only an iPhone: film the throw, trace it in SundayStroke Tracer, and post it before the next tee.',
       'This is the whole plan, written for phones: where to put the camera for each throw, filming on your own, tracing in Free curve, and a clip that looks good on a small screen. Below is a finished trace from the app.',
     ],
-    hero: { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw in Tracer with the whole flight drawn from release to landing', caption: 'A finished trace: the whole disc flight, from release to landing' },
+    hero: { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw in Tracer with the whole flight drawn from release to landing', caption: 'A finished trace: the whole disc flight, from release to landing', width: 601, height: 1036 },
     clips: [DISC_BEFORE, DISC_AFTER],
     sections: [
       {

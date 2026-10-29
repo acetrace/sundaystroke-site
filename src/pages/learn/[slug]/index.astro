@@ -31,8 +31,8 @@ const related: readonly Tutorial[] = relatedTutorials(tutorial);
   {tutorial.intro.map((paragraph) => <p>{paragraph}</p>)}
 
   {tutorial.hero !== null && (
-    <figure class="not-prose my-10 flex flex-col gap-2">
-      <img class="ss-media w-full" src={sitePath(tutorial.hero.src)} alt={tutorial.hero.alt} width="1200" />
+    <figure class="not-prose mx-auto my-10 flex max-w-sm flex-col gap-2">
+      <img class="ss-media h-auto w-full" src={sitePath(tutorial.hero.src)} alt={tutorial.hero.alt} width={tutorial.hero.width} height={tutorial.hero.height} />
       <figcaption class="ss-tag text-mist">{tutorial.hero.caption}</figcaption>
     </figure>
   )}
