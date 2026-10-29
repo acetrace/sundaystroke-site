@@ -739,7 +739,7 @@ export const TUTORIALS: readonly Tutorial[] = [
         blocks: [
           steps([
             'Trace the shot first in Trace golf, or the throw in Free curve, and check the line with Preview.',
-            'Find the distance label among the line options and switch it on.',
+            'Open Effects, tap Distance and type the length of the shot.',
             'Type the distance of the shot.',
             'Preview the clip. The counter runs up during the flight and finishes on your number as the line reaches the landing point.',
             'Save the video to Photos.',
@@ -844,7 +844,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       {
         heading: 'Keep the obstacle in front of the line',
         blocks: [
-          p('With the line in place, use the line\'s customize options to show the trajectory behind the obstacle or to make the section that passes behind it transparent. The tree or pole then appears in front, and the line picks up again on the other side.'),
+          p('With the line in place, open Effects, tap Color segments, mark the section that passes behind the obstacle and give it the clear style, so that part of the line turns transparent. The tree or pole then appears in front, and the line picks up again on the other side.'),
           tips([
             'Start the hidden section exactly where the ball goes behind the obstacle, and end it where it comes out. A few frames off and the line pops out of the trunk.',
             'Scrub through those frames slowly to check the edges.',
