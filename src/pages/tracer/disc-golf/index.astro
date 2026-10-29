@@ -1,48 +1,178 @@
 ---
 import FeaturePage from '../../../components/FeaturePage.astro';
 import PageSection from '../../../components/PageSection.astro';
+import Prose from '../../../components/Prose.astro';
+import ClipPair from '../../../components/ClipPair.astro';
+import TracerFaqList from '../../../components/TracerFaqList.astro';
 import { sitePath } from '../../../utils/paths';
 import type { Highlight, MediaItem } from '../../../types/feature';
+import type { Clip, FaqItem, TroubleshootingItem } from '../../../types/tutorial';
 
 const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'Free curve',
-    title: 'A few points, one smooth line',
-    body: 'Scroll the timeline, move the cursor onto the disc and add key points. Tracer joins them into a smooth flight line.',
+    title: 'Follows your disc',
+    body: 'Select the disc at release and Tracer can follow it through the flight. Add or move key points wherever the line drifts.',
   },
   {
     tag: 'Any throw',
-    title: 'Every kind of throw',
-    body: 'Drives, approaches and putts: if you can see the disc in the video, you can mark its path.',
+    title: 'Drives to putts',
+    body: 'Hyzers, anhyzers, rollers, upshots and putts: if you can see the disc in the video, you can draw its line.',
   },
   {
-    tag: 'Share',
-    title: 'Straight to your camera roll',
-    body: 'Pick the line color, width and 3D look, then save the video to Photos and post it.',
+    tag: 'Phone only',
+    title: 'No tripod, no computer',
+    body: 'Film in your hands or with the phone leaning on your bag, trace it in the app and post it before the next tee.',
   },
 ];
 
 const MEDIA: readonly MediaItem[] = [
-  { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn', caption: 'The whole flight' },
-  { src: '/media/learn/disc-golf-editing.jpg', alt: 'Adding key points along the disc flight in Tracer', caption: 'Adding points' },
+  { src: '/media/learn/disc-golf-flight.jpg', alt: 'A disc golf throw with its whole flight drawn from release to landing', caption: 'The whole flight' },
+  { src: '/media/learn/disc-golf-original.jpg', alt: 'A disc golf throw filmed on iPhone', caption: 'Before' },
+  { src: '/media/learn/disc-golf-result.jpg', alt: 'The same throw with the disc flight drawn', caption: 'After' },
+  { src: '/media/learn/disc-golf-editing.jpg', alt: 'Adding key points along the disc flight in Free curve', caption: 'Adding points' },
+];
+
+const DISC_CLIPS: readonly Clip[] = [
+  { src: '/media/learn/disc-golf-original.mp4', poster: '/media/learn/disc-golf-original.jpg', label: 'Before: the throw as filmed' },
+  { src: '/media/learn/disc-golf-result.mp4', poster: '/media/learn/disc-golf-result.jpg', label: 'After: the traced disc flight' },
+];
+
+const EDITING_CLIPS: readonly Clip[] = [
+  { src: '/media/learn/disc-golf-editing.mp4', poster: '/media/learn/disc-golf-editing.jpg', label: 'Placing key points along the flight' },
+];
+
+const FIXES: readonly TroubleshootingItem[] = [
+  { problem: 'The line cuts inside the turn', cause: 'No point at the widest part', fix: 'Add a key point on the disc where the turn is widest' },
+  { problem: 'The line hooks too early', cause: 'The fade point is on the wrong frame', fix: 'Move it to the frame where the disc starts to fade' },
+  { problem: 'The line follows a bird or branch', cause: 'Something crossed the disc', fix: 'Resize the track in the timeline, then add points by hand' },
+  { problem: 'The line slides when the camera moves', cause: 'Camera movement', fix: 'Set stabilization to Smart or Fast in Settings' },
+];
+
+const FAQS: readonly FaqItem[] = [
+  {
+    question: 'Does Tracer follow a disc automatically?',
+    answer: 'Yes, in Free curve. Select the disc at release and Tracer can follow it. You add or move key points by hand where the line drifts.',
+  },
+  {
+    question: 'Can it trace a disc hidden by a tree?',
+    answer: 'You can draw the line around an obstruction and keep the tree in front of it, but the hidden flight is not in the video. The line there is your estimate, so check it looks right.',
+  },
+  {
+    question: 'Do I need a tripod?',
+    answer: 'No. Hold the phone or lean it on your bag. Stabilization keeps the line anchored when the camera moves.',
+  },
+  {
+    question: 'Can I show how far the throw went?',
+    answer: 'Yes. Type the distance and the line shows a counter that runs up to it during the flight. The number is the one you type.',
+  },
+  {
+    question: 'Is it free?',
+    answer: 'Free curve and the disc tracking are free, with the Floodlit and white lines and some free saves with a small watermark. Premium adds unlimited saves with no watermark, more styles and the effects.',
+  },
 ];
 ---
 <FeaturePage
-  pageTitle="Tracer for disc golf · SundayStroke"
-  description="Draw the flight of your disc onto the videos you film on iPhone with SundayStroke Tracer's free curve mode."
+  pageTitle="Disc Golf Tracer App for iPhone | SundayStroke"
+  description="Add a flight line to disc golf videos on iPhone. Shape drives, approaches and putts with Free curve, then style and save your finished clip."
   eyebrow="SundayStroke Tracer · Disc golf"
-  headline="Show the line"
-  accent="your disc flew."
-  lead="Film your throw, mark a few points along the flight, and Tracer draws the curve onto your video."
+  headline="Disc golf tracer"
+  accent="for your iPhone videos."
+  lead="Film your throw, select the disc at release, and Tracer draws the flight onto your video: the turn, the glide and the fade. Fix any part by hand with a few key points."
   target={{ app: 'tracer', campaign: 'web-tracer-discgolf' }}
   highlights={HIGHLIGHTS}
   plans={[]}
   media={MEDIA}
 >
-  <PageSection heading="Try it step by step">
-    <p>
-      The <a class="text-volt" href={sitePath('/learn/film-a-disc-flight/')}>disc flight tutorial</a> walks through a real throw,
-      and <a class="text-volt" href={sitePath('/tracer/')}>the Tracer page</a> says what's free and what Premium adds.
-    </p>
+  <PageSection heading="Watch a disc flight with and without a trace">
+    <Prose>
+      <p>
+        A real throw from the app. On the left, the video as filmed; on the right, the finished trace. The flight line makes the shape of the
+        throw obvious in a way the disc alone never does on a small screen.
+      </p>
+      <ClipPair clips={DISC_CLIPS} />
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="How Free curve follows a disc's changing flight">
+    <Prose>
+      <p>
+        Discs turn, glide and fade, so they use Free curve rather than the golf mode. Tap Free curve on the home screen, pick your throw,
+        scroll to the frame just after release and select the disc with the cursor. Tracer can follow it from there.
+      </p>
+      <h3>Mark release, turns and landing</h3>
+      <p>
+        Watch the playback. Where the line leaves the disc, add a key point on it. The places that matter most are just after release, the
+        widest part of the turn, the start of the fade, and the landing. Four to ten points describe most throws.
+      </p>
+      <ClipPair clips={EDITING_CLIPS} />
+      <h3>Adjust points when the line drifts</h3>
+      <table>
+        <thead><tr><th>What you see</th><th>Why</th><th>What to do</th></tr></thead>
+        <tbody>
+          {FIXES.map((fix) => <tr><td>{fix.problem}</td><td>{fix.cause}</td><td>{fix.fix}</td></tr>)}
+        </tbody>
+      </table>
+      <p>The full walkthrough is in <a href={sitePath('/learn/film-a-disc-flight/')}>how to trace a disc golf flight on iPhone</a>.</p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Drives, approaches and putts">
+    <Prose>
+      <ul>
+        <li><strong>Drives:</strong> film from 3 to 5 meters behind the tee pad, a step to the side of the run-up. The whole S-shape of the flight shows from here.</li>
+        <li><strong>Approaches:</strong> film from the side, roughly level with the peak, to show height and the release angle.</li>
+        <li><strong>Putts:</strong> film from behind the putter or beside the basket, with both release and chains in the frame. Two or three points are enough.</li>
+      </ul>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Film handheld and keep the flight visible">
+    <Prose>
+      <p>
+        No tripod needed. Hold the phone in both hands with your elbows tucked, or lean it on your bag. Stabilization keeps the line anchored
+        if the camera moves; choose Smart, Fast or Off in Settings.
+      </p>
+      <ul>
+        <li>Use the 1x lens. The 0.5x lens makes the disc tiny in the air.</li>
+        <li>Lock focus and exposure by touching and holding on the tee pad before the throw.</li>
+        <li>Throw a bright disc: orange, pink and yellow stand out against trees; white disappears against cloud.</li>
+        <li>Keep recording until the disc lands.</li>
+      </ul>
+      <p>
+        On your own on the course? <a href={sitePath('/learn/add-tracer-to-disc-golf-video/')}>The phone-only disc golf tracer guide</a> covers
+        where to prop the phone for every kind of throw.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Finish the line behind trees and obstacles">
+    <Prose>
+      <p>
+        Wooded fairways mean the disc often passes behind a trunk. Tracer can show the trajectory behind obstacles and make sections of the line
+        transparent, so the tree stays in front of the flight. Place a key point where the disc goes behind and one where it comes out, then
+        hide the part in between. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Style the line and add a distance">
+    <Prose>
+      <p>
+        Choose a color that stands out from the trees and sky, set the width and turn on Render 3D line for depth. With Premium, add a
+        gradient, electricity or wave effects, a tail length or a landing effect for an ace. To show how far the throw went, type the distance
+        and a counter runs up to it as the disc flies. Then save to Photos and post.
+      </p>
+    </Prose>
+  </PageSection>
+
+  <PageSection heading="Free access, Premium and common questions">
+    <Prose>
+      <TracerFaqList faqs={FAQS} />
+      <p>
+        Golf too: see <a href={sitePath('/tracer/')}>Tracer for golf</a>. For every button and gesture, see the
+        <a href={sitePath('/manual-tracing')}>manual tracing reference</a>.
+      </p>
+    </Prose>
   </PageSection>
 </FeaturePage>

@@ -1,7 +1,9 @@
 ---
 import ArticlePage from '../../../components/ArticlePage.astro';
 import ClipPair from '../../../components/ClipPair.astro';
-import { TUTORIALS, TUTORIALS_PUBLISHED } from '../../../data/tutorials';
+import TutorialSectionBody from '../../../components/TutorialSectionBody.astro';
+import TracerFaqList from '../../../components/TracerFaqList.astro';
+import { TUTORIALS, TUTORIALS_PUBLISHED, relatedTutorials } from '../../../data/tutorials';
 import { sitePath } from '../../../utils/paths';
 import type { Tutorial } from '../../../types/tutorial';
 import type { GetStaticPaths } from 'astro';
@@ -15,10 +17,10 @@ export const getStaticPaths = (() =>
   TUTORIALS.map((tutorial) => ({ params: { slug: tutorial.slug }, props: { tutorial } }))) satisfies GetStaticPaths;
 
 const { tutorial } = Astro.props;
-
+const related: readonly Tutorial[] = relatedTutorials(tutorial);
 ---
 <ArticlePage
-  pageTitle={`${tutorial.title} · SundayStroke Tracer`}
+  pageTitle={tutorial.pageTitle}
   description={tutorial.description}
   eyebrow="Learn · Tracer"
   heading={tutorial.title}
@@ -26,25 +28,60 @@ const { tutorial } = Astro.props;
   banner={TRACER_HOWTO_TARGET}
   calls={TRACER_HOWTO_CALLS}
 >
-  <p>{tutorial.intro}</p>
+  {tutorial.intro.map((paragraph) => <p>{paragraph}</p>)}
 
-  <ClipPair clips={[tutorial.before, tutorial.after]} />
-
-  <h2>Steps</h2>
-  <ol>
-    {tutorial.steps.map((step) => <li>{step}</li>)}
-  </ol>
-
-  <h2>Settings</h2>
-  <ul class="settings">
-    {tutorial.settings.map((setting) => (
-      <li><strong>{setting.name}:</strong> {setting.value}</li>
-    ))}
-  </ul>
-
-  {tutorial.related !== null && (
-    <p>{tutorial.related.lead} <a href={tutorial.related.href}>{tutorial.related.label}</a>.</p>
+  {tutorial.hero !== null && (
+    <figure class="not-prose mx-auto my-10 flex max-w-sm flex-col gap-2">
+      <img class="ss-media h-auto w-full" src={sitePath(tutorial.hero.src)} alt={tutorial.hero.alt} width={tutorial.hero.width} height={tutorial.hero.height} />
+      <figcaption class="ss-tag text-mist">{tutorial.hero.caption}</figcaption>
+    </figure>
   )}
 
-  <p><a href={sitePath('/learn/')}>All tutorials</a></p>
+  {tutorial.clips.length > 0 && <ClipPair clips={tutorial.clips} />}
+
+  {tutorial.sections.map((section) => <TutorialSectionBody section={section} />)}
+
+  {tutorial.settings.length > 0 && (
+    <>
+      <h2>Settings to start with</h2>
+      <table>
+        <thead><tr><th>Setting</th><th>Try</th><th>When</th></tr></thead>
+        <tbody>
+          {tutorial.settings.map((setting) => (
+            <tr><td><strong>{setting.name}</strong></td><td>{setting.value}</td><td>{setting.when}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  )}
+
+  {tutorial.troubleshooting.length > 0 && (
+    <>
+      <h2>Troubleshooting</h2>
+      {tutorial.troubleshooting.map((item) => (
+        <>
+          <h3>{item.problem}</h3>
+          <p><strong>Why it happens:</strong> {item.cause}</p>
+          <p><strong>Fix:</strong> {item.fix}</p>
+        </>
+      ))}
+    </>
+  )}
+
+  {tutorial.faqs.length > 0 && (
+    <>
+      <h2>Questions</h2>
+      <TracerFaqList faqs={tutorial.faqs} />
+    </>
+  )}
+
+  <h2>Related guides</h2>
+  <ul>
+    {related.map((guide) => (
+      <li><a href={sitePath(`/learn/${guide.slug}/`)}>{guide.title}</a>: {guide.summary}</li>
+    ))}
+    <li><a href={tutorial.productLink.href}>{tutorial.productLink.label}</a>: what the app does, and what is free.</li>
+  </ul>
+
+  <p><a href={sitePath('/learn/')}>All Tracer tutorials</a></p>
 </ArticlePage>
