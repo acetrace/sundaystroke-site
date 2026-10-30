@@ -11,16 +11,13 @@ import {
 } from '../../../data/comparisons';
 import { TRACER_COMPARE_CALLS } from '../../../data/storeCalls';
 
-const VISUAL_VERTIGO_URL: string = listingUrl(TRACER_RIVALS.visualVertigo);
 const GOLF_TRACER_URL: string = listingUrl(TRACER_RIVALS.golfTracer);
-const TRACK_YOUR_SHOTS_URL: string = listingUrl(TRACER_RIVALS.trackYourShots);
-const V1_GOLF_URL: string = listingUrl(TRACER_RIVALS.v1Golf);
 ---
 <ComparisonPage
   pageTitle="Golf Ball Tracer Apps Compared for iPhone | SundayStroke"
   description="SundayStroke Tracer next to four iPhone golf ball tracer apps: disc golf support, automatic tracking you can correct, handheld filming and what it costs to start. Every fact sourced and dated."
   heading="Golf ball tracer apps compared"
-  intro="Five iPhone apps that put a flight line on a golf video: ours, SundayStroke Tracer, and four others golfers find on the App Store. This page sets out where Tracer comes out ahead, with every competitor fact linked to the listing it came from."
+  intro="Five iPhone apps that put a flight line on a golf video: ours, SundayStroke Tracer, and four others on the App Store. This page sets out where Tracer comes out ahead, with every competitor fact linked to the listing it came from."
   advantages={TRACER_ADVANTAGES}
   table={TRACER_TABLE}
   checkedOn={COMPARISONS_CHECKED_ON}
@@ -35,16 +32,15 @@ const V1_GOLF_URL: string = listingUrl(TRACER_RIVALS.v1Golf);
     release, and you add or move key points wherever the line drifts.
   </p>
   <p>
-    None of the four other listings we checked mention disc golf. If you play both games, or you film a disc golf card on
-    Saturday and a golf round on Sunday, you only need one app. Our <a href={sitePath('/tracer/disc-golf/')}>disc golf page</a>
+    If you play both games, or you film a disc golf card on Saturday and a golf round on Sunday, you only need one app. Our <a href={sitePath('/tracer/disc-golf/')}>disc golf page</a>
     shows a real traced throw, and the <a href={sitePath('/learn/film-a-disc-flight/')}>disc filming tutorial</a> walks
     you through the settings.
   </p>
 
   <h2>Automatic tracking you can correct</h2>
   <p>
-    Automatic tracking saves the slow part, but no tracker is right on every frame. A bird, a flag or a bright cart path can pull
-    a line off the ball. Tracer lets you fix that in seconds instead of starting again:
+    Automatic tracking saves the slow part, but review the result: something else in the frame can pull a line off the ball. Tracer
+    lets you correct it instead of starting again:
   </p>
   <ul>
     <li><strong>Move the landing point and the arc</strong> by hand in Trace golf, so the line ends where the ball came down.</li>
@@ -52,22 +48,18 @@ const V1_GOLF_URL: string = listingUrl(TRACER_RIVALS.v1Golf);
     <li><strong>Add or move key points</strong> in Free curve where a disc line drifts.</li>
   </ul>
   <p>
-    The Golf Tracer is manual only: you draw the whole line yourself
-    (<a href={GOLF_TRACER_URL}>The Golf Tracer listing</a>), and its listing shows it was last updated on 23 September 2020.
-    V1 Golf includes ball tracing only in its Advanced plans (<a href={V1_GOLF_URL}>V1 Golf listing</a>). Tracer gives you the
-    automatic pass and the manual fixes in the free download. When a line goes wrong, the
+    Tracer gives you the automatic pass and the manual fixes in the free download. The Golf Tracer's listing describes a manual tracer
+    (<a href={GOLF_TRACER_URL}>The Golf Tracer listing</a>). Checked on {COMPARISONS_CHECKED_ON}. When a line goes wrong, the
     <a href={sitePath('/learn/fix-a-trace-by-hand/')}>fix a trace by hand tutorial</a> shows each correction.
   </p>
 
   <h2>Film handheld, no tripod</h2>
   <p>
-    Most golfers film on the range or the course with a friend holding the phone. Tracer has stabilization built in, with three
-    settings: <strong>Smart</strong>, <strong>Fast</strong> and <strong>Off</strong>. It keeps the line pinned to the flight when the
-    camera moves, so a handheld clip still traces cleanly. None of the other listings in the table mention stabilization.
+    No tripod is required: Tracer keeps the line in place when the camera moves, so you can film with the phone in your hands or a
+    friend's.
   </p>
   <p>
-    Steady footage still helps. Keep the ball in frame for the first second or two of the flight, film at normal speed rather
-    than slow motion, and hold the phone as still as you can after impact. The
+    Keeping the footage reasonably steady and the ball visible still makes the flight easier to trace. The
     <a href={sitePath('/learn/film-a-golf-ball-flight/')}>golf filming tutorial</a> covers where to stand and how wide to frame.
   </p>
 
@@ -76,8 +68,8 @@ const V1_GOLF_URL: string = listingUrl(TRACER_RIVALS.v1Golf);
   <ul>
     <li>A single color or a gradient, with the width you like and a 3D look.</li>
     <li>Effects such as electricity and wave, a tail length, and landing effects.</li>
-    <li>Your own colors, sections of the line made transparent, and the trajectory shown behind trees or other obstacles.</li>
-    <li>A distance label: you type the distance of the hit and a counter runs up to it while the ball flies. Tracer doesn't work out the distance itself, so use a number from your rangefinder or GPS app.</li>
+    <li>Color segments: with the clear style, a section of the line turns transparent, to show the flight behind an obstacle.</li>
+    <li>A distance label: you type the distance and a counter runs up during the flight. Tracer does not measure distance, so use a number you measured separately.</li>
   </ul>
   <p>When you're happy, save the video to Photos and share it wherever you post your clips.</p>
 
@@ -85,46 +77,28 @@ const V1_GOLF_URL: string = listingUrl(TRACER_RIVALS.v1Golf);
   <p>
     Tracer is a free download. The free version includes automatic ball tracking, Free curve, the Floodlit and white lines with
     width and 3D look, and some free saves with a small watermark. Premium adds unlimited saves with no watermark, more line
-    styles, colors and gradients, and the effects.
+    styles, colors and gradients, color segments, the distance label and the effects.
   </p>
-  <p>Here is what the other apps ask before you trace anything, as listed on the US App Store:</p>
-  <ul>
-    <li>
-      <strong>Visual Vertigo's tracer app</strong> costs $5.99 up front, with a Live Tracer and Editor subscription on top
-      at $9.99 a month, $34.99 for six months or $59.99 a year (<a href={VISUAL_VERTIGO_URL}>listing</a>).
-    </li>
-    <li>
-      <strong>V1 Golf</strong> has Plus at $9.99 a month or $79.99 a year, and Advanced, the tier with ball tracing, at $14.99 a
-      month or $119.99 a year (<a href={V1_GOLF_URL}>listing</a>).
-    </li>
-    <li>
-      <strong>Golf Tracer – Track Your Shots</strong> offers Pro at $3.99 or $19.99 (<a href={TRACK_YOUR_SHOTS_URL}>listing</a>).
-    </li>
-    <li>
-      <strong>The Golf Tracer</strong> sells subscriptions at $0.99 a month or $5.99 a year, or $4.99 for all access
-      (<a href={GOLF_TRACER_URL}>listing</a>).
-    </li>
-  </ul>
   <p>With Tracer you can trace your own clips first and decide on Premium after you've seen the result.</p>
 
   <h2>Tracer is a good fit if you</h2>
   <ul>
     <li>play disc golf, or both games, and want one app for every flight;</li>
     <li>film handheld and don't want to carry a tripod;</li>
-    <li>want the ball found for you, with quick fixes when the line slips;</li>
+    <li>want automatic ball tracking, with manual fixes when the line slips;</li>
     <li>want to try automatic tracking on your own videos before you pay anything.</li>
   </ul>
 
   <h2>Questions golfers ask</h2>
   <h3>Does automatic tracking mean no editing?</h3>
   <p>
-    It takes care of most of the work, but watch the result before you share it. If the line strays, move the landing point and
+    No. Watch the result before you share it. If the line strays, move the landing point and
     arc, or trim the frames where tracking picked up something else.
   </p>
   <h3>Can I trace a disc golf putt?</h3>
   <p>Yes. Use Free curve. Select the disc at release and Tracer follows it, or place the points by hand for a short putt.</p>
   <h3>Do I need a tripod?</h3>
-  <p>No. Stabilization keeps the line in place when the camera moves. A steady hand still gives the cleanest result.</p>
+  <p>No. The line stays in place when the camera moves. Reasonably steady footage still makes tracing easier.</p>
   <h3>Does Tracer know how far the ball went?</h3>
   <p>No. You type the distance and Tracer shows it as a counter that runs up during the flight.</p>
   <h3>Is Tracer free?</h3>

@@ -8,22 +8,18 @@ import {
   GOLF_GPS_ADVANTAGES,
   GOLF_GPS_TABLE,
   GPS_RIVALS,
-  SWINGU_PRICING_URL,
   listingUrl,
 } from '../../../data/comparisons';
 import { GOLF_GPS_COMPARE_CALLS } from '../../../data/storeCalls';
 
-const BIRDIES_URL: string = listingUrl(GPS_RIVALS.birdies);
 const GOLFSHOT_URL: string = listingUrl(GPS_RIVALS.golfshot);
 const HOLE19_URL: string = listingUrl(GPS_RIVALS.hole19);
-const SWINGU_URL: string = listingUrl(GPS_RIVALS.swingU);
-const GOLFLOGIX_URL: string = listingUrl(GPS_RIVALS.golfLogix);
 ---
 <ComparisonPage
   pageTitle="Free Golf GPS Apps Compared for iPhone | SundayStroke"
-  description="SundayStroke Golf GPS next to 18Birdies, Golfshot, Hole19, SwingU and GolfLogix: no ads on the free plan, free front, center and back yardages, a free layup target and the smallest download. Sourced and dated."
+  description="SundayStroke Golf GPS next to 18Birdies, Golfshot, Hole19, SwingU and GolfLogix: no ads on the free plan, free front, center and back yardages, a free layup Target and a small download. Sourced and dated."
   heading="Free golf GPS apps compared"
-  intro="Six golf GPS apps for iPhone that are free to download: ours, SundayStroke Golf GPS, and the five that come up most when golfers search. Free to download doesn't mean free to use, so this page looks at what you actually get on the free plan, and where Golf GPS comes out ahead. Every competitor fact links the page it came from."
+  intro="This comparison looks at SundayStroke Golf GPS alongside five other iPhone golf GPS apps. It focuses on SundayStroke's free yardages, movable Target, scorecard and ad-free experience. Competitor details are linked and dated."
   advantages={GOLF_GPS_ADVANTAGES}
   table={GOLF_GPS_TABLE}
   checkedOn={COMPARISONS_CHECKED_ON}
@@ -32,37 +28,35 @@ const GOLFLOGIX_URL: string = listingUrl(GPS_RIVALS.golfLogix);
 >
   <h2>No ads between you and your yardage</h2>
   <p>
-    On the course you open a GPS app dozens of times a round, usually with a club in your other hand. An ad at that moment costs
-    you time and focus. Golf GPS has no ads at all, on the free plan or with Pro.
+    Golf GPS has no ads, on the free plan or with Pro, so nothing sits between you and your yardage.
   </p>
   <p>
-    Elsewhere, ad-free play is something you pay for. Golfshot lists an ad-free experience among its Pro features
-    (<a href={GOLFSHOT_URL}>Golfshot listing</a>), and Hole19 lists it as a Premium feature (<a href={HOLE19_URL}>Hole19 listing</a>).
-    SwingU (<a href={SWINGU_URL}>listing</a>) and GolfLogix (<a href={GOLFLOGIX_URL}>listing</a>) show ads on their free plans too.
+    Golfshot lists an ad-free experience among its Pro features (<a href={GOLFSHOT_URL}>Golfshot listing</a>), and Hole19 lists it as
+    a Premium feature (<a href={HOLE19_URL}>Hole19 listing</a>). Checked on {COMPARISONS_CHECKED_ON}.
   </p>
 
   <h2>Front, center and back of the green, free</h2>
   <p>
-    The three numbers most golfers want on every approach are the front, the center and the back of the green. The front tells
-    you what you need to carry, the back what you can't go past, and the center is the safe number when the pin is tucked. Golf
-    GPS shows all three for free, on a satellite map of the hole, in yards or meters.
+    Golf GPS shows the front, the center and the back of the green for free, on a satellite map of the hole, in yards or meters.
+    The front and back readings show the green's depth; how many clubs that represents depends on your own distance gaps. Center is
+    the middle of the green, not the flag. Choose a target with room for your normal miss, then consider carry, wind, lie and likely roll.
   </p>
   <p>
-    Golfshot puts front, center and back-of-green distances in its Pro membership
-    (<a href={GOLFSHOT_URL}>Golfshot listing</a>). Pro plans there start at $4.99 and run to a $99.99 bundle, with a 7-day trial.
+    Golfshot lists front, center and back-of-green distances under its Pro membership
+    (<a href={GOLFSHOT_URL}>Golfshot listing</a>). Checked on {COMPARISONS_CHECKED_ON}.
   </p>
 
   <h2>Plan a layup with a movable Target</h2>
   <p>
     On a par 5 or a long par 4, the useful question is often "where should I leave this?" rather than "how far is the green?".
     In Golf GPS you drag the Target anywhere on the map. The app shows two numbers: how far you are from the Target, and how
-    far the Target leaves you from the green. Put it short of a bunker, read both numbers, and pick the club that leaves your
-    favorite wedge in. That's included in the free plan.
+    far the Target leaves you from the green. Move it to a suitable landing area, read both numbers, and choose your club, allowing
+    room for your usual miss and roll. That's included in the free plan.
   </p>
 
   <h2>A scorecard that's quick to fill in</h2>
   <p>
-    You enter each hole's strokes with one tap of plus or minus, and swipe to change holes. Your total, your score against par
+    You enter each hole's strokes with plus and minus, and swipe to change holes. Your total, your score against par
     and your front-nine and back-nine totals update on their own. Every finished round is saved to your history, and you can
     share it as an image with the group chat. All of it is free. Choose your tee before you start and the app uses that tee's
     course rating and slope for your round.
@@ -71,33 +65,17 @@ const GOLFLOGIX_URL: string = listingUrl(GPS_RIVALS.golfLogix);
     Read <a href={sitePath('/golf-gps/scorecard/')}>how the Golf GPS scorecard works</a> for a hole-by-hole walkthrough.
   </p>
 
-  <h2>Small download, ready when signal isn't</h2>
+  <h2>Recent course data available offline</h2>
   <p>
-    Golf GPS is a 52 MB download. The others in the table take 173 MB (SwingU), 220 MB (Golfshot), 246 MB (Hole19), 311 MB
-    (18Birdies, <a href={BIRDIES_URL}>listing</a>) and 559 MB (GolfLogix). If your phone is full of swing videos, that difference
-    matters. Golf GPS also runs on iOS 15.1 and later, where 18Birdies needs iOS 16, Golfshot iOS 17, and Hole19 and GolfLogix
-    iOS 18, according to their listings.
-  </p>
-  <p>
-    Two more things help on courses with patchy coverage. Data for the courses you played recently stays on your phone, so it
-    is there when the clubhouse wifi isn't. When the GPS signal is weak, the app tells you and shows how far off the distances may
-    be, instead of showing a number you shouldn't trust.
+    Golf GPS keeps data for recently played courses available offline. It also warns you when the GPS signal is weak. Offline course
+    data and a reliable GPS position are separate things. Its listed download is 52 MB; the listed sizes of the others are in the table
+    above. A listed download size is not the same as the storage an app uses once it is installed.
   </p>
 
-  <h2>What the paid tiers cost elsewhere</h2>
-  <p>Golf GPS keeps yardages, the Target, the scorecard and your round history free. For reference, the other apps list these paid tiers on the US App Store:</p>
-  <ul>
-    <li><strong>18Birdies:</strong> $19.99 a month, $99.99 a year or $7.99 a week (<a href={BIRDIES_URL}>listing</a>).</li>
-    <li><strong>Hole19:</strong> Premium at $12.99 a month, $69.99 a year or $6.99 a week, and an Intelligence tier at $99.99 a year (<a href={HOLE19_URL}>listing</a>).</li>
-    <li><strong>Golfshot:</strong> Pro options from $4.99 to $79.99 and a Champions bundle at $99.99 (<a href={GOLFSHOT_URL}>listing</a>).</li>
-    <li><strong>SwingU:</strong> Plus at $59.99 a year, Pro at $99.99 a year or $24.99 a month (<a href={SWINGU_PRICING_URL}>SwingU help</a>).</li>
-    <li><strong>GolfLogix:</strong> Plus at $12.99 or $59.99; the listing doesn't show the billing periods (<a href={GOLFLOGIX_URL}>listing</a>).</li>
-  </ul>
+  <h2>What Golf GPS Pro adds</h2>
   <p>
-    Golf GPS Pro is optional. It adds an estimated handicap index and its trend, stats and trends across rounds, and shot tracking:
-    mark each shot on the map to see how far it went, with your average and longest tracked shot. The handicap is an estimate
-    built the way the World Handicap System works, from your tee's rating and slope and your lowest differentials; it is not an
-    official Handicap Index. Our <a href={sitePath('/golf-handicap/')}>handicap guide</a> explains the math.
+    Golf GPS Pro is optional. It adds an estimated handicap index and trend, stats and trends, and shot tracking. Its handicap
+    calculation is simplified and does not produce an official Handicap Index. Our <a href={sitePath('/golf-handicap/')}>handicap guide</a> explains the math.
   </p>
 
   <h2>Golf GPS is a good fit if you</h2>
@@ -106,7 +84,7 @@ const GOLFLOGIX_URL: string = listingUrl(GPS_RIVALS.golfLogix);
     <li>don't want ads on the course;</li>
     <li>like to plan layups with a target you can move;</li>
     <li>want a simple scorecard that saves every round;</li>
-    <li>are short on phone storage or use an older iPhone.</li>
+    <li>prefer a small download.</li>
   </ul>
 
   <h2>Questions golfers ask</h2>
@@ -116,7 +94,7 @@ const GOLFLOGIX_URL: string = listingUrl(GPS_RIVALS.golfLogix);
     In Golf GPS that's yardages to the front, center and back, the Target, the scorecard, round history and sharing, with no ads.
   </p>
   <h3>Does Golf GPS work in meters?</h3>
-  <p>Yes. Switch between yards and meters in the app.</p>
+  <p>Yes. Golf GPS shows distances in yards or meters.</p>
   <h3>Do I have to find my course?</h3>
   <p>No. Golf GPS finds nearby courses automatically when you open it.</p>
   <h3>Is the Golf GPS handicap official?</h3>
