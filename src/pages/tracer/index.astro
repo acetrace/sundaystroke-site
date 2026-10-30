@@ -22,7 +22,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'No tripod',
     title: 'The line stays put',
-    body: 'Stabilization keeps the line anchored to the scene when the camera moves, so clips filmed in your hands trace cleanly.',
+    body: 'The line stays in place when the camera moves, so you can film with the phone in your hands.',
   },
 ];
 
@@ -41,6 +41,7 @@ const PLANS: readonly PlanColumn[] = [
       'Unlimited saves with no watermark',
       'More line styles, colors and gradients',
       'Effects: electricity, wave, tail length and landing effects',
+      'Color segments and the distance label',
     ],
   },
 ];
@@ -59,13 +60,13 @@ const MODE_ROWS: readonly TracingModeRow[] = [
   { clip: 'Golf shots in the air: drives, irons, wedges, chips', mode: 'Trace golf', guideSlug: 'film-a-golf-ball-flight', guideLabel: 'Golf tracer guide' },
   { clip: 'Putts rolling on the green', mode: 'Free curve', guideSlug: 'trace-a-putt', guideLabel: 'Putt guide' },
   { clip: 'Disc golf drives, approaches and putts', mode: 'Free curve', guideSlug: 'film-a-disc-flight', guideLabel: 'Disc flight guide' },
-  { clip: 'A frisbee, a football, anything that flies', mode: 'Free curve', guideSlug: 'fix-a-trace-by-hand', guideLabel: 'Key points guide' },
+  { clip: 'Anything else you want to draw by hand', mode: 'Free curve', guideSlug: 'fix-a-trace-by-hand', guideLabel: 'Key points guide' },
 ];
 
 const FAQS: readonly FaqItem[] = [
   {
     question: 'Do I need a tripod?',
-    answer: 'No. Stabilization keeps the line anchored as the camera moves. Clear, reasonably steady footage still makes tracing easier.',
+    answer: 'No. The line stays in place when the camera moves. Clear, reasonably steady footage still makes tracing easier.',
   },
   {
     question: 'Can I fix automatic tracking?',
@@ -73,11 +74,11 @@ const FAQS: readonly FaqItem[] = [
   },
   {
     question: 'Does it work on videos I already have?',
-    answer: 'Yes. Tracer works on any video in your Photos library where you can see the ball or disc leave the club or hand.',
+    answer: 'Yes, you pick a video from your Photos library. It traces best when the ball or disc is clearly visible as it leaves the club or hand.',
   },
   {
     question: 'Does Tracer know how far my shot went?',
-    answer: 'No. The distance label shows the number you type in, from a rangefinder, launch monitor or GPS app, and counts up to it during the flight.',
+    answer: 'No. Tracer does not measure distance. The distance label shows the number you type, and a counter runs up to it during the flight.',
   },
   {
     question: 'Is there a watermark?',
@@ -91,7 +92,7 @@ const FAQS: readonly FaqItem[] = [
 ---
 <FeaturePage
   pageTitle="Golf Ball Tracer App for iPhone | SundayStroke"
-  description="Trace golf videos on iPhone with automatic ball tracking, handheld stabilization, styles and effects. Use Free curve for discs and putts. Free to try."
+  description="Trace golf videos on iPhone with automatic ball tracking, no tripod required, plus line styles and effects. Use Free curve for discs and putts. Free to try."
   eyebrow="SundayStroke Tracer · iPhone"
   headline="Golf ball tracer"
   accent="for your iPhone videos."
@@ -104,8 +105,7 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="See a traced golf ball flight">
     <Prose>
       <p>
-        A real swing from the app. On the left, the video as it came off the phone; on the right, the same clip after Tracer followed the ball.
-        The ball was selected once, just after it left the club, and Tracer did the rest.
+        A real swing traced in the app. The ball was selected at the start of the flight, and Tracer followed it from there.
       </p>
       <ClipPair clips={GOLF_CLIPS} />
     </Prose>
@@ -147,12 +147,12 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Film handheld: the line stays anchored">
     <Prose>
       <p>
-        Most golf clips are filmed by a playing partner holding a phone, not on a tripod. When the phone tilts to follow the ball, the whole
-        picture moves, and a line drawn in fixed screen positions would slide off into the sky. Tracer's stabilization follows that movement
-        and keeps the line where the ball really was.
+        You don't need a tripod. When the phone moves to follow the ball, the whole picture moves with it, and Tracer keeps the line in place
+        on the flight.
       </p>
       <p>
-        Choose Smart, Fast or Off in Settings: Smart for normal handheld clips, Fast for a lot of movement, Off for a phone propped on your bag.
+        Settings offers Smart, Fast and Off stabilization. If the camera was still, turning it off speeds things up; if the line jumps suddenly,
+        try changing from Smart to Fast.
         Read more in <a href={sitePath('/learn/trace-golf-video-without-tripod/')}>how to trace a golf video without a tripod</a>.
       </p>
     </Prose>
@@ -181,19 +181,19 @@ const FAQS: readonly FaqItem[] = [
     <Prose>
       <h3>Styles</h3>
       <p>
-        A single color or a gradient, any width, and Render 3D line for depth. Premium adds effects such as electricity and wave, the tail
-        length and landing effects. You can override colors and make sections of the line transparent.
+        A single color or a gradient, the line's width and a 3D look. Premium adds more styles and effects such as electricity and wave, the tail
+        length and landing effects.
       </p>
       <h3>The distance label</h3>
       <p>
-        Type the distance of the shot and the line shows a counter that runs up to it during the flight, finishing on your number as the
-        ball lands. The number is the one you type, so take it from a rangefinder, a launch monitor or a GPS app.
+        In Effects, under Distance, type a number and a counter runs up during the flight. Tracer does not measure distance, so use a number you
+        measured separately. It is a Premium feature.
         See <a href={sitePath('/learn/add-distance-label-to-golf-video/')}>how to add a distance label to a golf video</a>.
       </p>
       <h3>Behind trees and obstacles</h3>
       <p>
-        When the ball or disc passes behind a tree, Tracer can show the trajectory behind the obstacle, so the tree stays in front of the
-        line. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
+        In Effects, under Color segments, the clear style makes a section of the line transparent, to show the flight passing behind an obstacle.
+        It is a Premium feature. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
       </p>
     </Prose>
   </PageSection>
@@ -201,9 +201,7 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Free versus Premium">
     <Prose>
       <p>
-        Everything you need for a first trace is free: automatic ball tracking, Free curve, the Floodlit and white lines with width and the 3D
-        look, and some free saves with a small watermark. Premium is for when you trace often: unlimited saves with no watermark, more styles,
-        colors and gradients, and the effects. Prices are shown in the App Store before you subscribe.
+        The table above lists what each plan includes. Prices are shown in the App Store before you subscribe.
       </p>
     </Prose>
   </PageSection>

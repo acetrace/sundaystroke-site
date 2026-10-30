@@ -98,7 +98,6 @@ export const GPS_RIVALS = {
   golfLogix: '322399059',
 } as const;
 
-export const SWINGU_PRICING_URL: string = 'https://help.swingu.com/article/24-how-much-does-swingu-cost';
 
 export const GOLF_GPS_ADVANTAGES: readonly string[] = [
   'No ads, even on the free plan.',

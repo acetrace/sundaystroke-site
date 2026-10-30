@@ -43,8 +43,8 @@ const EDITING_CLIPS: readonly Clip[] = [
 const FIXES: readonly TroubleshootingItem[] = [
   { problem: 'The line cuts inside the turn', cause: 'No point at the widest part', fix: 'Add a key point on the disc where the turn is widest' },
   { problem: 'The line hooks too early', cause: 'The fade point is on the wrong frame', fix: 'Move it to the frame where the disc starts to fade' },
-  { problem: 'The line follows a bird or branch', cause: 'Something crossed the disc', fix: 'Resize the track in the timeline, then add points by hand' },
-  { problem: 'The line slides when the camera moves', cause: 'Camera movement', fix: 'Set stabilization to Smart or Fast in Settings' },
+  { problem: 'The line follows a bird or branch', cause: 'Something crossed the disc', fix: 'Add or move key points on the disc where the line left it' },
+  { problem: 'The line jumps suddenly', cause: 'The stabilization type may not suit the clip', fix: 'Try changing stabilization from Smart to Fast in Settings' },
 ];
 
 const FAQS: readonly FaqItem[] = [
@@ -54,29 +54,29 @@ const FAQS: readonly FaqItem[] = [
   },
   {
     question: 'Can it trace a disc hidden by a tree?',
-    answer: 'You can draw the line around an obstruction and keep the tree in front of it, but the hidden flight is not in the video. The line there is your estimate, so check it looks right.',
+    answer: 'You can hide the section of the line that passes behind an obstacle using Effects > Color segments and the clear style. Any flight drawn through an unseen section is your estimate.',
   },
   {
     question: 'Do I need a tripod?',
-    answer: 'No. Hold the phone or lean it on your bag. Stabilization keeps the line anchored when the camera moves.',
+    answer: 'No. Hold the phone or lean it on your bag. The line stays in place when the camera moves.',
   },
   {
     question: 'Can I show how far the throw went?',
-    answer: 'Yes. Type the distance and the line shows a counter that runs up to it during the flight. The number is the one you type.',
+    answer: 'Yes, with Premium. Type the distance under Effects > Distance and a counter runs up during the flight. Tracer does not measure it, so use a number you measured separately.',
   },
   {
     question: 'Is it free?',
-    answer: 'Free curve and the disc tracking are free, with the Floodlit and white lines and some free saves with a small watermark. Premium adds unlimited saves with no watermark, more styles and the effects.',
+    answer: 'Free curve and the disc tracking are free, with the Floodlit and white lines and some free saves with a small watermark. Premium adds unlimited saves with no watermark, more styles, the effects, color segments and the distance label.',
   },
 ];
 ---
 <FeaturePage
   pageTitle="Disc Golf Tracer App for iPhone | SundayStroke"
-  description="Add a flight line to disc golf videos on iPhone. Shape drives, approaches and putts with Free curve, then style and save your finished clip."
+  description="Add a flight line to disc golf videos on iPhone. Free curve follows the disc after you select it at release; add or move key points, then style and save."
   eyebrow="SundayStroke Tracer · Disc golf"
   headline="Disc golf tracer"
   accent="for your iPhone videos."
-  lead="Film your throw, select the disc at release, and Tracer draws the flight onto your video: the turn, the glide and the fade. Fix any part by hand with a few key points."
+  lead="Film your throw, select the disc at release, and Tracer follows it through the flight. Add or move key points by hand wherever the line drifts."
   target={{ app: 'tracer', campaign: 'web-tracer-discgolf' }}
   highlights={HIGHLIGHTS}
   plans={[]}
@@ -85,8 +85,8 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Watch a traced disc flight">
     <Prose>
       <p>
-        A real throw traced in the app. The flight line makes the shape of the
-        throw obvious in a way the disc alone never does on a small screen.
+        A real throw traced in the app. The line shows the path of the
+        throw from release to landing.
       </p>
       <ClipPair clips={DISC_CLIPS} />
     </Prose>
@@ -95,13 +95,13 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="How Free curve follows a disc's changing flight">
     <Prose>
       <p>
-        Discs turn, glide and fade, so they use Free curve rather than the golf mode. Tap Free curve on the home screen, pick your throw,
+        Disc throws use Free curve rather than the golf mode. Tap Free curve on the home screen, pick your throw,
         scroll to the frame just after release and select the disc with the cursor. Tracer can follow it from there.
       </p>
       <h3>Mark release, turns and landing</h3>
       <p>
-        Watch the playback. Where the line leaves the disc, add a key point on it. The places that matter most are just after release, the
-        widest part of the turn, the start of the fade, and the landing. Four to ten points describe most throws.
+        Watch the playback. Where the line leaves the disc, add a key point on it. Start with a few useful points, such as just after release,
+        a clear change of direction and the landing, and add more only where the visible flight needs them.
       </p>
       <ClipPair clips={EDITING_CLIPS} />
       <h3>Adjust points when the line drifts</h3>
@@ -118,7 +118,7 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Drives, approaches and putts">
     <Prose>
       <ul>
-        <li><strong>Drives:</strong> film from 3 to 5 meters behind the tee pad, a step to the side of the run-up. The whole S-shape of the flight shows from here.</li>
+        <li><strong>Drives:</strong> film from 3 to 5 meters behind the tee pad, a step to the side of the run-up. Keep the release and as much of the flight as you can in frame.</li>
         <li><strong>Approaches:</strong> film from the side, roughly level with the peak, to show height and the release angle.</li>
         <li><strong>Putts:</strong> film from behind the putter or beside the basket, with both release and chains in the frame. Two or three points are enough.</li>
       </ul>
@@ -128,8 +128,8 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Film handheld and keep the flight visible">
     <Prose>
       <p>
-        No tripod needed. Hold the phone in both hands with your elbows tucked, or lean it on your bag. Stabilization keeps the line anchored
-        if the camera moves; choose Smart, Fast or Off in Settings.
+        No tripod needed. Hold the phone in both hands with your elbows tucked, or lean it on your bag. The line stays in place when the camera
+        moves.
       </p>
       <ul>
         <li>Use the 1x lens. The 0.5x lens makes the disc tiny in the air.</li>
@@ -138,8 +138,8 @@ const FAQS: readonly FaqItem[] = [
         <li>Keep recording until the disc lands.</li>
       </ul>
       <p>
-        On your own on the course? <a href={sitePath('/learn/add-tracer-to-disc-golf-video/')}>The phone-only disc golf tracer guide</a> covers
-        where to prop the phone for every kind of throw.
+        On your own on the course? <a href={sitePath('/learn/add-tracer-to-disc-golf-video/')}>How to film disc golf on iPhone when playing solo</a> covers
+        where to prop the phone for each kind of throw.
       </p>
     </Prose>
   </PageSection>
@@ -147,9 +147,8 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Finish the line behind trees and obstacles">
     <Prose>
       <p>
-        Wooded fairways mean the disc often passes behind a trunk. Tracer can show the trajectory behind obstacles and make sections of the line
-        transparent, so the tree stays in front of the flight. Place a key point where the disc goes behind and one where it comes out, then
-        hide the part in between. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
+        When the disc passes behind a trunk, Effects > Color segments with the clear style (Premium) makes that section of the line transparent.
+        Place a key point where the disc goes behind and one where it comes out, then hide the part in between. See <a href={sitePath('/learn/trace-behind-trees/')}>how to show a flight behind trees</a>.
       </p>
     </Prose>
   </PageSection>
@@ -157,9 +156,9 @@ const FAQS: readonly FaqItem[] = [
   <PageSection heading="Style the line and add a distance">
     <Prose>
       <p>
-        Choose a color that stands out from the trees and sky, set the width and turn on Render 3D line for depth. With Premium, add a
-        gradient, electricity or wave effects, a tail length or a landing effect for an ace. To show how far the throw went, type the distance
-        and a counter runs up to it as the disc flies. Then save to Photos and post.
+        Choose a color that stands out from the trees and sky, set the width and turn on the 3D look. With Premium, add a
+        gradient, electricity or wave effects, a tail length or a landing effect. To show how far the throw went, type the distance under Effects &gt; Distance, also with
+        Premium, and a counter runs up as the disc flies. Then save to Photos and post.
       </p>
     </Prose>
   </PageSection>
