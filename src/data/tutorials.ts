@@ -724,7 +724,7 @@ export const TUTORIALS: readonly Tutorial[] = [
         blocks: [
           steps([
             'Trace the golf ball or disc flight and review the line.',
-            'Open Effects > Distance and type the distance.',
+            'Open Text > Distance and type the distance.',
             'Preview the counter as it runs up during the flight.',
             'Save the finished video to Photos.',
           ]),
@@ -806,7 +806,7 @@ export const TUTORIALS: readonly Tutorial[] = [
     description: 'Hide part of your flight line behind trees, poles and players with Color segments, and how to handle the frames the camera could not see.',
     summary: 'Hide the line behind an obstacle and handle the unseen part.',
     intro: [
-      'A flight line drawn straight across a tree looks wrong. The eye knows the ball went behind the branches, so a line painted over them breaks the effect. In SundayStroke Tracer Premium, Effects > Color segments with the clear style makes a section of the line transparent, to show the flight behind trees, poles and people.',
+      'A flight line drawn straight across a tree looks wrong. The eye knows the ball went behind the branches, so a line painted over them breaks the effect. In SundayStroke Tracer Premium, Style > Color segments with the clear style makes a section of the line transparent, to show the flight behind trees, poles and people.',
       'This guide covers when to use it, how to get it right, and the honest limit: the camera never saw the ball behind the tree, so any line through that part is an estimate.',
     ],
     hero: null,
@@ -839,7 +839,7 @@ export const TUTORIALS: readonly Tutorial[] = [
       {
         heading: 'Keep the obstacle in front of the line',
         blocks: [
-          p('With the line in place, open Effects, tap Color segments, mark the section that passes behind the obstacle and give it the clear style, so that part of the line turns transparent. The tree or pole then appears in front, and the line picks up again on the other side.'),
+          p('With the line in place, open Style, tap Color segments, mark the section that passes behind the obstacle and give it the clear style, so that part of the line turns transparent. The tree or pole then appears in front, and the line picks up again on the other side.'),
           tips([
             'Start the hidden section exactly where the ball goes behind the obstacle, and end it where it comes out. A few frames off and the line pops out of the trunk.',
             'Scrub through those frames slowly to check the edges.',
@@ -891,8 +891,8 @@ export const TUTORIALS: readonly Tutorial[] = [
       },
     ],
     faqs: [
-      { question: 'Can Tracer trace a disc hidden by a tree?', answer: 'You can hide the section of the line that passes behind an obstacle using Effects > Color segments and the clear style. Any flight drawn through an unseen section is your estimate.' },
-      { question: 'Can I make only part of the line transparent?', answer: 'Yes. With Premium, Effects > Color segments and the clear style make a section of the line transparent.' },
+      { question: 'Can Tracer trace a disc hidden by a tree?', answer: 'You can hide the section of the line that passes behind an obstacle using Style > Color segments and the clear style. Any flight drawn through an unseen section is your estimate.' },
+      { question: 'Can I make only part of the line transparent?', answer: 'Yes. With Premium, Style > Color segments and the clear style make a section of the line transparent.' },
       { question: 'Does it work when the camera moved?', answer: 'Yes. The line stays in place when the camera moves. Check the hidden section\'s edges with Preview after any big camera movement.' },
       { question: 'Does it work for golf and disc golf?', answer: 'Yes. Obstacle handling works on the traced line in either mode.' },
     ],
