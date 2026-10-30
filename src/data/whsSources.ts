@@ -1,4 +1,4 @@
-export const HANDICAP_GUIDE_UPDATED: string = '29 October 2026';
+export const HANDICAP_GUIDE_UPDATED: string = '30 October 2026';
 export const WA_GOLF_DIFFERENTIAL_URL: string = 'https://help.wagolf.org/wa-golf/what-is-a-score-differential-and-how-is-it-calculated';
 export const USGA_DIFFERENTIAL_EXAMPLE_URL: string = 'https://www.usga.org/custom-search-pages/rules/handicap-manual/rule-14389.html';
 export const ENGLAND_GOLF_INDEX_URL: string = 'https://englandigolf.co.uk/your-official-whs-index/';

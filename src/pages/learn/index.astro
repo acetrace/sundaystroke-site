@@ -1,7 +1,7 @@
 ---
 import ArticlePage from '../../components/ArticlePage.astro';
 import TracerFaqList from '../../components/TracerFaqList.astro';
-import { TUTORIAL_GROUPS, TUTORIALS_PUBLISHED, tutorialsIn } from '../../data/tutorials';
+import { TUTORIAL_GROUPS, tutorialsIn } from '../../data/tutorials';
 import { sitePath } from '../../utils/paths';
 import { TRACER_HOWTO_CALLS } from '../../data/storeCalls';
 import type { FaqItem, TracingModeRow } from '../../types/tutorial';
@@ -29,7 +29,7 @@ const FAQS: readonly FaqItem[] = [
   description="Learn to film and trace golf balls and discs on iPhone. Traced examples, editing steps and fixes for drifting flight lines."
   eyebrow="Learn · Tracer"
   heading="Golf and disc golf tracing tutorials"
-  published={TUTORIALS_PUBLISHED}
+  dates={null}
   banner={null}
   calls={TRACER_HOWTO_CALLS}
 >

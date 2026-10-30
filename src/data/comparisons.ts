@@ -2,6 +2,7 @@ import { sitePath } from '../utils/paths';
 import { APP_STORE_PROVIDER_TOKEN, appStoreUrl } from './campaigns';
 import type { ComparisonTableData, SourcedCell } from '../types/comparison';
 
+export const COMPARISONS_PUBLISHED: string = '28 October 2026';
 export const COMPARISONS_CHECKED_ON: string = '30 October 2026';
 export const APP_STORE_SEARCH_API_URL: string = 'https://performance-partners.apple.com/search-api';
 

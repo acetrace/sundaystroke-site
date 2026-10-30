@@ -34,11 +34,11 @@ describe('structuredData', () => {
 
   it('marks an editorial page as an Article with its date', () => {
     const data = structuredData(
-      page('/golf-handicap/', { kind: 'article', headline: 'How a golf handicap is calculated', published: '2026-10-29' }),
+      page('/golf-handicap/', { kind: 'article', headline: 'How a golf handicap is calculated', published: '2026-10-28', modified: '2026-10-30' }),
       'https://sundaystroke.com/golf-handicap/',
     );
     const article = nodes(data).find((node) => node['@type'] === 'Article');
-    expect(article).toMatchObject({ headline: 'How a golf handicap is calculated', datePublished: '2026-10-29' });
+    expect(article).toMatchObject({ headline: 'How a golf handicap is calculated', datePublished: '2026-10-28', dateModified: '2026-10-30' });
     expect(types(data)).toContain('BreadcrumbList');
   });
 });
@@ -54,7 +54,7 @@ describe('breadcrumbTrail', () => {
   });
 
   it('names a generated page after its headline', () => {
-    const trail = breadcrumbTrail(page('/learn/film-a-golf-shot/', { kind: 'article', headline: 'Film a golf shot', published: '2026-10-28' }));
+    const trail = breadcrumbTrail(page('/learn/film-a-golf-shot/', { kind: 'article', headline: 'Film a golf shot', published: '2026-10-28', modified: '2026-10-28' }));
     expect(trail.at(-1)).toEqual({ name: 'Film a golf shot', path: '/learn/film-a-golf-shot/' });
     expect(trail[1]).toEqual({ name: 'Learn', path: '/learn/' });
   });

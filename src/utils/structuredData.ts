@@ -100,6 +100,8 @@ function appsOnPage(page: PageFacts): readonly AppKey[] {
     case 'app':
       return [page.seo.app];
     case 'page':
+    case 'collection':
+    case 'notFound':
     case 'article':
       return [];
     default: {
@@ -111,8 +113,9 @@ function appsOnPage(page: PageFacts): readonly AppKey[] {
 
 function webPage(page: PageFacts, url: string, apps: readonly AppKey[]): JsonLdObject {
   const isHome = page.seo.kind === 'home';
+  const isCollection = isHome || page.seo.kind === 'collection';
   const base: JsonLdObject = {
-    '@type': isHome ? 'CollectionPage' : 'WebPage',
+    '@type': isCollection ? 'CollectionPage' : 'WebPage',
     '@id': `${url}#webpage`,
     url,
     name: page.title,
@@ -126,14 +129,14 @@ function webPage(page: PageFacts, url: string, apps: readonly AppKey[]): JsonLdO
   return { ...base, ...about, ...breadcrumb };
 }
 
-function article(page: PageFacts, url: string, headline: string, published: string): JsonLdObject {
+function article(page: PageFacts, url: string, headline: string, published: string, modified: string): JsonLdObject {
   return {
     '@type': 'Article',
     '@id': `${url}#article`,
     headline,
     description: page.description,
     datePublished: published,
-    dateModified: published,
+    dateModified: modified,
     inLanguage: 'en',
     image: imageObject(page.image),
     author: { '@type': 'Organization', name: CONTENT_BYLINE, url: absoluteUrl('/') },
@@ -146,7 +149,7 @@ export function structuredData(page: PageFacts, url: string): JsonLdObject {
   const apps = appsOnPage(page);
   const nodes: JsonLdObject[] = [organization(), website(), webPage(page, url, apps), ...apps.map(mobileApplication)];
   if (page.seo.kind !== 'home') nodes.push(breadcrumbList(page, url));
-  if (page.seo.kind === 'article') nodes.push(article(page, url, page.seo.headline, page.seo.published));
+  if (page.seo.kind === 'article') nodes.push(article(page, url, page.seo.headline, page.seo.published, page.seo.modified));
   return { '@context': 'https://schema.org', '@graph': nodes };
 }
 

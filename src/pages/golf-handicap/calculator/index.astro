@@ -1,4 +1,5 @@
 ---
+import { HANDICAP_PUBLISHED } from '../../../data/handicapSources';
 import ArticlePage from '../../../components/ArticlePage.astro';
 import { sitePath } from '../../../utils/paths';
 import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS, estimateHandicap, formatHandicap, roundedDifferential } from '../../../utils/handicap';
@@ -39,7 +40,7 @@ const EXAMPLE_RESULT: string = exampleResult();
   description="Estimate your golf handicap from 3 to 20 eighteen-hole rounds using your scores, course ratings and slopes. See a worked example and what the calculator leaves out."
   eyebrow="Tool · Golf handicap"
   heading="Golf handicap calculator"
-  published={HANDICAP_GUIDE_UPDATED}
+  dates={{ published: HANDICAP_PUBLISHED, modified: HANDICAP_GUIDE_UPDATED }}
   banner={HANDICAP_TARGET}
   calls={HANDICAP_CALLS}
 >

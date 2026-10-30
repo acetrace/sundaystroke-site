@@ -14,6 +14,7 @@ import type {
 } from '../types/tutorial';
 
 export const TUTORIALS_PUBLISHED: string = '29 October 2026';
+export const TUTORIALS_UPDATED: string = '30 October 2026';
 
 function p(text: string): ParagraphBlock {
   return { kind: 'paragraph', text };

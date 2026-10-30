@@ -6,6 +6,7 @@ export const SUNDAY_ISSUES: readonly SundayIssue[] = [
     number: 1,
     date: 'Sunday 1 November 2026',
     title: 'The Sunday post, issue 1',
+    pageTitle: 'Bermuda Playoff, McDowell’s Exit & Disc Golf Milestones | SundayStroke',
     summary: 'A Monday play-off in Bermuda, a course-management habit worth stealing, and a million-dollar milestone.',
     leadText:
       'Here is a swing traced in the Tracer app: the ball leaves the club, and Tracer draws its flight onto the video. Film yours this weekend and see the line.',
@@ -19,37 +20,37 @@ export const SUNDAY_ISSUES: readonly SundayIssue[] = [
         items: [
           {
             headline: 'A Monday finish in Bermuda',
-            body: 'Austin Smotherman beat Seamus Power in a Monday play-off at the Bermuda Championship for his second PGA Tour win.',
-            sourceLabel: 'BBC Sport',
-            sourceUrl: 'https://www.bbc.co.uk/sport/golf/articles/c6x29gmyz21ko',
+            body: 'Austin Smotherman beat Seamus Power in a three-hole play-off on Monday, 26 October, to win the weather-shortened Butterfield Bermuda Championship, his second consecutive PGA Tour victory.',
+            sourceLabel: 'Golf Channel',
+            sourceUrl: 'https://www.golfchannel.com/pga-tour/news/austin-smotherman-ousts-seamus-power-in-bermuda-playoff-for-second-straight-win',
           },
           {
-            headline: 'McDowell stays put',
-            body: 'Former US Open champion Graeme McDowell has decided not to pursue LIV 2.0, after four years with the league.',
-            sourceLabel: 'BBC Sport',
-            sourceUrl: 'https://www.bbc.co.uk/sport/golf/articles/ck78px63l923o',
+            headline: 'McDowell declines LIV 2.0',
+            body: 'Graeme McDowell says he will not join LIV 2.0, ending his involvement after four years with the league.',
+            sourceLabel: 'RTÉ',
+            sourceUrl: 'https://www.rte.ie/sport/golf/2026/1026/1596881-mcdowell-becomes-latest-player-to-abandon-liv-2-0/',
           },
           {
             headline: 'Aim for the middle',
-            body: 'One simple course-management habit: pick a target that leaves room for your usual miss. For most of us that means the middle of the green, not the flag.',
+            body: 'One simple course-management habit: pick a target that leaves room for your usual miss. For your next round, choose the part of the green that gives that miss the most room, and check both the front and back distances before choosing a club.',
             sourceLabel: 'GOLF.com',
             sourceUrl: 'https://golf.com/instruction/crucial-course-management-mistake-costing-strokes/',
           },
         ],
       },
       {
-        key: 'tracer',
-        heading: 'Tracer: disc golf',
+        key: 'discGolf',
+        heading: 'Disc golf',
         items: [
           {
             headline: 'The first million',
-            body: 'Ricky Wysocki has become the first disc golfer to pass one million dollars in career earnings.',
+            body: 'Ricky Wysocki became the first disc golfer to exceed $1 million in career winnings from PDGA-sanctioned competition.',
             sourceLabel: 'DGPT',
             sourceUrl: 'https://www.dgpt.com/news/ricky-wysocki-becomes-first-disc-golfer-to-earn-1-million/',
           },
           {
             headline: 'A new cup at Ivy Hill',
-            body: 'Silva Saarinen and Gannon Buhr won the first Powerball Cups at Ivy Hill, played for a record purse.',
+            body: 'Silva Saarinen and Gannon Buhr won the women’s and men’s titles at the inaugural Powerball Cup at Ivy Hill. The event offered a record $350,000 purse.',
             sourceLabel: 'DGPT',
             sourceUrl: 'https://www.dgpt.com/news/2026-powerball-cup-recap/',
           },

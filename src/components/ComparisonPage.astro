@@ -1,6 +1,7 @@
 ---
 import ArticlePage from './ArticlePage.astro';
 import ComparisonTable from './ComparisonTable.astro';
+import { COMPARISONS_PUBLISHED } from '../data/comparisons';
 import type { ComparisonPageProps } from '../types/comparison';
 
 type Props = ComparisonPageProps;
@@ -12,7 +13,7 @@ const { pageTitle, description, heading, intro, advantages, table, checkedOn, me
   description={description}
   eyebrow="Compare"
   heading={heading}
-  published={checkedOn}
+  dates={{ published: COMPARISONS_PUBLISHED, modified: checkedOn }}
   banner={null}
   calls={calls}
 >
