@@ -12,6 +12,7 @@ import {
   USGA_COURSE_HANDICAP_URL,
   USGA_DIFFERENTIAL_EXAMPLE_URL,
   USGA_NET_DOUBLE_BOGEY_URL,
+  USGA_NINE_HOLE_FAQ_URL,
   USGA_PCC_URL,
   WA_GOLF_DIFFERENTIAL_URL,
 } from '../../data/whsSources';
@@ -49,9 +50,10 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   calls={HANDICAP_CALLS}
 >
   <p>
-    A golf handicap tells you how many strokes above a course's difficulty you play on a good day. Under the World Handicap System
-    (WHS), used by the USGA, the R&amp;A and national associations around the world, every round you post becomes one number called a
-    score differential, and your Handicap Index is built from the best of your recent differentials. This guide walks through each
+    A Handicap Index measures your demonstrated golfing ability, using your scoring record and the difficulty of the tees you played.
+    It is not your average score over par. Under the World Handicap System (WHS), used by the USGA, the R&amp;A and national
+    associations around the world, every round you post becomes one number called a score differential. With at least 20
+    differentials, the starting calculation uses the lowest eight of your most recent 20, with further adjustments where required. This guide walks through each
     step with real numbers and links every rule to the body that publishes it.
   </p>
 
@@ -83,7 +85,7 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   <h3>Course Rating, Slope Rating and PCC</h3>
   <ul>
     <li><strong>Course Rating</strong> is what a scratch golfer is expected to shoot from your tees, for example 71.5. It is on the scorecard or the club's website.</li>
-    <li><strong>Slope Rating</strong> says how much harder the course plays for a bogey golfer than for a scratch golfer. 113 is standard; most courses sit between about 100 and 140. A higher slope makes the same score count for less.</li>
+    <li><strong>Slope Rating</strong> says how much harder the course plays for a bogey golfer than for a scratch golfer. 113 is standard. A higher slope makes the same number of strokes above the Course Rating count for less.</li>
     <li>
       <strong>PCC</strong>, the playing conditions calculation, adjusts for days when the course played unusually hard or easy, such
       as high wind. It runs from −1.0 to +3.0, only scores from players with an index of 36.0 or below count towards it, it needs at
@@ -99,12 +101,12 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   </p>
   <ol>
     <li>95 − 71.5 − 0.0 = 23.5 strokes above the Course Rating.</li>
-    <li>113 ÷ 125 = 0.904, because the course is harder than standard.</li>
+    <li>113 ÷ 125 = 0.904, which scales the score for the tees' relative difficulty.</li>
     <li>0.904 × 23.5 = 21.244, rounded to <strong>21.2</strong>.</li>
   </ol>
   <p>
-    The same 95 on a course with a slope of 113 and a rating of 71.5 would give 23.5. The harder the course, the less a score above
-    its rating counts against you. That is why the WHS uses your lowest <em>differentials</em>, not your lowest raw scores: a 92 on
+    The same 95 on a course with a slope of 113 and a rating of 71.5 would give 23.5. The higher the slope, the less a score above
+    the rating counts against you. That is why the WHS uses your lowest <em>differentials</em>, not your lowest raw scores: a 92 on
     a tough course can beat an 88 on an easy one.
   </p>
 
@@ -112,17 +114,19 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   <p>
     With 20 or more scores, your Handicap Index is the average of the best 8 differentials from your most recent 20
     (<a href={ENGLAND_GOLF_INDEX_URL}>England Golf: your WHS index</a>, <a href={USGA_HANDICAP_INDEX_URL}>USGA: Handicap Index calculation</a>).
-    The other 12 still sit in your record and can come back into the best 8 as older scores drop off. Because only the best scores
-    count, a handicap shows what you can shoot on a good day, not your average day.
+    The other 12 still sit in your record and can come back into the lowest 8 as older scores drop off. Because only the lowest
+    differentials count, a handicap reflects your better rounds, not your average one.
   </p>
 
   <h3>Fewer than 20 differentials</h3>
   <p>
-    You need at least 3 scores (54 holes) to get an index. Until you have 20, fewer differentials count, and with very few rounds a
-    small adjustment is taken off so a new index isn't set too high (<a href={ENGLAND_GOLF_INDEX_URL}>England Golf</a>):
+    Under USGA procedures, establishing an initial Handicap Index takes acceptable scores totaling 54 holes, from nine-hole rounds,
+    18-hole rounds or a mix (<a href={USGA_NINE_HOLE_FAQ_URL}>USGA: nine-hole scores FAQ</a>). Until you have 20 differentials, fewer
+    of them count, and with very few a small adjustment is taken off (<a href={ENGLAND_GOLF_INDEX_URL}>England Golf</a>). The table
+    counts score differentials, which are not always the same as the number of rounds you played:
   </p>
   <table>
-    <thead><tr><th>Scores in your record</th><th>Differentials used</th></tr></thead>
+    <thead><tr><th>Differentials in your record</th><th>Differentials used</th></tr></thead>
     <tbody>
       {FEW_ROUNDS.map(([rounds, rule]) => <tr><td>{rounds}</td><td>{rule}</td></tr>)}
     </tbody>
@@ -137,7 +141,7 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
     </tbody>
   </table>
   <p>
-    With 5 scores the table says: use the lowest 1, with no adjustment. The lowest differential is 16.7, so the Handicap Index is
+    With 5 differentials the table says: use the lowest 1, with no adjustment. The lowest differential is 16.7, so the Handicap Index is
     <strong>16.7</strong>. Add a sixth round with a differential of 18.1 and the rule becomes the average of the lowest 2, minus 1.0:
     (16.7 + 18.1) ÷ 2 − 1.0 = <strong>16.4</strong>.
   </p>
@@ -145,20 +149,23 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
 
   <h2>Caps and exceptional scores</h2>
   <p>
-    Once you have an index, the WHS limits how fast it can rise, measured against your Low Handicap Index, the lowest index you had
-    over the past year (<a href={RANDA_RULE_5_URL}>R&amp;A Rule 5.8</a>):
+    Once at least 20 acceptable scores have established a Low Handicap Index, the cap procedure limits upward movement relative to that
+    reference. The Low Handicap Index represents your ability over the 365 days before your most recent score
+    (<a href={RANDA_RULE_5_URL}>R&amp;A Rules 5.7 and 5.8</a>):
   </p>
   <ul>
-    <li><strong>Soft cap:</strong> any rise of more than 3.0 above your Low Handicap Index is halved.</li>
-    <li><strong>Hard cap:</strong> your index can never be more than 5.0 above your Low Handicap Index.</li>
+    <li><strong>Soft cap:</strong> the part of any rise above 3.0 strokes over your Low Handicap Index is restricted to 50%.</li>
+    <li><strong>Hard cap:</strong> after the soft cap, the rise is limited to 5.0 strokes above your Low Handicap Index.</li>
   </ul>
   <p>
     So if your Low Handicap Index is 12.0 and a run of bad rounds would put you at 16.0, the soft cap halves the 1.0 above 15.0 and
-    you sit at 15.5. However bad things get, the hard cap stops you at 17.0.
+    you sit at 15.5. The hard cap normally stops you at 17.0, and a Handicap Committee can still step in under the Rules of Handicapping.
   </p>
   <p>
-    It works the other way too. An <strong>exceptional score</strong>, a differential 10.0 or more below your current index, cuts
-    your index by 2.0 straight away (<a href={RANDA_RULE_5_URL}>R&amp;A Rule 5.9</a>).
+    It works the other way too. An <strong>exceptional score</strong> is one whose unrounded differential is at least 7.0 below the
+    Handicap Index in effect when you played it. A difference of 7.0 to 9.9 brings a reduction of 1.0; 10.0 or more brings 2.0. The
+    reduction is applied to your most recent 20 differentials, or all of them if you have fewer, including the exceptional score
+    itself, on top of the effect of the new score entering the calculation (<a href={RANDA_RULE_5_URL}>R&amp;A Rule 5.9</a>).
   </p>
 
   <h2>From Handicap Index to Course Handicap</h2>
@@ -166,15 +173,16 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   <p><strong>Course Handicap = Handicap Index × (Slope Rating ÷ 113) + (Course Rating − Par)</strong></p>
   <p>
     Example: an index of 15.0 on tees rated 71.5 with a slope of 125, on a par 72. 15.0 × 125 ÷ 113 = 16.6, plus (71.5 − 72) = −0.5,
-    gives 16.1, so you play off <strong>16</strong>. You receive one stroke on each of the 16 holes with the lowest stroke index on the
-    card, and those strokes set your net double bogey on each hole.
+    gives 16.1, so your Course Handicap rounds to <strong>16</strong>. Your Playing Handicap may differ if a handicap allowance applies. You receive one stroke on each of the 16 holes with the lowest stroke index on the
+    card, and those strokes, from your Course Handicap and not an allowance-reduced Playing Handicap, set your net double bogey on each hole.
   </p>
 
   <h2>How nine-hole scores are handled</h2>
   <p>
-    Since the 2024 revision, a nine-hole score is combined with an expected score for the nine holes you didn't play, based on your
-    Handicap Index, to make one 18-hole differential. It applies once you have 54 holes on record. The change took effect in the
-    US on 16 January 2024 (<a href={USGA_2024_CHANGES_URL}>USGA: 2024 key changes</a>,
+    Under the USGA's current procedure, a nine-hole differential is combined with an expected differential for the remaining nine
+    holes, based on your Handicap Index, to produce one 18-hole differential. Initial nine-hole scores are processed once you have
+    posted 54 holes and an expected score can be determined (<a href={USGA_NINE_HOLE_FAQ_URL}>USGA: nine-hole scores FAQ</a>). This is
+    different from simply doubling the nine-hole performance. The change took effect in the US on 16 January 2024 (<a href={USGA_2024_CHANGES_URL}>USGA: 2024 key changes</a>,
     <a href={GOLF_DIGEST_2024_URL}>Golf Digest</a>, <a href={USGA_EXPECTED_SCORE_URL}>USGA: expected score explained</a>).
   </p>
 
@@ -185,7 +193,7 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
   </p>
   <ul>
     <li>the estimate assumes a PCC of 0.0;</li>
-    <li>it doesn't apply the soft cap, hard cap or exceptional score reduction, because it doesn't know your Low Handicap Index;</li>
+    <li>it may omit caps that depend on your Low Handicap Index and exceptional-score reductions that depend on the Handicap Index in effect when you played;</li>
     <li>scores you played elsewhere, or posted later, are missing;</li>
     <li>hole scores are capped differently.</li>
   </ul>
@@ -199,11 +207,11 @@ const SAMPLE_DIFFERENTIALS: readonly (readonly [string, string, string, string])
 
   <h2>Questions golfers ask</h2>
   <h3>Is my handicap my average score over par?</h3>
-  <p>No. It is built from your best differentials, adjusted for each course's rating and slope, not an average of all your rounds.</p>
+  <p>No. It is built from your lowest differentials, adjusted for each course's rating and slope, not an average of all your rounds.</p>
   <h3>How many rounds do I need for a handicap?</h3>
-  <p>Three 18-hole scores, or the equivalent in nine-hole scores. The index then firms up as you approach 20.</p>
+  <p>Under USGA procedures, acceptable scores totaling 54 holes, in any mix of nine-hole and 18-hole rounds. More differentials then count as you approach 20.</p>
   <h3>Why did my handicap go up after one bad round?</h3>
-  <p>Usually it didn't: a bad round rarely makes your best 8. What moves it is a good old score dropping out of your last 20.</p>
+  <p>A higher differential can replace a lower one when an older score leaves your most recent 20. With fewer than 20 differentials, the number used and the adjustment can also change. Check which differentials entered and left the calculation.</p>
 
   <h2>Try the calculator</h2>
   <p>
