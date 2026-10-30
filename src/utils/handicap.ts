@@ -39,7 +39,11 @@ export function scoreDifferential(round: HandicapRound): number {
 }
 
 function roundToTenth(value: number): number {
-  return Math.round(value * 10) / 10;
+  return Math.round(Number((value * 10).toFixed(6))) / 10;
+}
+
+export function roundedDifferential(round: HandicapRound): number {
+  return roundToTenth(scoreDifferential(round));
 }
 
 export function estimateHandicap(roundsNewestFirst: readonly HandicapRound[]): HandicapEstimate {
@@ -49,7 +53,7 @@ export function estimateHandicap(roundsNewestFirst: readonly HandicapRound[]): H
   const window = roundsNewestFirst.slice(0, HANDICAP_SELECTION_WINDOW);
   const selection = fewRoundsSelection(window.length);
   const lowest = window
-    .map(scoreDifferential)
+    .map(roundedDifferential)
     .sort((first, second) => first - second)
     .slice(0, selection.count);
   const average = lowest.reduce((sum, differential) => sum + differential, 0) / lowest.length;

@@ -1,7 +1,7 @@
 ---
 import ArticlePage from '../../../components/ArticlePage.astro';
 import { sitePath } from '../../../utils/paths';
-import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS, estimateHandicap, formatHandicap, scoreDifferential } from '../../../utils/handicap';
+import { HANDICAP_SELECTION_WINDOW, MIN_HANDICAP_ROUNDS, estimateHandicap, formatHandicap, roundedDifferential } from '../../../utils/handicap';
 import { calculate, parseRound } from '../../../utils/handicapCalculator';
 import type { HandicapRound, RoundInput } from '../../../types/handicap';
 import { HANDICAP_GUIDE_UPDATED, USGA_NET_DOUBLE_BOGEY_URL, WA_GOLF_DIFFERENTIAL_URL, ENGLAND_GOLF_INDEX_URL } from '../../../data/whsSources';
@@ -22,7 +22,7 @@ function exampleRound(input: RoundInput): HandicapRound {
 }
 
 function differentialText(input: RoundInput): string {
-  return scoreDifferential(exampleRound(input)).toFixed(1);
+  return roundedDifferential(exampleRound(input)).toFixed(1);
 }
 
 function exampleResult(): string {
@@ -49,11 +49,16 @@ const EXAMPLE_RESULT: string = exampleResult();
     {HANDICAP_SELECTION_WINDOW} count. The result updates as you type.
   </p>
   <form class="not-prose my-8 flex flex-col gap-4" id="handicap-form" data-max-rows={HANDICAP_SELECTION_WINDOW}>
+    <div class="grid grid-cols-3 gap-3 text-sm text-mist" aria-hidden="true">
+      <span>Adjusted gross score</span>
+      <span>Course Rating</span>
+      <span>Slope Rating</span>
+    </div>
     <div class="flex flex-col gap-3" id="handicap-rows">
       {Array.from({ length: MIN_HANDICAP_ROUNDS }, (_, index) => (
         <fieldset class="handicap-row grid grid-cols-3 gap-3">
           <legend class="sr-only">Round {index + 1}</legend>
-          <input class="ss-card px-3 py-3 text-body-lg text-ice" name="score" type="text" inputmode="numeric" placeholder="Score" aria-label={`Round ${index + 1} score`} />
+          <input class="ss-card px-3 py-3 text-body-lg text-ice" name="score" type="text" inputmode="numeric" placeholder="Adj. gross" aria-label={`Round ${index + 1} adjusted gross score`} />
           <input class="ss-card px-3 py-3 text-body-lg text-ice" name="rating" type="text" inputmode="decimal" placeholder="Rating" aria-label={`Round ${index + 1} course rating`} />
           <input class="ss-card px-3 py-3 text-body-lg text-ice" name="slope" type="text" inputmode="numeric" placeholder="Slope" aria-label={`Round ${index + 1} slope`} />
         </fieldset>
@@ -65,14 +70,15 @@ const EXAMPLE_RESULT: string = exampleResult();
 
   <h2>How to fill it in</h2>
   <ol>
-    <li><strong>Score:</strong> your adjusted gross score for the round, as a whole number. Before you type it, cap any bad hole at net double bogey (par + 2 + the strokes you get on that hole), or at par + 5 if you don't have a handicap yet (<a href={USGA_NET_DOUBLE_BOGEY_URL}>USGA Rule 3.1</a>). The calculator only sees the total, so it can't apply the cap for you.</li>
+    <li><strong>Adjusted gross score:</strong> your adjusted gross score for the round, as a whole number. Before you type it, cap any bad hole at net double bogey (par + 2 + the strokes you get on that hole), or at par + 5 if you don't have a handicap yet (<a href={USGA_NET_DOUBLE_BOGEY_URL}>USGA Rule 3.1</a>). The calculator only sees the total, so it can't apply the cap for you.</li>
     <li><strong>Rating:</strong> the course rating of your tees, such as 72.0 or 69.4. A comma works too.</li>
-    <li><strong>Slope:</strong> the slope rating of your tees, between 55 and 155. 113 is a course of standard difficulty.</li>
+    <li><strong>Slope:</strong> the slope rating of your tees, a whole number from 55 to 155. A Slope Rating of 113 represents standard relative difficulty.</li>
     <li>Tap <strong>Add round</strong> for each extra round, up to {HANDICAP_SELECTION_WINDOW}. Put your newest round at the top.</li>
   </ol>
   <p>
-    Only complete rows count. A row with a missing number, text or a slope outside 55 to 155 is left out, so if the result asks for
-    more rounds than you think you entered, check each row.
+    Blank rows are ignored. If a row you started has a missing number, text, a decimal score or a slope outside 55 to 155, the
+    calculator names that round and shows no estimate until you fix it or clear it, so you never get a result that quietly left a
+    round out.
   </p>
 
   <h2>Where to find the course rating and slope</h2>
@@ -85,7 +91,7 @@ const EXAMPLE_RESULT: string = exampleResult();
   <h2>Try a three-round example</h2>
   <p>Enter these three rounds, all from tees with a course rating of 72.0 and a slope of 113:</p>
   <table>
-    <thead><tr><th>Round</th><th>Score</th><th>Rating</th><th>Slope</th><th>Differential</th></tr></thead>
+    <thead><tr><th>Round</th><th>Adjusted gross score</th><th>Rating</th><th>Slope</th><th>Differential</th></tr></thead>
     <tbody>
       {EXAMPLE_ROUNDS.map((round, index) => (
         <tr><td>{index + 1}</td><td>{round.score}</td><td>{round.rating}</td><td>{round.slope}</td><td>{differentialText(round)}</td></tr>
@@ -101,16 +107,17 @@ const EXAMPLE_RESULT: string = exampleResult();
 
   <h2>Understand your result</h2>
   <p>
-    The calculator turns each round into a score differential, (113 ÷ slope) × (score − rating), picks your lowest differentials by
-    the World Handicap System's table for 3 to 20 rounds, averages them, subtracts any adjustment for 3, 4 or 6 rounds, and rounds
-    to one decimal. With 20 rounds it averages your best 8. The result can't go above 54.0, and a result below zero shows as a plus
-    handicap such as +1.5. The <a href={sitePath('/golf-handicap/')}>full handicap guide</a> explains each step with examples.
+    For each round, the calculator assumes the playing conditions calculation (PCC) is 0.0 and works out an 18-hole score
+    differential, (113 ÷ slope) × (score − rating), rounded to one decimal. It then picks your lowest differentials by the World
+    Handicap System's table for 3 to 20 rounds, averages them, applies the table's adjustment for 3, 4 or 6 rounds, and rounds the
+    estimate to one decimal. With 20 rounds it averages your lowest 8. Caps and exceptional-score reductions are not included. The
+    result can't go above 54.0, and a result below zero shows as a plus handicap such as +1.5. The <a href={sitePath('/golf-handicap/')}>full handicap guide</a> explains each step with examples.
   </p>
 
   <h2>What this calculator doesn't do</h2>
   <ul>
     <li>It accepts 18-hole rounds only. It doesn't combine nine-hole scores with an expected score.</li>
-    <li>It assumes the playing conditions calculation (PCC) was 0.0 on every day, which it is on most days.</li>
+    <li>It assumes the playing conditions calculation (PCC) was 0.0 on every day.</li>
     <li>It doesn't apply the soft cap, the hard cap or the exceptional score reduction, because it doesn't know your handicap history.</li>
     <li>It doesn't cap hole scores; you enter a total that is already adjusted.</li>
     <li>It doesn't issue or replace an official Handicap Index. For that, join a golf club or your national association.</li>
@@ -120,9 +127,9 @@ const EXAMPLE_RESULT: string = exampleResult();
   <h3>Can I enter nine-hole scores?</h3>
   <p>No. This calculator accepts 18-hole rounds only. Golf GPS Pro does count nine-hole rounds in its estimate.</p>
   <h3>Does it give me an official handicap?</h3>
-  <p>No. It gives an estimate, like the Estimated Handicap in Golf GPS Pro.</p>
+  <p>No. This calculator produces an illustrative estimate from the adjusted totals you enter. Golf GPS Pro applies its own hole-score limit and also counts nine-hole rounds, so the two estimates can differ.</p>
   <h3>Why is my result lower than my average score over the rating?</h3>
-  <p>Because a handicap uses your best differentials, not all of them. It shows what you shoot on a good day.</p>
+  <p>Because a handicap uses your lowest differentials, not all of them. It reflects your better rounds rather than your average.</p>
   <h3>Do you keep my scores?</h3>
   <p>No. The calculation runs in your browser and nothing you type is sent anywhere.</p>
 </ArticlePage>

@@ -16,4 +16,5 @@ export interface RoundInput {
 
 export type CalculatorResult =
   | { kind: 'needsRounds'; message: string }
+  | { kind: 'invalidRound'; message: string }
   | { kind: 'estimate'; message: string };

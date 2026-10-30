@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { HandicapRound } from '../types/handicap';
-import { estimateHandicap, formatHandicap, scoreDifferential } from './handicap';
+import { estimateHandicap, formatHandicap, roundedDifferential, scoreDifferential } from './handicap';
 
 function round(adjustedGross: number, courseRating: number = 72, slope: number = 113): HandicapRound {
   return { adjustedGross, courseRating, slope };
@@ -16,7 +16,20 @@ describe('scoreDifferential', () => {
   });
 });
 
+describe('roundedDifferential', () => {
+  it('rounds the differential to one decimal', () => {
+    expect(roundedDifferential(round(85, 71.0, 130))).toBe(12.2);
+  });
+});
+
 describe('estimateHandicap', () => {
+  it('averages differentials already rounded to one decimal', () => {
+    const middling = round(100, 72.0, 113);
+    expect(
+      estimateHandicap([round(81, 70.1, 121), round(83, 70.1, 125), middling, middling, middling, middling]),
+    ).toEqual({ kind: 'estimate', value: 10 });
+  });
+
   it('matches the worked example on the page', () => {
     expect(estimateHandicap([round(90, 72.0, 113), round(85, 71.0, 130), round(95, 73.5, 125)])).toEqual({
       kind: 'estimate',
