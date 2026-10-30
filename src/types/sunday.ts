@@ -1,6 +1,6 @@
 import type { Clip } from './tutorial';
 
-export type SundaySectionKey = 'golf' | 'tracer';
+export type SundaySectionKey = 'golf' | 'discGolf';
 
 export interface SundayItem {
   headline: string;
@@ -20,6 +20,7 @@ export interface SundayIssue {
   number: number;
   date: string;
   title: string;
+  pageTitle: string;
   summary: string;
   leadText: string;
   leadClips: readonly Clip[];

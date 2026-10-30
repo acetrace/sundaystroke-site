@@ -4,7 +4,9 @@ export type PageSeo =
   | { kind: 'page' }
   | { kind: 'home' }
   | { kind: 'app'; app: AppKey }
-  | { kind: 'article'; headline: string; published: string };
+  | { kind: 'collection' }
+  | { kind: 'notFound' }
+  | { kind: 'article'; headline: string; published: string; modified: string };
 
 export interface SocialImage {
   path: string;

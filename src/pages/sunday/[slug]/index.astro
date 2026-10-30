@@ -18,11 +18,11 @@ const { issue } = Astro.props;
 
 ---
 <ArticlePage
-  pageTitle={`${issue.title} · SundayStroke`}
+  pageTitle={issue.pageTitle}
   description={issue.summary}
   eyebrow={`The Sunday post · Issue ${issue.number}`}
   heading={issue.title}
-  published={issue.date}
+  dates={{ published: issue.date, modified: issue.date }}
   banner={null}
   calls={SUNDAY_CALLS}
 >

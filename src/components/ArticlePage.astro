@@ -12,9 +12,10 @@ import type { PageSeo } from '../types/seo';
 
 type Props = ArticleProps;
 
-const { pageTitle, description, eyebrow, heading, published, banner, calls } = Astro.props;
-const publishedIso: string = isoDate(published);
-const seo: PageSeo = { kind: 'article', headline: heading, published: publishedIso };
+const { pageTitle, description, eyebrow, heading, dates, banner, calls } = Astro.props;
+const seo: PageSeo = dates === null
+  ? { kind: 'collection' }
+  : { kind: 'article', headline: heading, published: isoDate(dates.published), modified: isoDate(dates.modified) };
 ---
 <Layout title={pageTitle} description={description} banner={banner} seo={seo}>
   <NavBar />
@@ -23,9 +24,13 @@ const seo: PageSeo = { kind: 'article', headline: heading, published: publishedI
       <header class="mb-10 flex flex-col gap-5">
         <span class="ss-eyebrow">{eyebrow}</span>
         <SectionHeading level="h1" text={heading} />
-        <p class="ss-tag text-mist">
-          By <span class="byline">{CONTENT_BYLINE}</span> · <time datetime={publishedIso}>{published}</time> · {AI_ASSISTED_NOTE}
-        </p>
+        {dates !== null && (
+          <p class="ss-tag text-mist">
+            By <span class="byline">{CONTENT_BYLINE}</span> · Published <time datetime={isoDate(dates.published)}>{dates.published}</time>
+            {dates.modified !== dates.published && <> · Updated <time datetime={isoDate(dates.modified)}>{dates.modified}</time></>}
+            · {AI_ASSISTED_NOTE}
+          </p>
+        )}
       </header>
 
       <Prose>

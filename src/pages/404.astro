@@ -5,12 +5,16 @@ import SiteFooter from '../components/SiteFooter.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { sitePath } from '../utils/paths';
 ---
-<Layout title="Page not found · SundayStroke" description="Page not found." banner={null}>
+<Layout title="Page not found · SundayStroke" description="Page not found." banner={null} seo={{ kind: 'notFound' }}>
   <NavBar />
   <main class="ss-ground flex min-h-[80vh] flex-col items-center justify-center gap-7 px-5 pb-24 pt-36 text-center">
     <span class="ss-eyebrow">Out of bounds · 404</span>
     <SectionHeading level="h1" text="Page not found" />
-    <p class="max-w-md text-body-lg text-mist">This page doesn't exist. Head back to the start and try again.</p>
+    <p class="max-w-md text-body-lg text-mist">
+      We couldn't find that page. Visit the <a class="text-volt" href={sitePath('/')}>SundayStroke home page</a>, explore
+      <a class="text-volt" href={sitePath('/tracer/')}>Tracer</a> or <a class="text-volt" href={sitePath('/golf-gps/')}>Golf GPS</a>, or find a
+      <a class="text-volt" href={sitePath('/learn/')}>step-by-step tutorial</a>.
+    </p>
     <a href={sitePath('/')} class="ss-btn ss-btn--primary">Back to SundayStroke</a>
   </main>
   <SiteFooter />

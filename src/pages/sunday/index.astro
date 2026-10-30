@@ -4,20 +4,17 @@ import { SUNDAY_ISSUES } from '../../data/sunday';
 import { sitePath } from '../../utils/paths';
 import { SUNDAY_CALLS } from '../../data/storeCalls';
 
-const [latest] = SUNDAY_ISSUES;
-if (latest === undefined) throw new Error('The Sunday post needs at least one issue');
-
 ---
 <ArticlePage
   pageTitle="The Sunday post · SundayStroke"
-  description="A short weekly read for the Sunday golfer: something from our apps, then a few stories worth your coffee, each linked to its source."
+  description="Golf and disc golf stories, practical playing ideas and SundayStroke app updates. Browse every issue of The Sunday post."
   eyebrow="The Sunday post"
   heading="The Sunday post"
-  published={latest.date}
+  dates={null}
   banner={null}
   calls={SUNDAY_CALLS}
 >
-  <p>A short weekly read for the Sunday golfer: something from our apps first, then a few stories in our own words, each linked to where it came from.</p>
+  <p>The Sunday post brings together golf and disc golf stories, a practical idea for your next round and an update from SundayStroke. Browse the issues below.</p>
   <h2>Issues</h2>
   <ul>
     {SUNDAY_ISSUES.map((issue) => (

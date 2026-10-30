@@ -16,7 +16,7 @@ export const GOLF_GPS_PLANS: readonly PlanColumn[] = [
       'Yardages to the front, center and back of the green on a satellite map of the hole',
       'A movable Target with the distance to it and from it to the green',
       'Yards or meters',
-      'Nearby courses found for you; recent courses work offline',
+      'Nearby courses found for you; data for recently played courses stays available offline',
       'A weak-GPS warning',
       'Tee selection with the course rating and slope',
       'A scorecard with totals and score against par',
@@ -30,7 +30,6 @@ export const GOLF_GPS_PLANS: readonly PlanColumn[] = [
       'Your estimated handicap and its trend',
       'Stats and trends across your rounds',
       'Shot tracking: mark each shot on the map and see how far it went',
-      'Your average and longest tracked shot',
     ],
   },
 ];
@@ -50,11 +49,11 @@ export const GOLF_GPS_HANDICAP_SCREEN: MediaItem = {
 
 export const GOLF_GPS_YARDAGE_EXAMPLE: GolfGpsTableData = {
   caption: 'An example approach (made-up numbers)',
-  columns: ['Point on the green', 'Yardage', 'When to use it'],
+  columns: ['Point on the green', 'Yardage', 'What it tells you'],
   rows: [
-    ['Front', '142', 'The carry to clear trouble short'],
-    ['Center', '156', 'Your everyday number'],
-    ['Back', '170', 'The most you can hit without going over'],
+    ['Front', '142', 'Distance to the front edge; check the carry over any trouble in between separately'],
+    ['Center', '156', 'A reference distance to the middle of the green, not today’s flag'],
+    ['Back', '170', 'Distance to the back edge; allow for bounce, roll and your normal distance variation'],
   ],
 };
 
@@ -88,7 +87,7 @@ export const GOLF_GPS_ROUND_STEPS: readonly GolfGpsStep[] = [
 export const GOLF_GPS_FAQ: readonly GolfGpsFaqItem[] = [
   {
     question: 'Does the center yardage mean the distance to the pin?',
-    answer: 'No. Center is the middle of the green, not where today’s flag is cut. If the flag is at the back, play nearer the back number; if it is at the front, nearer the front number.',
+    answer: 'No. Center is the middle of the green, not where today’s flag is cut. The front and back readings help you judge the green’s depth; choose a target with room for your usual miss.',
   },
   {
     question: 'Is Golf GPS free?',
@@ -100,7 +99,7 @@ export const GOLF_GPS_FAQ: readonly GolfGpsFaqItem[] = [
   },
   {
     question: 'How accurate are the yardages?',
-    answer: 'They depend on your phone’s GPS fix. When the fix is weak the app says so and shows roughly how far off the distances may be, so you know when to trust them. Moving into open sky usually helps.',
+    answer: 'Yardage accuracy depends on your phone’s GPS position and the course mapping. Golf GPS warns you when the GPS signal is weak. Check the reading against your surroundings before choosing a club.',
   },
 ];
 
@@ -136,13 +135,16 @@ export const SCORE_NAMES: GolfGpsTableData = {
 };
 
 export const STABLEFORD_POINTS: GolfGpsTableData = {
-  caption: 'Stableford points for each net score',
-  columns: ['Net score on the hole', 'Points'],
+  caption: 'Standard net Stableford points',
+  columns: ['Net score against par', 'Points'],
   rows: [
-    ['Birdie', '3'],
-    ['Par', '2'],
-    ['Bogey', '1'],
-    ['Double bogey or worse', '0'],
+    ['Four under', '6'],
+    ['Three under', '5'],
+    ['Two under', '4'],
+    ['One under', '3'],
+    ['Level', '2'],
+    ['One over', '1'],
+    ['Two over or worse, or no score returned', '0'],
   ],
 };
 
@@ -171,15 +173,16 @@ export const HANDICAP_COMPARISON: GolfGpsTableData = {
   rows: [
     ['Who works it out', 'The app, from rounds you play with it', 'Your golf club or national federation'],
     ['Score differential', '(113 ÷ slope) × (adjusted score − course rating)', 'The same, plus a playing-conditions adjustment'],
-    ['Highest score counted on a hole', 'Par + 5', 'Net double bogey'],
+    ['Highest score counted on a hole', 'Par + 5', 'Par + 5 before an index is established; normally net double bogey afterwards'],
+    ['Rounding', 'Only the final estimate, to one decimal', 'Each differential and the final index, to one decimal'],
     ['Rounds needed to start', '3', 'Scores totalling 54 holes'],
     ['Which differentials count', 'Lowest 8 of your last 20, fewer while you have under 20', 'Lowest 8 of your last 20, fewer while you have under 20'],
     ['Nine-hole rounds', 'Doubled against half the course rating', 'Combined with an expected score for the other nine'],
-    ['Day’s playing conditions', 'Not included', 'Adjusts differentials from −1.0 to +3.0'],
+    ['Day’s playing conditions', 'Not included', 'PCC enters the differential formula; its adjustment ranges from −1.0 to +3.0'],
     ['Limits on how fast it rises', 'Not included', 'Soft and hard caps'],
     ['Cut after an exceptional round', 'Not included', 'Yes'],
     ['Highest possible value', '54.0', '54.0'],
-    ['Accepted for competitions', 'No', 'Yes'],
+    ['Accepted for competitions', 'No', 'Subject to the competition’s eligibility rules'],
   ],
 };
 
@@ -198,7 +201,7 @@ export const HANDICAP_FAQ: readonly GolfGpsFaqItem[] = [
   },
   {
     question: 'Why is my estimate different from my club handicap?',
-    answer: 'Your club counts rounds you did not play with the app, adjusts for the day’s conditions and caps how fast an index can rise. The app caps holes at par + 5 instead of net double bogey. Those differences can move the number a few strokes.',
+    answer: 'Your club counts rounds you did not play with the app, adjusts for the day’s conditions and caps how fast an index can rise. The app caps holes at par + 5 instead of net double bogey. The size of the difference depends on your scores and the adjustments involved.',
   },
   {
     question: 'Do nine-hole rounds count?',

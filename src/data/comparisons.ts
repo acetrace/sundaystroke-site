@@ -2,7 +2,8 @@ import { sitePath } from '../utils/paths';
 import { APP_STORE_PROVIDER_TOKEN, appStoreUrl } from './campaigns';
 import type { ComparisonTableData, SourcedCell } from '../types/comparison';
 
-export const COMPARISONS_CHECKED_ON: string = '29 October 2026';
+export const COMPARISONS_PUBLISHED: string = '28 October 2026';
+export const COMPARISONS_CHECKED_ON: string = '30 October 2026';
 export const APP_STORE_SEARCH_API_URL: string = 'https://performance-partners.apple.com/search-api';
 
 export function listingUrl(appStoreId: string): string {
@@ -36,10 +37,10 @@ export const TRACER_RIVALS = {
 } as const;
 
 export const TRACER_ADVANTAGES: readonly string[] = [
-  'Traces disc golf as well as golf: Free curve follows a disc on its own once you select it at release. None of the other listings we checked mention discs.',
-  'Free to download and free to try, with automatic golf ball tracking included. Visual Vertigo charges up front, and V1 Golf keeps ball tracing for its Advanced plans.',
-  'No tripod needed: stabilization keeps the line on the flight when you film handheld. None of the other listings mention stabilization.',
-  'You can fix the line by hand after the automatic pass: move the landing point and the arc, or trim the frames where tracking picked up something else.',
+  'Free curve automatically follows a disc after you select it at release, so one app covers golf and disc golf.',
+  'Automatic golf ball tracking is included in the free version.',
+  'No tripod is required: the line stays in place when the camera moves.',
+  'Adjust a golf trace’s landing point and arc, or add and move Free curve key points.',
 ];
 
 export const TRACER_TABLE: ComparisonTableData = {
@@ -60,9 +61,9 @@ export const TRACER_TABLE: ComparisonTableData = {
       cells: [
         ours('Yes, free to try', 'our Tracer page', TRACER_PAGE),
         theirs('Yes, in a paid app', TRACER_RIVALS.visualVertigo),
-        theirs('No, you draw the line by hand', TRACER_RIVALS.golfTracer),
+        theirs('Listing describes a manual tracer', TRACER_RIVALS.golfTracer),
         theirs('Detects the start point and impact', TRACER_RIVALS.trackYourShots),
-        theirs('Ball tracing in Advanced plans only', TRACER_RIVALS.v1Golf),
+        theirs('Lists ball tracing; doesn’t say which plan includes it', TRACER_RIVALS.v1Golf),
       ],
     },
     {
@@ -72,15 +73,15 @@ export const TRACER_TABLE: ComparisonTableData = {
         theirs('$5.99 up front', TRACER_RIVALS.visualVertigo),
         theirs('Free download, subscriptions from $0.99 a month', TRACER_RIVALS.golfTracer),
         theirs('Free download, Pro $3.99 or $19.99', TRACER_RIVALS.trackYourShots),
-        theirs('Plus from $9.99 a month; Advanced $14.99 a month', TRACER_RIVALS.v1Golf),
+        theirs('Free download, Plus $9.99 a month; Advanced $14.99', TRACER_RIVALS.v1Golf),
       ],
     },
     {
-      feature: 'Steadies handheld footage',
+      feature: 'Line stays in place when the camera moves',
       cells: [
-        ours('Yes: Smart, Fast or Off', 'our Tracer page', TRACER_PAGE),
+        ours('Yes; no tripod required', 'our Tracer page', TRACER_PAGE),
         theirs(NOT_IN_LISTING, TRACER_RIVALS.visualVertigo),
-        theirs(NOT_IN_LISTING, TRACER_RIVALS.golfTracer),
+        theirs('Not mentioned; its tips say to keep your phone stable', TRACER_RIVALS.golfTracer),
         theirs(NOT_IN_LISTING, TRACER_RIVALS.trackYourShots),
         theirs(NOT_IN_LISTING, TRACER_RIVALS.v1Golf),
       ],
@@ -98,13 +99,12 @@ export const GPS_RIVALS = {
   golfLogix: '322399059',
 } as const;
 
-export const SWINGU_PRICING_URL: string = 'https://help.swingu.com/article/24-how-much-does-swingu-cost';
 
 export const GOLF_GPS_ADVANTAGES: readonly string[] = [
-  'No ads, even on the free plan. Golfshot and Hole19 keep ad-free play for their paid tiers, and SwingU and GolfLogix show ads on free too.',
-  'Front, center and back of the green for free. Golfshot lists front, center and back yardages as a Pro feature.',
+  'No ads, even on the free plan.',
+  'Front, center and back of the green for free.',
   'A movable Target on the free plan: drag it on the map to see how far you are from it and how far it leaves you from the green.',
-  'The smallest download we checked: 52 MB, where the others take 173 to 559 MB of your phone.',
+  'The smallest listed download of the six: 52 MB, against 173 to 559 MB for the others.',
 ];
 
 export const GOLF_GPS_TABLE: ComparisonTableData = {
@@ -115,17 +115,17 @@ export const GOLF_GPS_TABLE: ComparisonTableData = {
       cells: [
         ours('None', 'our Golf GPS page', GOLF_GPS_PAGE),
         theirs('Not stated in its listing', GPS_RIVALS.birdies),
-        theirs('Yes; ad-free is a Pro feature', GPS_RIVALS.golfshot),
-        theirs('Yes; ad-free is a Premium feature', GPS_RIVALS.hole19),
-        theirs('Yes', GPS_RIVALS.swingU),
-        theirs('Yes', GPS_RIVALS.golfLogix),
+        theirs('Ad-free is listed as a Pro feature', GPS_RIVALS.golfshot),
+        theirs('Ad-free is listed as a Premium feature', GPS_RIVALS.hole19),
+        theirs('Not stated in its listing', GPS_RIVALS.swingU),
+        theirs('Not stated in its listing', GPS_RIVALS.golfLogix),
       ],
     },
     {
       feature: 'Front, center and back of the green',
       cells: [
         ours('Free', 'our Golf GPS page', GOLF_GPS_PAGE),
-        theirs('Free distances to greens', GPS_RIVALS.birdies),
+        theirs('Distances to greens listed; not stated if free', GPS_RIVALS.birdies),
         theirs('Pro feature', GPS_RIVALS.golfshot),
         theirs('Free', GPS_RIVALS.hole19),
         theirs('Not stated in its listing', GPS_RIVALS.swingU),
@@ -133,7 +133,7 @@ export const GOLF_GPS_TABLE: ComparisonTableData = {
       ],
     },
     {
-      feature: 'Download size',
+      feature: 'Listed download size',
       cells: [
         ours('52 MB', LISTING, GOLF_GPS_LISTING_URL),
         theirs('311 MB', GPS_RIVALS.birdies),

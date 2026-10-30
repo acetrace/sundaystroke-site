@@ -21,11 +21,27 @@ describe('parseRound', () => {
     expect(parseRound({ score: 'ninety', rating: '72', slope: '113' })).toBeNull();
     expect(parseRound({ score: '90', rating: '72', slope: '200' })).toBeNull();
   });
+
+  it('rejects a decimal score and a decimal slope', () => {
+    expect(parseRound({ score: '90.5', rating: '72', slope: '113' })).toBeNull();
+    expect(parseRound({ score: '90', rating: '72', slope: '113.5' })).toBeNull();
+  });
 });
 
 describe('calculate', () => {
   it('asks for 3 rounds while only 2 are complete', () => {
     expect(calculate([ROW_1, ROW_2, EMPTY])).toEqual({ kind: 'needsRounds', message: 'Enter at least 3 rounds' });
+  });
+
+  it('ignores fully empty rows', () => {
+    expect(calculate([EMPTY, ROW_1, ROW_2, EMPTY, ROW_3]).message).toBe('Estimated handicap 10.2');
+  });
+
+  it('withholds the estimate while a filled-in row is invalid, and names the row', () => {
+    const result = calculate([ROW_1, ROW_2, ROW_3, { score: '88', rating: '', slope: '113' }]);
+    expect(result.kind).toBe('invalidRound');
+    expect(result.message).toContain('Check round 4');
+    expect(result.message).not.toContain('Estimated handicap');
   });
 
   it('shows the worked example as 10.2', () => {

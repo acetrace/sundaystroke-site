@@ -3,7 +3,7 @@ import ArticlePage from '../../../components/ArticlePage.astro';
 import ClipPair from '../../../components/ClipPair.astro';
 import TutorialSectionBody from '../../../components/TutorialSectionBody.astro';
 import TracerFaqList from '../../../components/TracerFaqList.astro';
-import { TUTORIALS, TUTORIALS_PUBLISHED, relatedTutorials } from '../../../data/tutorials';
+import { TUTORIALS, TUTORIALS_PUBLISHED, TUTORIALS_UPDATED, relatedTutorials } from '../../../data/tutorials';
 import { sitePath } from '../../../utils/paths';
 import type { Tutorial } from '../../../types/tutorial';
 import type { GetStaticPaths } from 'astro';
@@ -24,7 +24,7 @@ const related: readonly Tutorial[] = relatedTutorials(tutorial);
   description={tutorial.description}
   eyebrow="Learn · Tracer"
   heading={tutorial.title}
-  published={TUTORIALS_PUBLISHED}
+  dates={{ published: TUTORIALS_PUBLISHED, modified: TUTORIALS_UPDATED }}
   banner={TRACER_HOWTO_TARGET}
   calls={TRACER_HOWTO_CALLS}
 >
@@ -61,7 +61,7 @@ const related: readonly Tutorial[] = relatedTutorials(tutorial);
       {tutorial.troubleshooting.map((item) => (
         <>
           <h3>{item.problem}</h3>
-          <p><strong>Why it happens:</strong> {item.cause}</p>
+          <p><strong>Possible cause:</strong> {item.cause}</p>
           <p><strong>Fix:</strong> {item.fix}</p>
         </>
       ))}
