@@ -22,7 +22,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'Honest',
     title: 'An estimate, not an official index',
-    body: 'It follows the same core math as the World Handicap System but leaves out what only a club can do. For an official Handicap Index, join a club or your national federation.',
+    body: 'Golf GPS Pro uses a simplified calculation to estimate your handicap from saved rounds. Its hole-score limit, nine-hole treatment and omitted adjustments can produce a different result from an official Handicap Index. For an official index, join a club or your national federation.',
   },
 ];
 
@@ -36,7 +36,7 @@ const MEDIA: readonly MediaItem[] = [
   description="Track your estimated handicap and its trend with Golf GPS Pro. See how the estimate uses your rounds and how it differs from an official Handicap Index."
   eyebrow="SundayStroke Golf GPS · Handicap"
   headline="Track your"
-  accent="handicap."
+  accent="estimated handicap."
   lead="Golf GPS Pro turns the rounds you play with the app into an estimated handicap and shows its trend. It is a guide to your own game, not an official Handicap Index. The GPS yardages and the scorecard stay free."
   target={{ app: 'golfGps', campaign: 'web-gps-handicap' }}
   highlights={HIGHLIGHTS}
@@ -45,8 +45,8 @@ const MEDIA: readonly MediaItem[] = [
 >
   <PageSection heading="What the estimated handicap is">
     <p>
-      A handicap says how many strokes above a course’s difficulty you play on a good day. The estimated handicap in Golf GPS Pro gives you
-      that number from the rounds you keep on the app’s scorecard, so you can follow your progress without joining a club or doing any sums.
+      Golf GPS Pro estimates your playing ability from the better score differentials in your saved rounds, so you can follow your progress
+      without doing any sums. It is a progress measure, not your average score over par or the number of strokes you receive on every course.
     </p>
     <p>
       It appears after your third saved round and changes as you play. The trend shows each update, so you can see whether practice is
@@ -71,21 +71,22 @@ const MEDIA: readonly MediaItem[] = [
       par instead, which is rougher.
     </p>
     <p>
-      Example: 90 on a tee rated 72.0 with a slope of 113 gives a differential of 18.0. The same 90 from a tee with a slope of 130 gives
-      15.6, because that tee plays harder for everyone.
+      Example: an adjusted score of 90 with a course rating of 72.0 and a slope of 113 gives a differential of 18.0. The same score and
+      rating with a slope of 130 gives 15.6. The higher slope changes the allowance for relative difficulty; it does not mean the tee is
+      harder for every golfer.
     </p>
   </PageSection>
 
   <PageSection heading="Estimated handicap vs official Handicap Index">
     <p>
-      The core math is the same, but an official index is kept by your club or federation, counts all your acceptable scores and adds
-      adjustments the app does not make.
+      An official index is kept by your club or federation, counts all your acceptable scores and adds adjustments the app does not make,
+      so the two numbers can differ.
     </p>
     <GolfGpsTable table={HANDICAP_COMPARISON} />
     <p>Use the estimate to see which way your game is going; use an official index for competitions.</p>
   </PageSection>
 
-  <PageSection heading="How to get an accurate estimate">
+  <PageSection heading="How to get a useful estimate">
     <GolfGpsSteps steps={HANDICAP_STEPS} />
   </PageSection>
 

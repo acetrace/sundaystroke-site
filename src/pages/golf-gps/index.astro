@@ -37,7 +37,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
 ---
 <FeaturePage
   pageTitle="SundayStroke Golf GPS | Free iPhone Rangefinder"
-  description="See front, center and back yardages on satellite hole maps. Keep scores and round history free; explore Golf GPS Pro for additional tracking and stats."
+  description="Free golf GPS for iPhone with front, center and back yardages, a movable layup Target, a scorecard and saved rounds. No ads."
   eyebrow="SundayStroke Golf GPS · iPhone"
   headline="Your yardage."
   accent="Your scorecard."
@@ -54,8 +54,8 @@ const HIGHLIGHTS: readonly Highlight[] = [
     </p>
     <GolfGpsTable table={GOLF_GPS_YARDAGE_EXAMPLE} />
     <p>
-      In this example the green is 28 yards from front to back, about two clubs for most golfers. Center is the middle of the green, not the flag. When the pin is cut at the back, club up toward the back number; when it sits at
-      the front, play to the front number plus a few yards. If there is water or a bunker short, make sure your carry beats the front number.
+      In this example the front and back readings differ by 28 yards. How many clubs that represents depends on your own distance gaps. Center is the middle of the green, not the flag.
+      Choose a target with room for your normal miss, then consider carry, wind, lie and likely roll. A back flag does not automatically call for a club that reaches the back edge.
     </p>
   </PageSection>
 
@@ -65,8 +65,8 @@ const HIGHLIGHTS: readonly Highlight[] = [
       from you to the Target, and from the Target to the green.
     </p>
     <p>
-      Say you are 250 yards out and your favorite wedge is 100 yards. Slide the Target until it reads 100 to the green, check that the spot
-      is clear of bunkers, and the other number tells you what to hit now, here 150.
+      Suppose you want to leave about 100 yards to the green. Move the Target to a suitable landing area until its target-to-green reading
+      is close to 100 yards. Use the separate you-to-target reading to choose your layup club, allowing room for your usual miss and roll.
     </p>
   </PageSection>
 
@@ -76,7 +76,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
     </p>
     <p>
       Courses you played recently keep their data on your phone, which helps on courses where signal drops out. When your phone’s GPS
-      fix is weak, the app tells you and shows roughly how far off the distances may be, so you know when to trust them.
+      signal is weak, the app warns you. Offline course data and a reliable GPS position are separate things.
     </p>
   </PageSection>
 
@@ -86,7 +86,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
 
   <PageSection heading="Keep score and save every round">
     <p>
-      You enter your strokes for each hole with one tap of plus or minus, and the app adds up your front nine, back nine, total and
+      You enter your strokes for each hole with plus and minus, and the app adds up your front nine, back nine, total and
       score against par. Every finished round is saved to your history and can be shared as an image. <a class="text-volt" href={sitePath('/golf-gps/scorecard/')}>How the scorecard works</a>.
     </p>
   </PageSection>
@@ -98,8 +98,7 @@ const HIGHLIGHTS: readonly Highlight[] = [
       differentials, like the World Handicap System, but it is an estimate, not an official Handicap Index. <a class="text-volt" href={sitePath('/golf-gps/handicap/')}>How the estimated handicap works</a>.
     </p>
     <p>
-      Pro also adds stats and trends across your rounds, and shot tracking: mark each shot on the map and see how far it went, with your
-      average and longest tracked shot.
+      Pro also adds stats and trends across your rounds, and shot tracking: mark each shot on the map and see how far it went.
     </p>
   </PageSection>
 

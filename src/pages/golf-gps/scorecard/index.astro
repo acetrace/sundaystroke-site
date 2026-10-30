@@ -19,7 +19,7 @@ import type { GolfGpsTableData } from '../../../types/golfGps';
 const HIGHLIGHTS: readonly Highlight[] = [
   {
     tag: 'On the course',
-    title: 'One tap per hole',
+    title: 'Enter scores with plus and minus',
     body: 'Enter your strokes for the hole with plus or minus and play on. Your total and score against par update as you go.',
   },
   {
@@ -60,7 +60,7 @@ const EXAMPLE_TABLE: GolfGpsTableData = {
   eyebrow="SundayStroke Golf GPS · Scorecard"
   headline="Keep score"
   accent="hole by hole."
-  lead="Enter each hole’s score with one tap; your totals, score against par and round history update for you. The scorecard sits next to your GPS yardages, and it is free with no ads."
+  lead="Enter each hole’s strokes with plus and minus; Golf GPS updates your totals and score against par. Save your finished round to history and share it. The scorecard and GPS yardages are free, with no ads."
   target={{ app: 'golfGps', campaign: 'web-gps-scorecard' }}
   highlights={HIGHLIGHTS}
   plans={[]}
@@ -68,12 +68,12 @@ const EXAMPLE_TABLE: GolfGpsTableData = {
 >
   <PageSection heading="How to keep score in golf">
     <p>
-      Your score on a hole is the number of strokes it took to get the ball in the hole. Every swing you make at the ball counts, misses
-      included, and so does every putt. Add any penalty strokes to the same hole: hit your tee shot into a penalty area, take your drop
-      with one penalty stroke, and finish in four more, and you write down 6.
+      Your gross score includes strokes made at the ball with the intention of hitting it, including a whiff, plus any penalty strokes.
+      Practice swings do not count as strokes. For example, a tee stroke into a penalty area, relief for one penalty stroke and four
+      further strokes to hole out make 6.
     </p>
     <p>
-      Each hole has a par, the score a good golfer is expected to make: usually 3, 4 or 5. Your round total is all your hole scores added
+      Par is the score a scratch golfer is expected to make on a hole under normal conditions, allowing two putts: usually 3, 4 or 5. Your round total is all your hole scores added
       up, and your score against par is that total minus the par of the holes you played.
     </p>
   </PageSection>
@@ -99,8 +99,9 @@ const EXAMPLE_TABLE: GolfGpsTableData = {
 
   <PageSection heading="Stableford points in short">
     <p>
-      Stableford is a popular format for club days. Instead of counting every stroke, you score points on each hole against your net score,
-      the strokes you took minus any handicap strokes you get on that hole:
+      Golf GPS records strokes and score against par; it does not calculate Stableford points. If your club plays the format, it awards
+      points against a target score, usually par. In a handicap competition, apply the handicap strokes allocated to the hole before
+      calculating points. The table below shows standard net Stableford scoring:
     </p>
     <GolfGpsTable table={STABLEFORD_POINTS} />
     <p>
@@ -118,8 +119,7 @@ const EXAMPLE_TABLE: GolfGpsTableData = {
     </p>
     <p>
       Entered a 5 that was really a 6? Swipe back to the hole and change it. When you finish, the round is saved to your history so you
-      can reopen it later, and you can share the finished card as an image. The card shows strokes and score against par; it does not
-      work out Stableford points.
+      can reopen it later, and you can share the finished card as an image.
     </p>
     <p>
       The yardages to the front, center and back of the green are on the same screen, so you never switch apps between your score and
