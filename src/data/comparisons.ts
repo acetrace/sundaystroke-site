@@ -125,7 +125,7 @@ export const GOLF_GPS_TABLE: ComparisonTableData = {
       feature: 'Front, center and back of the green',
       cells: [
         ours('Free', 'our Golf GPS page', GOLF_GPS_PAGE),
-        theirs('Free distances to greens', GPS_RIVALS.birdies),
+        theirs('Distances to greens listed; not stated if free', GPS_RIVALS.birdies),
         theirs('Pro feature', GPS_RIVALS.golfshot),
         theirs('Free', GPS_RIVALS.hole19),
         theirs('Not stated in its listing', GPS_RIVALS.swingU),
